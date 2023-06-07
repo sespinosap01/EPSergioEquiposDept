@@ -18,7 +18,28 @@
     <body>
         <jsp:include page="/JSP/desplegable.jsp" />
 
-        <h1>Modificar grupo</h1>
-
+        <h1>Modificar Grupo</h1>
+        <form action="ModificarGrupo" method="POST">
+            <table border="1">
+                <thead>
+                    <tr>
+                        <th>Id de grupo</th>
+                        <th>Denominacion</th>
+                        <th>Tutor</th>   
+                        <th>Accion</th>   
+                    </tr>
+                </thead>
+                <tbody>
+                    <c:forEach items="${grupos}" var="grupo">
+                        <tr>
+                            <td>${grupo.idGrupo}</td>
+                            <td>${grupo.denominacion}</td>
+                            <td>${grupo.tutor}</td>
+                            <td><input type="submit" name="" value="Modificar"></td>
+                        </tr>
+                    </c:forEach>
+                </tbody>
+            </table>
+        </form>
     </body>
 </html>

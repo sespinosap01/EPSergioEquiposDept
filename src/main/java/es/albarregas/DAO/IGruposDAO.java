@@ -6,6 +6,7 @@
 package es.albarregas.DAO;
 
 import es.albarregas.beans.Grupos;
+import java.util.List;
 
 /**
  *
@@ -17,5 +18,6 @@ public interface IGruposDAO {
     public boolean updateGrupos(Grupos grupos, int idGrupo);
     public boolean deleteGrupos(int idGrupo);
     public void closeConnection();
+    public List<Grupos> getAllGrupos();
 
 }

@@ -74,10 +74,11 @@ public class CrearGrupo extends HttpServlet {
                 if (resultado) {
                     url = "JSP/ErroresYverificaciones/correcto.jsp";
                 } else {
-                    url = "error.jsp";
+                    url = "JSP/ErroresYverificaciones/error.jsp";
                 }
             } catch (Exception e) {
                 e.printStackTrace();
+                url = "JSP/ErroresYverificaciones/error.jsp";
             }
         }
         request.getRequestDispatcher(url).forward(request, response);

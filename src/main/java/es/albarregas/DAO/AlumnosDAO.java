@@ -8,7 +8,11 @@ package es.albarregas.DAO;
 import es.albarregas.beans.Alumnos;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -31,8 +35,8 @@ public class AlumnosDAO implements IAlumnosDAO {
             preparada.setString(2, alumnos.getApellidos());
             preparada.setInt(3, alumnos.getIdGrupo());
             preparada.setString(4, alumnos.getNif());
-            java.util.Date utilDate = alumnos.getFechaNacimiento();
-            java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
+            java.util.Date fechaNacimiento = alumnos.getFechaNacimiento();
+            java.sql.Date sqlDate = new java.sql.Date(fechaNacimiento.getTime());
             preparada.setDate(5, sqlDate);
             preparada.setString(6, alumnos.getGenero().name());
             preparada.setString(7, alumnos.getEmail());
@@ -41,7 +45,7 @@ public class AlumnosDAO implements IAlumnosDAO {
             preparada.executeUpdate();
             conexion.commit();
         } catch (SQLException e) {
-            e.getMessage();
+            System.out.println("Error de MYSQL" + e.getMessage());
             error = false;
             try {
                 if (conexion != null) {
@@ -74,7 +78,7 @@ public class AlumnosDAO implements IAlumnosDAO {
             preparada.setString(2, alumnos.getApellidos());
             preparada.setInt(3, alumnos.getIdGrupo());
             preparada.setString(4, alumnos.getNif());
-            java.util.Date utilDate = alumnos.getFechaNacimiento();
+            java.util.Date utilDate = new java.util.Date();
             java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
             preparada.setDate(5, sqlDate);
             preparada.setString(6, alumnos.getGenero().name());
@@ -136,20 +140,48 @@ public class AlumnosDAO implements IAlumnosDAO {
     }
 
     @Override
-    public Alumnos getUsuarioByID(int idAlumno) {
-
-        return null;
-    }
-
-    @Override
-    public boolean existeEmail(String email) {
-
-        return true;
-
-    }
-
-    @Override
     public void closeConnection() {
         ConnectionFactory.closeConnection();
+    }
+
+    @Override
+    public List<Alumnos> getAllAlumnos() {
+
+        ResultSet resultado;
+        Alumnos alumno;
+        List<Alumnos> listaAlumnos = new ArrayList<>();
+        String sql = "SELECT * FROM alumnos";
+
+        try {
+            Connection conexion = ConnectionFactory.getConnection();
+            Statement sentencia = conexion.createStatement();
+            resultado = sentencia.executeQuery(sql);
+
+            while (resultado.next()) {
+                alumno = new Alumnos();
+                alumno.setIdAlumno(resultado.getInt("IdAlumno"));
+                alumno.setNombre(resultado.getString("Nombre"));
+                alumno.setApellidos(resultado.getString("Apellidos"));
+                alumno.setIdGrupo(resultado.getInt("IdGrupo"));
+                alumno.setNif(resultado.getString("Nif"));
+                alumno.setFechaNacimiento(resultado.getDate("FechaNacimiento"));
+
+                /*
+                String generoStr = resultado.getString("Genero");
+                Alumnos.Genero genero = Alumnos.Genero.valueOf(generoStr);
+                alumno.setGenero(genero);
+                 */
+                                
+                alumno.setEmail(resultado.getString("Email"));
+                alumno.setIdEquipo(resultado.getInt("IdEquipo"));
+
+                listaAlumnos.add(alumno);
+            }
+        } catch (Exception e) {
+            e.getMessage();
+        } finally {
+            this.closeConnection();
+        }
+        return listaAlumnos;
     }
 }

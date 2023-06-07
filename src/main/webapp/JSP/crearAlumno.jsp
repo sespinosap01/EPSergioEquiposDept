@@ -18,7 +18,7 @@
         <link rel="stylesheet" type="text/css" href="${styleForm}"/>
         <script src="JS/validarFormularioAlumnos.js" defer></script>
     </head>
-    <body>
+    <body>     
         <jsp:include page="/JSP/desplegable.jsp" />
         <br><br>
         <fieldset>
@@ -38,8 +38,11 @@
                             <div class="form-row">
                                 <label for="idGrupo">Grupo</label>
                                 <select id="idGrupo" name="idGrupo" required>
-                                    <option value="selec">Selecciona una opcion</option>
-                                </select>                        
+                                    <option value="selec">Selecciona una opción</option>                                            
+                                    <c:forEach items="${grupos}" var="grupo">
+                                        <option value="${grupo.idGrupo}">${grupo.denominacion} | ${grupo.tutor}</option>
+                                    </c:forEach>
+                                </select>
                             </div>
                             <div class="form-row">
                                 <label for="nif">Nif</label>
@@ -49,13 +52,15 @@
                         <td>
                             <div class="form-row">
                                 <label for="fechaNacimiento">Fecha de nacimiento</label>
-                                <input type="date" id="fechaNacimiento" name="fechaNacimiento" required>
+                                <input type="text" id="fechaNacimiento" name="fechaNacimiento" placeholder="Ej: 2001/06/25" required>
                             </div>
                             <div class="form-row">
                                 <label for="genero">Genero</label>
                                 <select id="genero" name="genero">
-                                    <option value="M">M</option>
-                                    <option value="F">F</option>
+                                    <option value="">Selecciona una opcion</option>        
+                                    <option value="H">Hombre</option>
+                                    <option value="M">Mujer</option>
+                                    <option value="O">Otro</option>
                                 </select>
                             </div>
                             <div class="form-row">
@@ -65,7 +70,10 @@
                             <div class="form-row">
                                 <label for="idEquipo">Equipo</label>
                                 <select id="idEquipo" name="idEquipo" required>
-                                    <option value="selec">Selecciona una opcion</option>
+                                    <option value="selec">Selecciona una opcion</option>        
+                                    <c:forEach items="${equipos}" var="equipo">
+                                        <option value="${equipo.idEquipo}">${equipo.marca} | ${equipo.numSerie} </option>
+                                    </c:forEach>
                                 </select>                               
                             </div>
                         </td>

@@ -8,7 +8,11 @@ package es.albarregas.DAO;
 import es.albarregas.beans.Equipos;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -124,4 +128,35 @@ public class EquiposDAO implements IEquiposDAO {
     public void closeConnection() {
         ConnectionFactory.closeConnection();
     }
+    
+      @Override
+    public List<Equipos> getAllEquipos() {
+
+        ResultSet resultado;
+        Equipos equipo;
+        List<Equipos> listaEquipos = new ArrayList<>();
+        String sql = "SELECT * FROM equipos";
+
+        try {
+            Connection conexion = ConnectionFactory.getConnection();
+            Statement sentencia = conexion.createStatement();
+            resultado = sentencia.executeQuery(sql);
+
+            while (resultado.next()) {
+                equipo = new Equipos();
+                equipo.setIdEquipo(resultado.getInt("IdEquipo"));
+                equipo.setMarca(resultado.getString("marca"));
+                equipo.setNumSerie(resultado.getString("numSerie"));
+                equipo.setFoto(resultado.getString("foto"));
+
+                listaEquipos.add(equipo);
+            }
+        } catch (Exception e) {
+            e.getMessage();
+        } finally {
+            this.closeConnection();
+        }
+        return listaEquipos;
+    }
 }
+

@@ -6,6 +6,7 @@
 package es.albarregas.DAO;
 
 import es.albarregas.beans.Equipos;
+import java.util.List;
 
 /**
  *
@@ -17,5 +18,6 @@ public interface IEquiposDAO {
     public boolean updateEquipos(Equipos equipos, int idEquipo);
     public boolean deleteEquipos(int idEquipo);
     public void closeConnection();
+    public List<Equipos> getAllEquipos();
 
 }

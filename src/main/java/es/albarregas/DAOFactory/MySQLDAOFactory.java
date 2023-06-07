@@ -10,10 +10,8 @@ import es.albarregas.DAO.IGruposDAO;
 
 /**
  *
- * Clase que extiende de DAOFactory que contiene métodos que devuelven DAO
- * correspondiente
  *
- * @author Gonzalo
+ * @author Sergio
  */
 public class MySQLDAOFactory extends DAOFactory {
 

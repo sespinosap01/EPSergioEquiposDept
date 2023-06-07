@@ -7,7 +7,11 @@ package es.albarregas.controllers;
 
 import es.albarregas.DAO.EquiposDAO;
 import es.albarregas.beans.Equipos;
+import es.albarregas.listeners.Listeners;
 import java.io.IOException;
+import java.util.List;
+import javax.servlet.ServletContext;
+import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -61,6 +65,8 @@ public class CrearEquipo extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
+        ServletContext contexto = getServletConfig().getServletContext();
+
         String url = "";
         String crear = request.getParameter("crear");
 
@@ -69,16 +75,21 @@ public class CrearEquipo extends HttpServlet {
 
             try {
                 BeanUtils.populate(equipo, request.getParameterMap());
-                EquiposDAO alumnosDAO = new EquiposDAO();
-                boolean resultado = alumnosDAO.createEquipos(equipo);
+                EquiposDAO equiposDAO = new EquiposDAO();
+                boolean resultado = equiposDAO.createEquipos(equipo);
 
                 if (resultado) {
                     url = "JSP/ErroresYverificaciones/correcto.jsp";
+                    List<Equipos> listaEquipos = (List<Equipos>) contexto.getAttribute("equipos");
+                    listaEquipos.add(equipo);
+                    contexto.setAttribute("equipos", listaEquipos);
+
                 } else {
-                    url = "error.jsp";
+                    url = "JSP/ErroresYverificaciones/error.jsp";
                 }
             } catch (Exception e) {
                 e.printStackTrace();
+                url = "JSP/ErroresYverificaciones/error.jsp";
             }
         }
         request.getRequestDispatcher(url).forward(request, response);

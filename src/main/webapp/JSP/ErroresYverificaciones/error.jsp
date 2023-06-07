@@ -21,7 +21,7 @@
         <jsp:include page="/JSP/desplegable.jsp" />
        
             <form action="VolverPrincipio" method="post">
-                <h1>Ha ocurrido un <b>ERROR</b> al crear el registro</h1>
+                <h1 class="textoError">Ha ocurrido un <b>ERROR</b> al crear el registro</h1>
                 <input type="submit" value="Volver">
             </form>
     </body>

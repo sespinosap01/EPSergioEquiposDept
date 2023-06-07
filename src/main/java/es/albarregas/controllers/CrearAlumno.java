@@ -7,6 +7,7 @@ package es.albarregas.controllers;
 
 import es.albarregas.DAO.AlumnosDAO;
 import es.albarregas.beans.Alumnos;
+import es.albarregas.utilities.EnumConverter;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -69,10 +70,13 @@ public class CrearAlumno extends HttpServlet {
             Alumnos alumno = new Alumnos();
             try {
                 DateConverter dateConverter = new DateConverter(null);
-                dateConverter.setPattern("dd/MM/yyyy");
+                dateConverter.setPattern("yyyy/MM/dd");
                 ConvertUtils.register(dateConverter, java.util.Date.class);
+
+                ConvertUtils.register(new EnumConverter(), Alumnos.Genero.class);
+
                 BeanUtils.populate(alumno, request.getParameterMap());
-                
+
                 AlumnosDAO alumnosDAO = new AlumnosDAO();
                 boolean resultado = alumnosDAO.createAlumnos(alumno);
 
@@ -80,9 +84,11 @@ public class CrearAlumno extends HttpServlet {
                     url = "JSP/ErroresYverificaciones/correcto.jsp";
                 } else {
                     url = "JSP/ErroresYverificaciones/error.jsp";
+
                 }
             } catch (Exception e) {
                 e.printStackTrace();
+                url = "JSP/ErroresYverificaciones/error.jsp";
             }
         }
         request.getRequestDispatcher(url).forward(request, response);

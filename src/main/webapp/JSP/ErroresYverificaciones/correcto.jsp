@@ -21,7 +21,7 @@
         <jsp:include page="/JSP/desplegable.jsp" />
        
             <form action="VolverPrincipio" method="post">
-                <h1>Se ha creado correctamente el registro</h1>
+                <h1 class="textoCorrecto">Se ha creado correctamente el registro</h1>
                 <input type="submit" value="Volver">
             </form>
     </body>

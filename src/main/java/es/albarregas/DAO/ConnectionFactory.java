@@ -11,8 +11,7 @@ import javax.sql.DataSource;
 
 
 /**
- * Clase que contiene los métodos para abrir y cerrar la conexion con MySQL
- * @author Gonzalo
+ * @author Sergio
  */
 
 public class ConnectionFactory {

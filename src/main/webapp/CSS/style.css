@@ -4,11 +4,28 @@
     box-sizing: border-box;
     font-family: 'Lilita One', cursive;
 }
+.tituloIndex{
+    text-align: center;
+}
 .titulo{
     text-align: center;
     margin-top:3%;
     margin-bottom:3%;
 
+}
+
+.textoError{
+    text-align: center;
+    margin-top:3%;
+    margin-bottom:3%;
+    color: red;
+}
+
+.textoCorrecto{
+    text-align: center;
+    margin-top:3%;
+    margin-bottom:3%;
+    color: darkgreen;
 }
 
 .navbar {

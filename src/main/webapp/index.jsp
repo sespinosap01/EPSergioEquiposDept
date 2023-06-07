@@ -18,7 +18,7 @@
     <body>
        <jsp:include page="JSP/desplegable.jsp" />
        <br>
-       <h1>Pincha en alguna opcion para comenzar</h1>
+       <h1 class="tituloIndex">Pincha en alguna opcion para comenzar</h1>
     </body>
 </html>
 

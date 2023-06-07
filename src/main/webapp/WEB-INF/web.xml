@@ -18,4 +18,8 @@
         <error-code>500</error-code>
         <location>/HTML/error500.html</location>
     </error-page>
+    <listener>
+        <listener-class>es.albarregas.listeners.Listeners</listener-class>
+    </listener>
+
 </web-app>

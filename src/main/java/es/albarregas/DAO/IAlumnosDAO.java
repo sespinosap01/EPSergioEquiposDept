@@ -6,6 +6,7 @@
 package es.albarregas.DAO;
 
 import es.albarregas.beans.Alumnos;
+import java.util.List;
 
 /**
  *
@@ -16,9 +17,9 @@ public interface IAlumnosDAO {
     public boolean createAlumnos(Alumnos alumnos);
     public boolean updateAlumnos(Alumnos alumnos, int idAlumno);
     public boolean deleteAlumnos(int idAlumno);
-    public Alumnos getUsuarioByID(int idAlumno);
-    public boolean existeEmail(String email);
     public void closeConnection();
+    public List<Alumnos> getAllAlumnos();
+
 
 
 }

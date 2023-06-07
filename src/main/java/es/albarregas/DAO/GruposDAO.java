@@ -5,11 +5,14 @@
  */
 package es.albarregas.DAO;
 
-import es.albarregas.beans.Alumnos;
 import es.albarregas.beans.Grupos;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -120,5 +123,34 @@ public class GruposDAO implements IGruposDAO {
     @Override
     public void closeConnection() {
         ConnectionFactory.closeConnection();
+    }
+
+    @Override
+    public List<Grupos> getAllGrupos() {
+
+        ResultSet resultado;
+        Grupos grupo;
+        List<Grupos> listaGrupos = new ArrayList<>();
+        String sql = "SELECT * FROM grupos";
+
+        try {
+            Connection conexion = ConnectionFactory.getConnection();
+            Statement sentencia = conexion.createStatement();
+            resultado = sentencia.executeQuery(sql);
+
+            while (resultado.next()) {
+                grupo = new Grupos();
+                grupo.setIdGrupo(resultado.getInt("IdGrupo"));
+                grupo.setDenominacion(resultado.getString("denominacion"));
+                grupo.setTutor(resultado.getString("tutor"));
+
+                listaGrupos.add(grupo);
+            }
+        } catch (Exception e) {
+            e.getMessage();
+        } finally {
+            this.closeConnection();
+        }
+        return listaGrupos;
     }
 }
