@@ -73,7 +73,7 @@ public class CrearEquipo extends HttpServlet {
                 boolean resultado = alumnosDAO.createEquipos(equipo);
 
                 if (resultado) {
-                    url = "index.jsp";
+                    url = "JSP/ErroresYverificaciones/correcto.jsp";
                 } else {
                     url = "error.jsp";
                 }

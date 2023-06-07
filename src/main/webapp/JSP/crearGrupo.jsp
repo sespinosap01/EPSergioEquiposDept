@@ -16,6 +16,7 @@
         <title>JSP Page</title>
         <link rel="stylesheet" type="text/css" href="${style}"/>
         <link rel="stylesheet" type="text/css" href="${styleForm}"/>
+        <script src="JS/validarFormularioGrupos.js" defer></script>
     </head>
     <body>
         <jsp:include page="/JSP/desplegable.jsp" />
@@ -26,14 +27,14 @@
                 <br>
                 <div class="form-row2">
                     <label for="denominacion">Denominación</label>
-                    <input type="text" id="denominacion" name="denominacion" placeholder="Ej: DAW2">
+                    <input type="text" id="denominacion" name="denominacion" placeholder="Ej: DAW2" onblur="validarDenominacion()" required>
                 </div>
                 <div class="form-row2">
                     <label for="tutor">Tutor</label>
-                    <input type="text" id="tutor" name="tutor" placeholder="Ej: Jesús García">
+                    <input type="text" id="tutor" name="tutor" placeholder="Ej: Jesús García" onblur="validarTutor()" required>
                 </div>      
                 <div class="submitLine">
-                    <input type="submit" class="submitBtn" name="crear" value="Registrar">
+                    <input type="submit" class="submitBtn" name="crear" value="Registrar" id="crear" disabled>
                 </div>
             </form>
         </fieldset>

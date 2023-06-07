@@ -65,23 +65,21 @@ public class CrearAlumno extends HttpServlet {
 
         String url = "";
         String crear = request.getParameter("crear");
-//SOLUCIONAR ERROR
         if (crear.equals("Registrar")) {
             Alumnos alumno = new Alumnos();
             try {
                 DateConverter dateConverter = new DateConverter(null);
                 dateConverter.setPattern("dd/MM/yyyy");
                 ConvertUtils.register(dateConverter, java.util.Date.class);
-
                 BeanUtils.populate(alumno, request.getParameterMap());
+                
                 AlumnosDAO alumnosDAO = new AlumnosDAO();
                 boolean resultado = alumnosDAO.createAlumnos(alumno);
 
                 if (resultado) {
-                    // El usuario se ha creado correctamente
-                    url = "index.jsp";
+                    url = "JSP/ErroresYverificaciones/correcto.jsp";
                 } else {
-                    url = "error.jsp";
+                    url = "JSP/ErroresYverificaciones/error.jsp";
                 }
             } catch (Exception e) {
                 e.printStackTrace();

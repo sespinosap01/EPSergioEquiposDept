@@ -1,5 +1,14 @@
+@import url('https://fonts.googleapis.com/css2?family=Lilita+One&display=swap');
+*{
+
+    box-sizing: border-box;
+    font-family: 'Lilita One', cursive;
+}
 .titulo{
     text-align: center;
+    margin-top:3%;
+    margin-bottom:3%;
+
 }
 
 .navbar {

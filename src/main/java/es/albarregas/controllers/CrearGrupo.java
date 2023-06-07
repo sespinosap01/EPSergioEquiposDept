@@ -8,7 +8,6 @@ package es.albarregas.controllers;
 import es.albarregas.DAO.GruposDAO;
 import es.albarregas.beans.Grupos;
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -73,7 +72,7 @@ public class CrearGrupo extends HttpServlet {
                 boolean resultado = gruposDAO.createGrupos(grupo);
 
                 if (resultado) {
-                    url = "index.jsp";
+                    url = "JSP/ErroresYverificaciones/correcto.jsp";
                 } else {
                     url = "error.jsp";
                 }

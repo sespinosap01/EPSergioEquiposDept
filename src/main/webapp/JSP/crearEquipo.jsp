@@ -16,6 +16,7 @@
         <title>JSP Page</title>
         <link rel="stylesheet" type="text/css" href="${style}"/>
         <link rel="stylesheet" type="text/css" href="${styleForm}"/>
+        <script src="JS/validarFormularioEquipos.js" defer></script>
     </head>
     <body>
         <jsp:include page="/JSP/desplegable.jsp" />
@@ -26,18 +27,18 @@
                 <br>
                 <div class="form-row2">
                     <label for="marca">Marca</label>
-                    <input type="text" id="marca" name="marca" placeholder="Ej: Asus">
+                    <input type="text" id="marca" name="marca" placeholder="Ej: Asus" onblur="validarMarca()" required>
                 </div>
                 <div class="form-row2">
                     <label for="numSerie">Numero de serie</label>
-                    <input type="text" id="numSerie" name="numSerie" placeholder="Ej: 2365A8KU2A">
+                    <input type="text" id="numSerie" name="numSerie" placeholder="Ej: AAA-11111" onblur="validarNumSerie()" required>
                 </div>
                 <div class="form-row2">
                     <label for="foto">Foto</label>
                     <input type="file" id="foto" name="foto">
                 </div>
                 <div class="submitLine">
-                    <input type="submit" class="submitBtn" name="crear" value="Registrar">
+                    <input type="submit" class="submitBtn" name="crear" value="Registrar" id="crear" disabled>
                 </div>
             </form>
         </fieldset>

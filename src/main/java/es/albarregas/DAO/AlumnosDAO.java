@@ -18,7 +18,7 @@ public class AlumnosDAO implements IAlumnosDAO {
 
     @Override
     public boolean createAlumnos(Alumnos alumnos) {
-        
+
         boolean error = true;
         String sql = "insert into alumnos (nombre, apellidos, idgrupo, nif, fechanacimiento, genero, email, idequipo) values (?, ?, ?, ?, ?, ?, ?, ?)";
         Connection conexion = null;
@@ -34,7 +34,7 @@ public class AlumnosDAO implements IAlumnosDAO {
             java.util.Date utilDate = alumnos.getFechaNacimiento();
             java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
             preparada.setDate(5, sqlDate);
-            preparada.setString(6, String.valueOf(alumnos.getGenero()));
+            preparada.setString(6, alumnos.getGenero().name());
             preparada.setString(7, alumnos.getEmail());
             preparada.setInt(8, alumnos.getIdEquipo());
 
@@ -77,7 +77,7 @@ public class AlumnosDAO implements IAlumnosDAO {
             java.util.Date utilDate = alumnos.getFechaNacimiento();
             java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
             preparada.setDate(5, sqlDate);
-            preparada.setString(6, String.valueOf(alumnos.getGenero()));
+            preparada.setString(6, alumnos.getGenero().name());
             preparada.setString(7, alumnos.getEmail());
             preparada.setInt(8, alumnos.getIdEquipo());
             preparada.setInt(9, idAlumno);

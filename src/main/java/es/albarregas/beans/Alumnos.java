@@ -20,9 +20,15 @@ public class Alumnos implements Serializable {
     private int idGrupo;
     private String nif;
     private Date fechaNacimiento;
-    private char genero;
+    private Genero genero;
     private String email;
     private int idEquipo;
+
+    public enum Genero {
+        HOMBRE,
+        MUJER,
+        OTRO
+    }
 
     public int getIdAlumno() {
         return idAlumno;
@@ -72,11 +78,11 @@ public class Alumnos implements Serializable {
         this.fechaNacimiento = fechaNacimiento;
     }
 
-    public char getGenero() {
+    public Genero getGenero() {
         return genero;
     }
 
-    public void setGenero(char genero) {
+    public void setGenero(Genero genero) {
         this.genero = genero;
     }
 
@@ -95,4 +101,7 @@ public class Alumnos implements Serializable {
     public void setIdEquipo(int idEquipo) {
         this.idEquipo = idEquipo;
     }
+
+    
+
 }

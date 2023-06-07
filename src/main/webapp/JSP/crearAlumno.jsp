@@ -16,7 +16,7 @@
         <title>JSP Page</title>
         <link rel="stylesheet" type="text/css" href="${style}"/>
         <link rel="stylesheet" type="text/css" href="${styleForm}"/>
-
+        <script src="JS/validarFormularioAlumnos.js" defer></script>
     </head>
     <body>
         <jsp:include page="/JSP/desplegable.jsp" />
@@ -29,43 +29,50 @@
                         <td>
                             <div class="form-row">
                                 <label for="nombre">Nombre</label>
-                                <input type="text" id="nombre" name="nombre" placeholder="Ej: Sergio">
+                                <input type="text" id="nombre" name="nombre" placeholder="Ej: Sergio" onblur="validarNombre()" required>
                             </div>
                             <div class="form-row">
                                 <label for="apellidos">Apellidos</label>
-                                <input type="text" id="apellidos" name="apellidos" placeholder="Ej: Espinosa Pascua">
+                                <input type="text" id="apellidos" name="apellidos" placeholder="Ej: Espinosa Pascua" onblur="validarApellidos()" required>
                             </div>
                             <div class="form-row">
-                                <label for="idGrupo">Id del Grupo</label>
-                                <input type="text" id="idGrupo" name="idGrupo" placeholder="Ej: 4">
+                                <label for="idGrupo">Grupo</label>
+                                <select id="idGrupo" name="idGrupo" required>
+                                    <option value="selec">Selecciona una opcion</option>
+                                </select>                        
                             </div>
                             <div class="form-row">
                                 <label for="nif">Nif</label>
-                                <input type="text" id="nif" name="nif" placeholder="Ej: 12345678A">
+                                <input type="text" id="nif" name="nif" placeholder="Ej: 12345678A" onblur="validarNIF()" required>
                             </div>
                         </td>
                         <td>
                             <div class="form-row">
                                 <label for="fechaNacimiento">Fecha de nacimiento</label>
-                                <input type="date" id="fechaNacimiento" name="fechaNacimiento">
+                                <input type="date" id="fechaNacimiento" name="fechaNacimiento" required>
                             </div>
                             <div class="form-row">
                                 <label for="genero">Genero</label>
-                                <input type="text" id="genero" name="genero" placeholder="Ej: M">
+                                <select id="genero" name="genero">
+                                    <option value="M">M</option>
+                                    <option value="F">F</option>
+                                </select>
                             </div>
                             <div class="form-row">
                                 <label for="email">Email</label>
-                                <input type="text" id="email" name="email" placeholder="Ej: sergioesp@albarregas.com">
+                                <input type="text" id="email" name="email" placeholder="Ej: sergioesp@albarregas.com" onblur="validarEmail()" required>
                             </div>
                             <div class="form-row">
-                                <label for="idEquipo">Id de equipo</label>
-                                <input type="text" id="idEquipo" name="idEquipo" placeholder="Ej: 2">
+                                <label for="idEquipo">Equipo</label>
+                                <select id="idEquipo" name="idEquipo" required>
+                                    <option value="selec">Selecciona una opcion</option>
+                                </select>                               
                             </div>
                         </td>
                     </tr>
                 </table>
                 <div class="submitLine">
-                    <input type="submit" class="submitBtn" name="crear" value="Registrar">
+                    <input type="submit" class="submitBtn" name="crear" value="Registrar" id="crear" disabled>
                 </div>
             </form>
         </fieldset>
