@@ -11,14 +11,38 @@
 <html lang="es">
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>Eliminar Equipo</title>
         <link rel="stylesheet" type="text/css" href="${style}"/>
 
     </head>
     <body>
         <jsp:include page="/JSP/desplegable.jsp" />
 
-        <h1>Eliminar equipo</h1>
+        <h1>Eliminar Equipo</h1>
+        <form action="ModificarEquipo" method="POST">
 
+            <table border="1">
+                <thead>
+                    <tr>
+                        <th>Id de equipo</th>
+                        <th>Marca</th>
+                        <th>numSerie</th>   
+                        <th>Accion</th>   
+                    </tr>
+                </thead>
+                <tbody>
+                    <c:forEach items="${equipos}" var="equipo">
+                        <tr>
+                            <td>${equipo.idEquipo}</td>
+                            <td>${equipo.marca}</td>
+                            <td>${equipo.numSerie}</td>
+                            <td><input type="checkbox" name="eliminar" value="${equipo.idEquipo}"></td>
+                        </tr>
+                    </c:forEach>
+                </tbody>
+            </table>
+            <br>
+            <input type="submit" name="eliminar" value="Eliminar">
+        </form>
     </body>
 </html>

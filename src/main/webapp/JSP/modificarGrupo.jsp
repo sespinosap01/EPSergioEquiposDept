@@ -35,11 +35,13 @@
                             <td>${grupo.idGrupo}</td>
                             <td>${grupo.denominacion}</td>
                             <td>${grupo.tutor}</td>
-                            <td><input type="submit" name="" value="Modificar"></td>
+                            <td><input type="radio" name="modificar" value="${grupo.idGrupo}"></td>
                         </tr>
                     </c:forEach>
                 </tbody>
             </table>
+            <br>
+            <input type="submit" name="modificar" value="Modificar">
         </form>
     </body>
 </html>

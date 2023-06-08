@@ -17,7 +17,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Sergio
  */
-@WebServlet(name = "EliminarAlumnos", urlPatterns = {"/EliminarAlumnos"})
+@WebServlet(name = "EliminarAlumno", urlPatterns = {"/EliminarAlumno"})
 public class EliminarAlumno extends HttpServlet {
 
     /**
@@ -46,7 +46,6 @@ public class EliminarAlumno extends HttpServlet {
         }
     }
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
      *

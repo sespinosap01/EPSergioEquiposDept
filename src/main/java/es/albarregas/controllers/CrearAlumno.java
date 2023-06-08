@@ -9,6 +9,8 @@ import es.albarregas.DAO.AlumnosDAO;
 import es.albarregas.beans.Alumnos;
 import es.albarregas.utilities.EnumConverter;
 import java.io.IOException;
+import java.util.List;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -64,6 +66,7 @@ public class CrearAlumno extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
+        ServletContext contexto = getServletConfig().getServletContext();
         String url = "";
         String crear = request.getParameter("crear");
         if (crear.equals("Registrar")) {
@@ -82,6 +85,9 @@ public class CrearAlumno extends HttpServlet {
 
                 if (resultado) {
                     url = "JSP/ErroresYverificaciones/correcto.jsp";
+                    List<Alumnos> listaAlumnos = (List<Alumnos>) contexto.getAttribute("alumnos");
+                    listaAlumnos.add(alumno);
+                    contexto.setAttribute("alumnos", listaAlumnos);
                 } else {
                     url = "JSP/ErroresYverificaciones/error.jsp";
 

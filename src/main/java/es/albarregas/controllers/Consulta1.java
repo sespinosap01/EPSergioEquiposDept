@@ -6,6 +6,14 @@
 package es.albarregas.controllers;
 
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -16,8 +24,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Sergio
  */
-@WebServlet(name = "ModificarAlumno", urlPatterns = {"/ModificarAlumno"})
-public class ModificarAlumno extends HttpServlet {
+@WebServlet(name = "Consulta1", urlPatterns = {"/Consulta1"})
+public class Consulta1 extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -30,7 +38,6 @@ public class ModificarAlumno extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
     }
 
     /**
@@ -57,6 +64,13 @@ public class ModificarAlumno extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+
+        String url = "/JSP/consultas/consulta1.jsp";
+
+        
+        
+        request.getRequestDispatcher(url).forward(request, response);
+
     }
 
     /**

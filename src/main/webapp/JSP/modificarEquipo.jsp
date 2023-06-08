@@ -11,7 +11,7 @@
 <html lang="es">
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>Modificar Equipo</title>
         <link rel="stylesheet" type="text/css" href="${style}"/>
 
     </head>
@@ -38,11 +38,13 @@
                             <td>${equipo.idEquipo}</td>
                             <td>${equipo.marca}</td>
                             <td>${equipo.numSerie}</td>
-                            <td><input type="submit" name="" value="Modificar"></td>
+                            <td><input type="radio" name="modificar" value="${equipo.idEquipo}"></td>
                         </tr>
                     </c:forEach>
                 </tbody>
             </table>
+            <br>
+            <input type="submit" name="modificar" value="Modificar">
         </form>
     </body>
 </html>

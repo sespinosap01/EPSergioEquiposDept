@@ -102,7 +102,7 @@ public class FrontController extends HttpServlet {
                 
             //CONSULTAS
             case "Alumnos":
-                url = "/JSP/consultas/consulta1.jsp";
+                url = "Consulta1";
                 break;
             case "Equipos":
                 url = "/JSP/consultas/consulta2.jsp";

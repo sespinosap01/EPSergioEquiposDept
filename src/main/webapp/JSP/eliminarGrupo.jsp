@@ -16,9 +16,32 @@
 
     </head>
     <body>
-        <jsp:include page="/JSP/desplegable.jsp" />
+        <jsp:include page="/JSP/desplegable.jsp"/>
 
-        <h1>Eliminar grupo</h1>
-
+        <h1>Eliminar Grupo</h1>
+        <form action="EliminarGrupo" method="POST">
+            <table border="1">
+                <thead>
+                    <tr>
+                        <th>Id de grupo</th>
+                        <th>Denominacion</th>
+                        <th>Tutor</th>   
+                        <th>Accion</th>   
+                    </tr>
+                </thead>
+                <tbody>
+                    <c:forEach items="${grupos}" var="grupo">
+                        <tr>
+                            <td>${grupo.idGrupo}</td>
+                            <td>${grupo.denominacion}</td>
+                            <td>${grupo.tutor}</td>
+                            <td><input type="checkbox" name="eliminar" value="${grupo.idGrupo}"></td>
+                        </tr>
+                    </c:forEach>
+                </tbody>
+            </table>
+            <br>
+            <input type="submit" name="eliminar" value="Eliminar">
+        </form>
     </body>
 </html>
