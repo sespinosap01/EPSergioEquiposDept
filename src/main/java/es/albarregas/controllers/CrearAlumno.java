@@ -7,9 +7,12 @@ package es.albarregas.controllers;
 
 import es.albarregas.DAO.AlumnosDAO;
 import es.albarregas.beans.Alumnos;
-import es.albarregas.utilities.EnumConverter;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -17,8 +20,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.beanutils.BeanUtils;
-import org.apache.commons.beanutils.ConvertUtils;
-import org.apache.commons.beanutils.converters.DateConverter;
 
 /**
  *
@@ -72,13 +73,21 @@ public class CrearAlumno extends HttpServlet {
         if (crear.equals("Registrar")) {
             Alumnos alumno = new Alumnos();
             try {
-                DateConverter dateConverter = new DateConverter(null);
-                dateConverter.setPattern("yyyy/MM/dd");
-                ConvertUtils.register(dateConverter, java.util.Date.class);
 
-                ConvertUtils.register(new EnumConverter(), Alumnos.Genero.class);
+                String generoStr = request.getParameter("genero");
+                Alumnos.Genero genero = Alumnos.Genero.cambiarStringAChar(generoStr);
+                alumno.setGenero(genero);
 
-                BeanUtils.populate(alumno, request.getParameterMap());
+                String fechaNacimientoStr = request.getParameter("fechaNacimiento");
+                SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+                Date fechaNacimiento = sdf.parse(fechaNacimientoStr);
+                alumno.setFechaNacimiento(fechaNacimiento);
+
+                Map<String, String[]> copiaParam = new HashMap<>(request.getParameterMap());
+                copiaParam.remove("genero");
+                copiaParam.remove("fechaNacimiento");
+
+                BeanUtils.populate(alumno, copiaParam);
 
                 AlumnosDAO alumnosDAO = new AlumnosDAO();
                 boolean resultado = alumnosDAO.createAlumnos(alumno);

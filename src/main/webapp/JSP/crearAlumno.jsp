@@ -13,7 +13,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>Registrar Alumno</title>
         <link rel="stylesheet" type="text/css" href="${style}"/>
         <link rel="stylesheet" type="text/css" href="${styleForm}"/>
         <script src="JS/validarFormularioAlumnos.js" defer></script>
@@ -52,12 +52,14 @@
                         <td>
                             <div class="form-row">
                                 <label for="fechaNacimiento">Fecha de nacimiento</label>
-                                <input type="text" id="fechaNacimiento" name="fechaNacimiento" placeholder="Ej: 2001/06/25" required>
+                                <input type="date" id="fechaNacimiento" name="fechaNacimiento" required>
                             </div>
+
+
                             <div class="form-row">
                                 <label for="genero">Genero</label>
                                 <select id="genero" name="genero">
-                                    <option value="">Selecciona una opcion</option>        
+                                    <option value="selec">Elige uno ...</option>                                            
                                     <option value="H">Hombre</option>
                                     <option value="M">Mujer</option>
                                     <option value="O">Otro</option>
@@ -70,7 +72,7 @@
                             <div class="form-row">
                                 <label for="idEquipo">Equipo</label>
                                 <select id="idEquipo" name="idEquipo" required>
-                                    <option value="selec">Selecciona una opcion</option>        
+                                    <option value="selec">Elige uno ...</option>                                            
                                     <c:forEach items="${equipos}" var="equipo">
                                         <option value="${equipo.idEquipo}">${equipo.marca} | ${equipo.numSerie} </option>
                                     </c:forEach>

@@ -5,7 +5,6 @@
  */
 
 let inputCrear = document.getElementById("crear");
-let inputCrearEquipo = document.getElementById("crearEquipo");
 
 function validarNombre() {
     let inputNombre = document.getElementById("nombre");
@@ -67,7 +66,9 @@ function validarEmail() {
     let inputEmail = document.getElementById("email");
     let email = inputEmail.value;
 
-    if (/^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i.test(email)) {
+    let regex = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
+
+    if (regex.test(email)) {
         inputEmail.style.borderColor = "";
         inputCrear.disabled = false;
     } else {
@@ -75,3 +76,4 @@ function validarEmail() {
         inputCrear.disabled = true;
     }
 }
+

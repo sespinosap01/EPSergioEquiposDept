@@ -35,14 +35,14 @@ public class AlumnosDAO implements IAlumnosDAO {
             preparada.setString(2, alumnos.getApellidos());
             preparada.setInt(3, alumnos.getIdGrupo());
             preparada.setString(4, alumnos.getNif());
-            java.util.Date fechaNacimiento = alumnos.getFechaNacimiento();
-            java.sql.Date sqlDate = new java.sql.Date(fechaNacimiento.getTime());
-            preparada.setDate(5, sqlDate);
-            preparada.setString(6, alumnos.getGenero().name());
+            preparada.setDate(5, new java.sql.Date(alumnos.getFechaNacimiento().getTime()));
+            preparada.setString(6, alumnos.getGenero().getCaracteres());
             preparada.setString(7, alumnos.getEmail());
             preparada.setInt(8, alumnos.getIdEquipo());
 
             preparada.executeUpdate();
+    
+
             conexion.commit();
         } catch (SQLException e) {
             System.out.println("Error de MYSQL" + e.getMessage());
@@ -57,9 +57,7 @@ public class AlumnosDAO implements IAlumnosDAO {
         } finally {
             this.closeConnection();
         }
-
         return error;
-
     }
 
     @Override
@@ -171,7 +169,6 @@ public class AlumnosDAO implements IAlumnosDAO {
                 Alumnos.Genero genero = Alumnos.Genero.valueOf(generoStr);
                 alumno.setGenero(genero);
                  */
-                                
                 alumno.setEmail(resultado.getString("Email"));
                 alumno.setIdEquipo(resultado.getInt("IdEquipo"));
 

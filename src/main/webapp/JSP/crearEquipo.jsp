@@ -13,7 +13,7 @@
 <html lang="es">
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>Registrar Equipo</title>
         <link rel="stylesheet" type="text/css" href="${style}"/>
         <link rel="stylesheet" type="text/css" href="${styleForm}"/>
         <script src="JS/validarFormularioEquipos.js" defer></script>

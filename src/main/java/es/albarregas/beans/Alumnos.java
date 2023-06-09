@@ -25,9 +25,29 @@ public class Alumnos implements Serializable {
     private int idEquipo;
 
     public enum Genero {
-        HOMBRE,
-        MUJER,
-        OTRO
+        HOMBRE("H"),
+        MUJER("M"),
+        OTRO("O");
+
+        private String caracteres;
+
+        Genero(String caracteres) {
+            this.caracteres = caracteres;
+        }
+
+        public String getCaracteres() {
+            return this.caracteres;
+        }
+
+        public static Genero cambiarStringAChar(String text) {
+            for (Genero genero : Genero.values()) {
+                if (genero.getCaracteres().equalsIgnoreCase(text)) {
+                    return genero;
+                }
+            }
+            throw new IllegalArgumentException("El texto proporcionado no es un valor válido de género " + text);
+        }
+        
     }
 
     public int getIdAlumno() {
@@ -101,7 +121,5 @@ public class Alumnos implements Serializable {
     public void setIdEquipo(int idEquipo) {
         this.idEquipo = idEquipo;
     }
-
-    
 
 }
