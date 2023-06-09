@@ -41,9 +41,16 @@ public class AlumnosDAO implements IAlumnosDAO {
             preparada.setInt(8, alumnos.getIdEquipo());
 
             preparada.executeUpdate();
-    
 
             conexion.commit();
+            sql = "SELECT LAST_INSERT_ID() AS UltimoID;";
+            Statement sentencia = conexion.createStatement();
+            ResultSet resultado = sentencia.executeQuery(sql);
+
+            if (resultado.next()) {
+                alumnos.setIdAlumno(resultado.getInt("UltimoID"));            
+            }
+
         } catch (SQLException e) {
             System.out.println("Error de MYSQL" + e.getMessage());
             error = false;
@@ -55,6 +62,7 @@ public class AlumnosDAO implements IAlumnosDAO {
                 exe.getMessage();
             }
         } finally {
+
             this.closeConnection();
         }
         return error;
@@ -108,7 +116,7 @@ public class AlumnosDAO implements IAlumnosDAO {
     public boolean deleteAlumnos(int idAlumno) {
 
         boolean error = true;
-        String sql = "delete alumnos where idUsuario = ?";
+        String sql = "delete from alumnos where idAlumno = ?";
         Connection conexion = null;
         try {
             conexion = ConnectionFactory.getConnection();

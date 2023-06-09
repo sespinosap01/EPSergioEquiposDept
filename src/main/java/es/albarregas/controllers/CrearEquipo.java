@@ -77,14 +77,10 @@ public class CrearEquipo extends HttpServlet {
                 boolean resultado = equiposDAO.createEquipos(equipo);
 
                 if (resultado) {
-                    url = "JSP/ErroresYverificaciones/correcto.jsp";
-                    /*
+                    url = "JSP/ErroresYverificaciones/correcto.jsp";                    
                     List<Equipos> listaEquipos = (List<Equipos>) contexto.getAttribute("equipos");
                     listaEquipos.add(equipo);
-                    contexto.setAttribute("equipos", listaEquipos);
-                     */
-                    //Arreglar (no asigna id a la hora de mostrarlo)
-
+                    contexto.setAttribute("equipos", listaEquipos);                     
                 } else {
                     url = "JSP/ErroresYverificaciones/error.jsp";
                 }

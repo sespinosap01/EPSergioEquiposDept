@@ -27,12 +27,7 @@
                         <th>Nombre</th>
                         <th>Apellidos</th>
                         <th>Nif</th>
-                       <!-- <th>Genero</th> -->
-                        <th>Id de grupo</th>
-                        <th>Id de equipo</th>
                         <th>Accion</th>   
-
-
                     </tr>
                 </thead>
                 <tbody>
@@ -42,10 +37,7 @@
                             <td>${alumno.nombre}</td>
                             <td>${alumno.apellidos}</td>
                             <td>${alumno.nif}</td>
-                          <!-- <td>${alumno.genero}</td>   -->                          
-                            <td>${alumno.idGrupo}</td>
-                            <td>${alumno.idEquipo}</td>
-                            <td><input type="checkbox" name="eliminar" value="${alumno.idAlumno}"></td>
+                            <td><input type="checkbox" name="eliminarCheckbox" value="${alumno.idAlumno}"></td>
                         </tr>
                     </c:forEach>
                 </tbody>

@@ -8,6 +8,7 @@ package es.albarregas.controllers;
 import es.albarregas.DAO.GruposDAO;
 import es.albarregas.beans.Grupos;
 import java.io.IOException;
+import java.util.List;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -74,14 +75,10 @@ public class CrearGrupo extends HttpServlet {
                 GruposDAO gruposDAO = new GruposDAO();
                 boolean resultado = gruposDAO.createGrupos(grupo);
                 if (resultado) {
-                    url = "JSP/ErroresYverificaciones/correcto.jsp";
-
-                    /*
+                    url = "JSP/ErroresYverificaciones/correcto.jsp";                    
                     List<Grupos> listaGrupos = (List<Grupos>) contexto.getAttribute("grupos");
                     listaGrupos.add(grupo);
-                    contexto.setAttribute("grupos", listaGrupos);
-                     */
-                    //Arreglar (no asigna id a la hora de mostrarlo)
+                    contexto.setAttribute("grupos", listaGrupos);                    
                 } else {
                     url = "JSP/ErroresYverificaciones/error.jsp";
                 }

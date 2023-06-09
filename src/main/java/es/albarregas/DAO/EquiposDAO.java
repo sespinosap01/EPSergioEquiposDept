@@ -37,6 +37,14 @@ public class EquiposDAO implements IEquiposDAO {
 
             preparada.executeUpdate();
             conexion.commit();
+            
+             sql = "SELECT LAST_INSERT_ID() AS UltimoID;";
+            Statement sentencia = conexion.createStatement();
+            ResultSet resultado = sentencia.executeQuery(sql);
+
+            if (resultado.next()) {
+                equipos.setIdEquipo(resultado.getInt("UltimoID"));            
+            }
         } catch (SQLException e) {
             e.getMessage();
             error = false;
@@ -95,7 +103,7 @@ public class EquiposDAO implements IEquiposDAO {
     public boolean deleteEquipos(int idEquipo) {
 
         boolean error = true;
-        String sql = "delete equipos where idEquipo = ?";
+        String sql = "delete from equipos where idEquipo = ?";
         Connection conexion = null;
         try {
             conexion = ConnectionFactory.getConnection();

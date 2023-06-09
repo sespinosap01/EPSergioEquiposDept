@@ -35,6 +35,13 @@ public class GruposDAO implements IGruposDAO {
 
             preparada.executeUpdate();
             conexion.commit();
+             sql = "SELECT LAST_INSERT_ID() AS UltimoID;";
+            Statement sentencia = conexion.createStatement();
+            ResultSet resultado = sentencia.executeQuery(sql);
+
+            if (resultado.next()) {
+                grupos.setIdGrupo(resultado.getInt("UltimoID"));            
+            }
         } catch (SQLException e) {
             e.getMessage();
             error = false;
@@ -91,7 +98,7 @@ public class GruposDAO implements IGruposDAO {
     public boolean deleteGrupos(int idGrupo) {
 
         boolean error = true;
-        String sql = "delete grupos where idGrupo = ?";
+        String sql = "delete from grupos where idGrupo = ?";
         Connection conexion = null;
         try {
             conexion = ConnectionFactory.getConnection();

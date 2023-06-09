@@ -19,7 +19,7 @@
         <jsp:include page="/JSP/desplegable.jsp" />
 
         <h1>Eliminar Equipo</h1>
-        <form action="ModificarEquipo" method="POST">
+        <form action="EliminarEquipo" method="POST">
 
             <table border="1">
                 <thead>
@@ -36,7 +36,7 @@
                             <td>${equipo.idEquipo}</td>
                             <td>${equipo.marca}</td>
                             <td>${equipo.numSerie}</td>
-                            <td><input type="checkbox" name="eliminar" value="${equipo.idEquipo}"></td>
+                            <td><input type="checkbox" name="eliminarCheckbox" value="${equipo.idEquipo}"></td>
                         </tr>
                     </c:forEach>
                 </tbody>

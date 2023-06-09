@@ -35,7 +35,7 @@
                             <td>${grupo.idGrupo}</td>
                             <td>${grupo.denominacion}</td>
                             <td>${grupo.tutor}</td>
-                            <td><input type="checkbox" name="eliminar" value="${grupo.idGrupo}"></td>
+                            <td><input type="checkbox" name="eliminarCheckbox" value="${grupo.idGrupo}"></td>
                         </tr>
                     </c:forEach>
                 </tbody>

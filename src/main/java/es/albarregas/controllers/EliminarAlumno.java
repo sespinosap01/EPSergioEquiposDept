@@ -5,8 +5,13 @@
  */
 package es.albarregas.controllers;
 
+import es.albarregas.DAO.AlumnosDAO;
+import es.albarregas.DAO.IAlumnosDAO;
+import es.albarregas.DAOFactory.DAOFactory;
+import es.albarregas.beans.Alumnos;
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.util.List;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -31,19 +36,7 @@ public class EliminarAlumno extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet EliminarAlumnos</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet EliminarAlumnos at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-        }
+
     }
 
     /**
@@ -57,7 +50,6 @@ public class EliminarAlumno extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
     }
 
     /**
@@ -71,7 +63,43 @@ public class EliminarAlumno extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+
+        ServletContext contexto = getServletConfig().getServletContext();
+        String url = "";
+        AlumnosDAO alumnosDAO = new AlumnosDAO();
+        boolean resultado = true;
+        try {
+
+            String[] eliminarCheckbox = request.getParameterValues("eliminarCheckbox");
+
+            if (eliminarCheckbox != null && eliminarCheckbox.length > 0) {
+                for (String checkbox : eliminarCheckbox) {
+                    resultado = alumnosDAO.deleteAlumnos(Integer.parseInt(checkbox));
+                }
+            } else {
+                url = "JSP/ErroresYverificaciones/error.jsp";
+            }
+
+            if (resultado) {
+                url = "JSP/ErroresYverificaciones/correcto.jsp";
+
+                DAOFactory daof = DAOFactory.getDAOFactory();
+                IAlumnosDAO adao = daof.getAlumnosDAO();
+
+                List<Alumnos> listaAlumnos = adao.getAllAlumnos();
+
+                contexto.setAttribute("alumnos", listaAlumnos);
+            } else {
+                url = "JSP/ErroresYverificaciones/error.jsp";
+
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            url = "JSP/ErroresYverificaciones/error.jsp";
+        }
+
+        request.getRequestDispatcher(url).forward(request, response);
+
     }
 
     /**
