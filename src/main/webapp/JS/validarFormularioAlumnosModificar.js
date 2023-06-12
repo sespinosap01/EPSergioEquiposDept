@@ -58,7 +58,6 @@ function validarNIF() {
     }
 }
 
-
 function validarEmail() {
     let inputEmail = document.getElementById("email");
     let email = inputEmail.value;
@@ -66,11 +65,41 @@ function validarEmail() {
     let regex = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
 
     if (regex.test(email)) {
-        inputEmail.style.borderColor = "";
-        inputModificar.disabled = false;
+        const http = new XMLHttpRequest();
+        const url = `Ajax`;
+        const parametros = {
+            "ayax": 1,
+            "email": email
+        };
+        const params = JSON.stringify(parametros);
+
+        http.onload = function () {
+            if (http.readyState === 4 && this.status === 200) {
+                let respuesta = http.responseText;
+                var existe = JSON.parse(respuesta);
+
+                if (existe[0] === "false") {
+                    inputEmail.style.borderColor = "";
+                    inputModificar.disabled = false;
+                } else {
+                    inputEmail.style.borderColor = "red";
+                    inputModificar.disabled = true;
+                    const notificacion = document.createElement("div");
+                    notificacion.classList.add("notificacion");
+                    notificacion.textContent = "El correo ya existe";
+                    document.body.appendChild(notificacion);
+                    setTimeout(function () {
+                        notificacion.remove();
+                    }, 3000);
+                }
+            }
+        }
+
+        http.open('POST', url, true);
+        http.setRequestHeader("Content-type", "application/json");
+        http.send(params);
     } else {
         inputEmail.style.borderColor = "red";
         inputModificar.disabled = true;
     }
 }
-

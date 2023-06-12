@@ -85,12 +85,12 @@ function validarEmail() {
                 } else {
                     inputEmail.style.borderColor = "red";
                     inputCrear.disabled = true;
-                    const notification = document.createElement("div");
-                    notification.classList.add("notification");
-                    notification.textContent = "El correo ya existe";
-                    document.body.appendChild(notification);
+                    const notificacion = document.createElement("div");
+                    notificacion.classList.add("notificacion");
+                    notificacion.textContent = "El correo ya existe";
+                    document.body.appendChild(notificacion);
                     setTimeout(function () {
-                        notification.remove();
+                        notificacion.remove();
                     }, 3000);
                 }
             }
@@ -101,7 +101,6 @@ function validarEmail() {
         http.send(params);
     } else {
         inputEmail.style.borderColor = "red";
-
         inputCrear.disabled = true;
     }
 }

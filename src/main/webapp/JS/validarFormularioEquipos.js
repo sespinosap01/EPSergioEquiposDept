@@ -27,8 +27,39 @@ function validarNumSerie() {
     let regex = /^[A-Z]{3}-[0-9]{5}$/;
 
     if (regex.test(numSerie)) {
-        inputNumSerie.style.borderColor = "";
-        inputCrear.disabled = false;
+        const http = new XMLHttpRequest();
+        const url = `Ajax`;
+        const parametros = {
+            "ayax": 2,
+            "numSerie": numSerie
+        };
+        const params = JSON.stringify(parametros);
+
+        http.onload = function () {
+            if (http.readyState === 4 && this.status === 200) {
+                let respuesta = http.responseText;
+                var existe = JSON.parse(respuesta);
+
+                if (existe[0] === "false") {
+                    inputNumSerie.style.borderColor = "";
+                    inputCrear.disabled = false;
+                } else {
+                    inputNumSerie.style.borderColor = "red";
+                    inputCrear.disabled = true;
+                    const notificacion = document.createElement("div");
+                    notificacion.classList.add("notificacion");
+                    notificacion.textContent = "El numero de serie está en uso";
+                    document.body.appendChild(notificacion);
+                    setTimeout(function () {
+                        notificacion.remove();
+                    }, 3000);
+                }
+            }
+        }
+
+        http.open('POST', url, true);
+        http.setRequestHeader("Content-type", "application/json");
+        http.send(params);
     } else {
         inputNumSerie.style.borderColor = "red";
         inputCrear.disabled = true;

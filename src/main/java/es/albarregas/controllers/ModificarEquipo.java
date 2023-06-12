@@ -78,10 +78,8 @@ public class ModificarEquipo extends HttpServlet {
                 EquiposDAO equiposDAO1 = new EquiposDAO();
                 Equipos equipo1 = equiposDAO1.getEquipo(Integer.parseInt(radioSesion));              
       
-                request.setAttribute("marca", equipo1.getMarca());
-                request.setAttribute("numSerie", equipo1.getNumSerie());
-                request.setAttribute("foto", equipo1.getFoto());
-
+                request.setAttribute("equipo1", equipo1);
+                
                 url = "JSP/modificarEquipoFormulario.jsp";
                 break;
 

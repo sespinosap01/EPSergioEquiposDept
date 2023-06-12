@@ -184,7 +184,7 @@ public class EquiposDAO implements IEquiposDAO {
                 equipo.setIdEquipo(resultado.getInt("IdEquipo"));
                 equipo.setMarca(resultado.getString("marca"));
                 equipo.setNumSerie(resultado.getString("numSerie"));
-                equipo.setFoto(resultado.getString("foto"));        
+                equipo.setFoto(resultado.getString("foto"));
             }
         } catch (SQLException e) {
             e.getMessage();
@@ -199,6 +199,33 @@ public class EquiposDAO implements IEquiposDAO {
             this.closeConnection();
         }
         return equipo;
+    }
+
+    @Override
+    public boolean numSerieExiste(String numSerie) {
+        boolean existe = false;
+        ResultSet resultado;
+
+        String sql = "select numSerie from equipos where numSerie = ?";
+        try {
+            Connection conexion = ConnectionFactory.getConnection();
+            PreparedStatement preparada = conexion.prepareStatement(sql);
+            preparada.setString(1, numSerie);
+            resultado = preparada.executeQuery();
+
+            while (resultado.next()) {
+                if (resultado.getString("numSerie") != null) {
+                    existe = true;
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+
+        } finally {
+            this.closeConnection();
+        }
+
+        return existe;
     }
 
 }

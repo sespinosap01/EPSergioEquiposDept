@@ -8,13 +8,13 @@ package es.albarregas.controllers;
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import es.albarregas.DAO.IAlumnosDAO;
+import es.albarregas.DAO.IEquiposDAO;
 import es.albarregas.DAOFactory.DAOFactory;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -73,9 +73,9 @@ public class Ajax extends HttpServlet {
         String op = jsonElement.getAsJsonObject().get("ayax").getAsString();
 
         ArrayList<String> respuesta = new ArrayList<>();
-        HttpSession sesion = request.getSession();
         DAOFactory daof = DAOFactory.getDAOFactory();
         IAlumnosDAO adao = daof.getAlumnosDAO();
+        IEquiposDAO edao = daof.getEquiposDAO();
 
         switch (op) {
             case "1":
@@ -89,9 +89,20 @@ public class Ajax extends HttpServlet {
                 json = gson.toJson(respuesta);
 
                 break;
+
+            case "2":
+                String numSerie = jsonElement.getAsJsonObject().get("numSerie").getAsString();
+                boolean existeNS = edao.numSerieExiste(numSerie);
+                if (existeNS) {
+                    respuesta.add("true");
+                } else {
+                    respuesta.add("false");
+                }
+                json = gson.toJson(respuesta);
+
+                break;
         }
-        
-        
+
         response.getWriter().write(json);
     }
 

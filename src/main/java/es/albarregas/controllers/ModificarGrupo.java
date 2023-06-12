@@ -73,12 +73,11 @@ public class ModificarGrupo extends HttpServlet {
                 HttpSession session = request.getSession();
                 session.setAttribute("modificarRadioSessionGrupo", modificarRadio);
                 String radioSesion = (String) session.getAttribute("modificarRadioSessionGrupo");
-                
+
                 GruposDAO gruposDAO1 = new GruposDAO();
-                Grupos grupo1 = gruposDAO1.getGrupo(Integer.parseInt(radioSesion));              
-      
-                request.setAttribute("denominacion", grupo1.getDenominacion());
-                request.setAttribute("tutor", grupo1.getTutor());
+                Grupos grupo1 = gruposDAO1.getGrupo(Integer.parseInt(radioSesion));
+
+                request.setAttribute("grupo1", grupo1);
 
                 url = "JSP/modificarGrupoFormulario.jsp";
                 break;

@@ -20,4 +20,6 @@ public interface IEquiposDAO {
     public void closeConnection();
     public List<Equipos> getAllEquipos();
     public Equipos getEquipo(int idEquipo);
+    public boolean numSerieExiste(String numSerie);
+
 }

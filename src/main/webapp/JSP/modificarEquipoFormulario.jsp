@@ -27,11 +27,11 @@
                 <br>
                 <div class="form-row2">
                     <label for="marca">Marca</label>
-                    <input type="text" id="marca" name="marca" placeholder="Ej: Asus" value="<c:out value="${marca}"/>" onblur="validarMarca()" required>
+                    <input type="text" id="marca" name="marca" placeholder="Ej: Asus" value="${equipo1.marca}"  onblur="validarMarca()" required>
                 </div>
                 <div class="form-row2">
                     <label for="numSerie">Numero de serie</label>
-                    <input type="text" id="numSerie" name="numSerie" placeholder="Ej: AAA-11111"  value="<c:out value="${numSerie}"/>" onblur="validarNumSerie()" required>
+                    <input type="text" id="numSerie" name="numSerie" placeholder="Ej: AAA-11111"  value="${equipo1.numSerie}" onblur="validarNumSerie()" required>
                 </div>
                 <div class="form-row2">
                     <label for="foto">Foto</label>
