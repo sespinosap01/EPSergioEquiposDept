@@ -19,10 +19,13 @@
     </head>
     <body>
         <jsp:include page="/JSP/desplegable.jsp" />
-       
-            <form action="VolverPrincipio" method="post">
-                <h1 class="textoError">Ha ocurrido un <b>ERROR</b></h1>
+
+        <form action="VolverPrincipio" method="post">
+            <h1 class="textoError">Ha ocurrido un <b>ERROR</b></h1>
+            <p>${mensajeError}</p>
+            <div class="center-button">
                 <input type="submit" value="Volver">
-            </form>
+            </div>
+        </form>
     </body>
 </html>

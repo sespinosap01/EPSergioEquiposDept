@@ -85,9 +85,7 @@ public class EliminarAlumno extends HttpServlet {
 
                 DAOFactory daof = DAOFactory.getDAOFactory();
                 IAlumnosDAO adao = daof.getAlumnosDAO();
-
                 List<Alumnos> listaAlumnos = adao.getAllAlumnos();
-
                 contexto.setAttribute("alumnos", listaAlumnos);
             } else {
                 url = "JSP/ErroresYverificaciones/error.jsp";

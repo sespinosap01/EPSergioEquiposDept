@@ -19,10 +19,12 @@
     </head>
     <body>
         <jsp:include page="/JSP/desplegable.jsp" />
-       
-            <form action="VolverPrincipio" method="post">
-                <h1 class="textoCorrecto">Se ha completado correctamente</h1>
+
+        <form action="VolverPrincipio" method="post">
+            <h1 class="textoCorrecto">Se ha completado correctamente</h1>
+            <div class="center-button">
                 <input type="submit" value="Volver">
-            </form>
+            </div>
+        </form>
     </body>
 </html>

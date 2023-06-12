@@ -24,7 +24,7 @@
         <fieldset>
             <legend>Registrar Alumno</legend>
             <form action="CrearAlumno" method="post">
-                <table>
+                <table class="tablaCrearAlumno">
                     <tr>
                         <td>
                             <div class="form-row">

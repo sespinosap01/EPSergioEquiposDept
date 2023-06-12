@@ -5,12 +5,26 @@
  */
 package es.albarregas.controllers;
 
+import es.albarregas.DAO.AlumnosDAO;
+import es.albarregas.DAO.IAlumnosDAO;
+import es.albarregas.DAOFactory.DAOFactory;
+import es.albarregas.beans.Alumnos;
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import org.apache.commons.beanutils.BeanUtils;
 
 /**
  *
@@ -57,6 +71,66 @@ public class ModificarAlumno extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+
+        String url = "";
+        String op = request.getParameter("op");
+        String modificarRadio = request.getParameter("modificarRadio");
+
+        switch (op) {
+            case "Elegir para modificar":
+
+                //rellenar inputs con la informacion del id escogido
+                HttpSession session = request.getSession();
+                session.setAttribute("modificarRadioSessionAlumno", modificarRadio);
+                url = "JSP/modificarAlumnoFormulario.jsp";
+
+                break;
+            case "Modificar":
+                ServletContext contexto = getServletConfig().getServletContext();
+                session = request.getSession();
+                String modificarRadioValue = (String) session.getAttribute("modificarRadioSessionAlumno");
+                Alumnos alumno = new Alumnos();
+
+                try {
+                    String generoStr = request.getParameter("genero");
+                    Alumnos.Genero genero = Alumnos.Genero.cambiarStringAChar(generoStr);
+                    alumno.setGenero(genero);
+
+                    String fechaNacimientoStr = request.getParameter("fechaNacimiento");
+                    SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+                    Date fechaNacimiento = sdf.parse(fechaNacimientoStr);
+                    alumno.setFechaNacimiento(fechaNacimiento);
+
+                    Map<String, String[]> copiaParam = new HashMap<>(request.getParameterMap());
+                    copiaParam.remove("genero");
+                    copiaParam.remove("fechaNacimiento");
+
+                    BeanUtils.populate(alumno, copiaParam);
+
+                    AlumnosDAO alumnosDAO = new AlumnosDAO();
+                    boolean resultado = alumnosDAO.updateAlumnos(alumno, Integer.parseInt(modificarRadioValue));
+
+                    if (resultado) {
+                        url = "JSP/ErroresYverificaciones/correcto.jsp";
+                        DAOFactory daof = DAOFactory.getDAOFactory();
+                        IAlumnosDAO adao = daof.getAlumnosDAO();
+                        List<Alumnos> listaAlumnos = adao.getAllAlumnos();
+                        contexto.setAttribute("alumnos", listaAlumnos);
+                    } else {
+                        url = "JSP/ErroresYverificaciones/error.jsp";
+                        request.setAttribute("mensajeError", "Se produjo un error durante la modificación del alumno");
+
+                    }
+                } catch (IllegalAccessException | NumberFormatException | InvocationTargetException | ParseException e) {
+                    e.getMessage();
+                    url = "JSP/ErroresYverificaciones/error.jsp";
+                    request.setAttribute("mensajeError", "Error al modificar alumno");
+                }
+
+                break;
+        }
+
+        request.getRequestDispatcher(url).forward(request, response);
     }
 
     /**

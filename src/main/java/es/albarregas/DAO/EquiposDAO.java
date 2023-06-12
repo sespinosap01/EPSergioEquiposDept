@@ -128,7 +128,7 @@ public class EquiposDAO implements IEquiposDAO {
         } finally {
             this.closeConnection();
         }
-
+        
         return error;
     }
 

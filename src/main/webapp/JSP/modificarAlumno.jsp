@@ -13,23 +13,19 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Modificar alumno</title>
         <link rel="stylesheet" type="text/css" href="${style}"/>
-
     </head>
     <body>
         <jsp:include page="/JSP/desplegable.jsp" />
 
         <h1>Modificar alumno</h1>
         <form action="ModificarAlumno" method="POST">
-            <table border="1">
+            <table>
                 <thead>
                     <tr>
                         <th>Id del alumno</th>
                         <th>Nombre</th>
                         <th>Apellidos</th>
                         <th>Nif</th>
-                       <!-- <th>Genero</th> -->
-                        <th>Id de grupo</th>
-                        <th>Id de equipo</th>
                         <th>Accion</th>   
                     </tr>
                 </thead>
@@ -39,17 +35,16 @@
                             <td>${alumno.idAlumno}</td>
                             <td>${alumno.nombre}</td>
                             <td>${alumno.apellidos}</td>
-                            <td>${alumno.nif}</td>
-                          <!-- <td>${alumno.genero}</td>   -->                          
-                            <td>${alumno.idGrupo}</td>
-                            <td>${alumno.idEquipo}</td>
-                            <td><input type="radio" name="modificar" value="${alumno.idAlumno}"></td>
+                            <td>${alumno.nif}</td>                  
+                            <td><input type="radio" name="modificarRadio" value="${alumno.idAlumno}" required></td>
                         </tr>
                     </c:forEach>
                 </tbody>
             </table>
             <br>
-            <input type="submit" name="modificar" value="Modificar">
+            <div class="center-button">
+                <input type="submit" name="op" value="Elegir para modificar">
+            </div>
         </form>
     </body>
 </html>

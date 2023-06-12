@@ -20,7 +20,7 @@
 
         <h1>Eliminar alumno</h1>
         <form action="EliminarAlumno" method="POST">
-            <table border="1">
+            <table>
                 <thead>
                     <tr>
                         <th>Id del alumno</th>
@@ -43,7 +43,9 @@
                 </tbody>
             </table>
             <br>
-            <input type="submit" name="eliminar" value="Eliminar">
+            <div class="center-button">
+                <input type="submit" name="eliminar" value="Eliminar">
+            </div>
         </form>
     </body>
 </html>

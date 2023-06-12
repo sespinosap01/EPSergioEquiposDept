@@ -20,7 +20,7 @@
 
         <h1>Eliminar Grupo</h1>
         <form action="EliminarGrupo" method="POST">
-            <table border="1">
+            <table>
                 <thead>
                     <tr>
                         <th>Id de grupo</th>
@@ -41,7 +41,9 @@
                 </tbody>
             </table>
             <br>
-            <input type="submit" name="eliminar" value="Eliminar">
+            <div class="center-button">
+                <input type="submit" name="eliminar" value="Eliminar">
+            </div>
         </form>
     </body>
 </html>

@@ -21,7 +21,7 @@
         <h1>Eliminar Equipo</h1>
         <form action="EliminarEquipo" method="POST">
 
-            <table border="1">
+            <table>
                 <thead>
                     <tr>
                         <th>Id de equipo</th>
@@ -42,7 +42,9 @@
                 </tbody>
             </table>
             <br>
-            <input type="submit" name="eliminar" value="Eliminar">
+            <div class="center-button">
+                <input type="submit" name="eliminar" value="Eliminar">
+            </div>
         </form>
     </body>
 </html>

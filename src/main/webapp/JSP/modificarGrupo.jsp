@@ -20,7 +20,7 @@
 
         <h1>Modificar Grupo</h1>
         <form action="ModificarGrupo" method="POST">
-            <table border="1">
+            <table>
                 <thead>
                     <tr>
                         <th>Id de grupo</th>
@@ -35,13 +35,15 @@
                             <td>${grupo.idGrupo}</td>
                             <td>${grupo.denominacion}</td>
                             <td>${grupo.tutor}</td>
-                            <td><input type="radio" name="modificar" value="${grupo.idGrupo}"></td>
+                            <td><input type="radio" name="modificarRadio" value="${grupo.idGrupo}" required></td>
                         </tr>
                     </c:forEach>
                 </tbody>
             </table>
             <br>
-            <input type="submit" name="modificar" value="Modificar">
+            <div class="center-button">
+                <input type="submit" name="op" value="Elegir para modificar">
+            </div>
         </form>
     </body>
 </html>

@@ -64,7 +64,6 @@ public class CrearEquipo extends HttpServlet {
             throws ServletException, IOException {
 
         ServletContext contexto = getServletConfig().getServletContext();
-
         String url = "";
         String crear = request.getParameter("crear");
 

@@ -5,13 +5,20 @@
  */
 package es.albarregas.controllers;
 
+import es.albarregas.DAO.GruposDAO;
+import es.albarregas.DAO.IGruposDAO;
+import es.albarregas.DAOFactory.DAOFactory;
+import es.albarregas.beans.Grupos;
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.util.List;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import org.apache.commons.beanutils.BeanUtils;
 
 /**
  *
@@ -31,22 +38,9 @@ public class ModificarGrupo extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet ModificarGrupo</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet ModificarGrupo at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-        }
+
     }
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
      *
@@ -58,7 +52,6 @@ public class ModificarGrupo extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
     }
 
     /**
@@ -70,9 +63,54 @@ public class ModificarGrupo extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        processRequest(request, response);
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String url = "";
+        String op = request.getParameter("op");
+        String modificarRadio = request.getParameter("modificarRadio");
+
+        switch (op) {
+            case "Elegir para modificar":
+                //recuperar la informacion anterior y rellenar los selects con ella
+                HttpSession session = request.getSession();
+                session.setAttribute("modificarRadioSessionGrupo", modificarRadio);
+
+                url = "JSP/modificarGrupoFormulario.jsp";
+                break;
+            case "Modificar":
+                session = request.getSession();
+                String modificarRadioValue = (String) session.getAttribute("modificarRadioSessionGrupo");
+
+                ServletContext contexto = getServletConfig().getServletContext();
+                Grupos grupo = new Grupos();
+
+                try {
+                    BeanUtils.populate(grupo, request.getParameterMap());
+                    GruposDAO gruposDAO = new GruposDAO();
+                    boolean resultado = gruposDAO.updateGrupos(grupo, Integer.parseInt(modificarRadioValue));
+
+                    if (resultado) {
+                        url = "JSP/ErroresYverificaciones/correcto.jsp";
+                        DAOFactory daof = DAOFactory.getDAOFactory();
+                        IGruposDAO gdao = daof.getGruposDAO();
+                        List<Grupos> listaGrupos = gdao.getAllGrupos();
+                        contexto.setAttribute("grupos", listaGrupos);
+                    } else {
+                        url = "JSP/ErroresYverificaciones/error.jsp";
+                    }
+
+                } catch (NumberFormatException e) {
+                    e.printStackTrace();
+                    url = "JSP/ErroresYverificaciones/error.jsp";
+                    request.setAttribute("mensajeError", "El valor de modificarRadio no es un número válido");
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    url = "JSP/ErroresYverificaciones/error.jsp";
+                    request.setAttribute("mensajeError", "Se produjo un error durante la modificación del grupo");
+                }
+                break;
+        }
+
+        request.getRequestDispatcher(url).forward(request, response);
     }
 
     /**

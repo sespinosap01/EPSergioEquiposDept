@@ -70,6 +70,7 @@ public class CrearAlumno extends HttpServlet {
         ServletContext contexto = getServletConfig().getServletContext();
         String url = "";
         String crear = request.getParameter("crear");
+
         if (crear.equals("Registrar")) {
             Alumnos alumno = new Alumnos();
             try {

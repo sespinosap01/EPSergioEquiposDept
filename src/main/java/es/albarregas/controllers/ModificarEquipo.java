@@ -5,13 +5,19 @@
  */
 package es.albarregas.controllers;
 
+import es.albarregas.DAO.IEquiposDAO;
+import es.albarregas.DAOFactory.DAOFactory;
+import es.albarregas.beans.Equipos;
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.util.List;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import org.apache.commons.beanutils.BeanUtils;
 
 /**
  *
@@ -31,22 +37,9 @@ public class ModificarEquipo extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet ModificarEquipo</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet ModificarEquipo at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-        }
+
     }
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
      *
@@ -58,7 +51,6 @@ public class ModificarEquipo extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
     }
 
     /**
@@ -72,7 +64,48 @@ public class ModificarEquipo extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        String url = "";
+        String op = request.getParameter("op");
+        String modificarRadio = request.getParameter("modificarRadio");
+
+        switch (op) {
+            case "Elegir para modificar":
+                //recuperar la informacion anterior y rellenar los selects con ella
+                HttpSession session = request.getSession();
+                session.setAttribute("modificarRadioSessionEquipo", modificarRadio);
+                url = "JSP/modificarEquipoFormulario.jsp";
+                break;
+
+            case "Modificar":
+                session = request.getSession();
+                String modificarRadioValue = (String) session.getAttribute("modificarRadioSessionEquipo");
+                ServletContext contexto = getServletConfig().getServletContext();
+                Equipos equipo = new Equipos();
+                try {
+                    BeanUtils.populate(equipo, request.getParameterMap());
+                    es.albarregas.DAO.EquiposDAO equiposDAO = new es.albarregas.DAO.EquiposDAO();
+                    boolean resultado = equiposDAO.updateEquipos(equipo, Integer.parseInt(modificarRadioValue));
+
+                    if (resultado) {
+                        url = "JSP/ErroresYverificaciones/correcto.jsp";
+                        DAOFactory daof = DAOFactory.getDAOFactory();
+                        IEquiposDAO edao = daof.getEquiposDAO();
+                        List<Equipos> listaEquipos = edao.getAllEquipos();
+                        contexto.setAttribute("equipos", listaEquipos);
+                    } else {
+                        url = "JSP/ErroresYverificaciones/error.jsp";
+                        request.setAttribute("mensajeError", "Se produjo un error durante la modificación del equipo");
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    url = "JSP/ErroresYverificaciones/error.jsp";
+                    request.setAttribute("mensajeError", "Se produjo un error durante la modificación del equipo");
+                }
+                break;
+        }
+
+        request.getRequestDispatcher(url).forward(request, response);
+
     }
 
     /**

@@ -15,7 +15,7 @@
         <title>Inicio</title>
         <link rel="stylesheet" type="text/css" href="${style}"/>
     </head>
-    <body>
+    <body>        
        <jsp:include page="JSP/desplegable.jsp" />
        <br>
        <h1 class="tituloIndex">Pincha en alguna opcion para comenzar</h1>

@@ -10,7 +10,6 @@ import es.albarregas.DAO.IEquiposDAO;
 import es.albarregas.DAOFactory.DAOFactory;
 import es.albarregas.beans.Equipos;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.List;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
