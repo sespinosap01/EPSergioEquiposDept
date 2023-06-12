@@ -53,6 +53,22 @@ public class Alumnos implements Serializable {
 
     }
 
+    public int getIdGrupo() {
+        return idGrupo;
+    }
+
+    public void setIdGrupo(int idGrupo) {
+        this.idGrupo = idGrupo;
+    }
+
+    public int getIdEquipo() {
+        return idEquipo;
+    }
+
+    public void setIdEquipo(int idEquipo) {
+        this.idEquipo = idEquipo;
+    }
+
     public Equipos getEquipo() {
         return equipo;
     }
@@ -93,14 +109,6 @@ public class Alumnos implements Serializable {
         this.apellidos = apellidos;
     }
 
-    public int getIdGrupo() {
-        return idGrupo;
-    }
-
-    public void setIdGrupo(int idGrupo) {
-        this.idGrupo = idGrupo;
-    }
-
     public String getNif() {
         return nif;
     }
@@ -131,14 +139,6 @@ public class Alumnos implements Serializable {
 
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    public int getIdEquipo() {
-        return idEquipo;
-    }
-
-    public void setIdEquipo(int idEquipo) {
-        this.idEquipo = idEquipo;
     }
 
 }

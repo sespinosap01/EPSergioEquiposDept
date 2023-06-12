@@ -6,8 +6,7 @@
 package es.albarregas.controllers;
 
 import es.albarregas.DAO.AlumnosDAO;
-import es.albarregas.DAO.IAlumnosDAO;
-import es.albarregas.DAOFactory.DAOFactory;
+
 import es.albarregas.beans.Alumnos;
 import java.io.IOException;
 import java.util.List;
@@ -66,14 +65,8 @@ public class Consulta1 extends HttpServlet {
  
         AlumnosDAO alumnos = new AlumnosDAO();
         List<Alumnos> listaAlumnos = alumnos.consulta1();                       
-
-            
-            
-            
-            
-        request.setAttribute("listaAlumnos", listaAlumnos);
-
-        
+   
+        request.setAttribute("listaAlumnos", listaAlumnos);       
         request.getRequestDispatcher(url).forward(request, response);
 
     }

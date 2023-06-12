@@ -58,9 +58,6 @@ function validarNIF() {
     }
 }
 
-//function validar fechaNacimiento()
-
-
 
 function validarEmail() {
     let inputEmail = document.getElementById("email");
@@ -69,42 +66,45 @@ function validarEmail() {
     let regex = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
 
     if (regex.test(email)) {
-        inputEmail.style.borderColor = "";
-        inputCrear.disabled = false;
-    } else {
-        inputEmail.style.borderColor = "red";
-        inputCrear.disabled = true;
-    }
-}
+        const http = new XMLHttpRequest();
+        const url = `Ajax`;
+        const parametros = {
+            "ayax": 1,
+            "email": email
+        };
+        const params = JSON.stringify(parametros);
 
+        http.onload = function () {
+            if (http.readyState === 4 && this.status === 200) {
+                let respuesta = http.responseText;
+                var existe = JSON.parse(respuesta);
 
-/*
- * function validarEmail() {
-    let inputEmail = document.getElementById("email");
-    let email = inputEmail.value;
-
-    let regex = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
-
-    if (regex.test(email)) {
-        // Realiza la solicitud Ajax para verificar el correo
-        $.ajax({
-            url: "VerificarCorreoServlet", // Ruta al servlet creado
-            method: "POST",
-            data: { correo: email },
-            success: function(response) {
-                if (response.correoExiste) {
-                    inputEmail.style.borderColor = "red";
-                    inputCrear.disabled = true;
-                } else {
+                if (existe[0] === "false") {
                     inputEmail.style.borderColor = "";
                     inputCrear.disabled = false;
+                } else {
+                    inputEmail.style.borderColor = "red";
+                    inputCrear.disabled = true;
+                    const notification = document.createElement("div");
+                    notification.classList.add("notification");
+                    notification.textContent = "El correo ya existe";
+                    document.body.appendChild(notification);
+                    setTimeout(function () {
+                        notification.remove();
+                    }, 3000);
                 }
             }
-        });
+        }
+
+        http.open('POST', url, true);
+        http.setRequestHeader("Content-type", "application/json");
+        http.send(params);
     } else {
         inputEmail.style.borderColor = "red";
+
         inputCrear.disabled = true;
     }
 }
 
- */
+
+

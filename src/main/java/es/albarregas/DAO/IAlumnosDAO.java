@@ -21,4 +21,6 @@ public interface IAlumnosDAO {
     public List<Alumnos> getAllAlumnos();
     public List<Alumnos> consulta1();
     public Alumnos getAlumno(int idAlumno);
+    public boolean correoExiste(String email);
+
 }

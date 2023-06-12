@@ -168,10 +168,43 @@ public class AlumnosDAO implements IAlumnosDAO {
                 alumno.setNombre(resultado.getString("Nombre"));
                 alumno.setApellidos(resultado.getString("Apellidos"));
                 alumno.setIdGrupo(resultado.getInt("IdGrupo"));
+                alumno.setIdEquipo(resultado.getInt("IdEquipo"));
                 alumno.setNif(resultado.getString("Nif"));
+
+                Alumnos.Genero genero = Alumnos.Genero.cambiarStringAChar(resultado.getString("genero"));
+                alumno.setGenero(genero);
+
                 alumno.setFechaNacimiento(resultado.getDate("FechaNacimiento"));
                 alumno.setEmail(resultado.getString("Email"));
-                alumno.setIdEquipo(resultado.getInt("IdEquipo"));
+
+                ResultSet resultadoGrupo = null;
+                Grupos grupo;
+                sql = "select * from grupos where idGrupo= ?";
+                PreparedStatement preparadaGr = conexion.prepareStatement(sql);
+                preparadaGr.setInt(1, alumno.getIdGrupo());
+                resultadoGrupo = preparadaGr.executeQuery();
+                while (resultadoGrupo.next()) {
+                    grupo = new Grupos();
+                    grupo.setIdGrupo(resultadoGrupo.getInt("idGrupo"));
+                    grupo.setDenominacion(resultadoGrupo.getString("denominacion"));
+                    grupo.setTutor(resultadoGrupo.getString("tutor"));
+                    alumno.setGrupo(grupo);
+                }
+
+                ResultSet resultadoEquipo = null;
+                Equipos equipo;
+                sql = "select * from equipos where idEquipo= ?";
+                PreparedStatement preparadaEq = conexion.prepareStatement(sql);
+                preparadaEq.setInt(1, alumno.getIdEquipo());
+                resultadoEquipo = preparadaEq.executeQuery();
+                while (resultadoEquipo.next()) {
+                    equipo = new Equipos();
+                    equipo.setIdEquipo(resultadoEquipo.getInt("idEquipo"));
+                    equipo.setMarca(resultadoEquipo.getString("Marca"));
+                    equipo.setNumSerie(resultadoEquipo.getString("numSerie"));
+                    equipo.setFoto(resultadoEquipo.getString("Foto"));
+                    alumno.setEquipo(equipo);
+                }
 
                 listaAlumnos.add(alumno);
             }
@@ -219,6 +252,7 @@ public class AlumnosDAO implements IAlumnosDAO {
 
     }
 
+    @Override
     public List<Alumnos> consulta1() {
 
         ResultSet resultado;
@@ -227,7 +261,7 @@ public class AlumnosDAO implements IAlumnosDAO {
         Grupos grupo;
 
         List<Alumnos> listaAlumnos = new ArrayList<>();
-        String sql = "SELECT apellidos, nombre, idGrupo, idEquipo FROM alumnos ORDER BY apellidos, nombre";
+        String sql = "SELECT a.Apellidos, a.Nombre, g.Denominacion, e.Marca FROM alumnos AS a JOIN grupos AS g ON a.IdGrupo = g.IdGrupo JOIN equipos AS e ON a.IdEquipo = e.IdEquipo ORDER BY apellidos, nombre;";
 
         try {
             Connection conexion = ConnectionFactory.getConnection();
@@ -241,11 +275,11 @@ public class AlumnosDAO implements IAlumnosDAO {
 
                 grupo = new Grupos();
                 grupo.setDenominacion(resultado.getString("Denominacion"));
-                //alumno.setGrupo(grupo);
+                alumno.setGrupo(grupo);
 
                 equipo = new Equipos();
-                grupo.setDenominacion(resultado.getString("marca"));
-                //alumno.setEquipo(equipo);
+                equipo.setMarca(resultado.getString("marca"));
+                alumno.setEquipo(equipo);
 
                 listaAlumnos.add(alumno);
             }
@@ -255,6 +289,33 @@ public class AlumnosDAO implements IAlumnosDAO {
             this.closeConnection();
         }
         return listaAlumnos;
+    }
+
+    @Override
+    public boolean correoExiste(String email) {
+        boolean existe = false;
+        ResultSet resultado;
+
+        String sql = "select email from alumnos where email = ?";
+        try {
+            Connection conexion = ConnectionFactory.getConnection();
+            PreparedStatement preparada = conexion.prepareStatement(sql);
+            preparada.setString(1, email);
+            resultado = preparada.executeQuery();
+
+            while (resultado.next()) {
+                if (resultado.getString("email") != null) {
+                    existe = true;
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+
+        } finally {
+            this.closeConnection();
+        }
+
+        return existe;
     }
 
 }

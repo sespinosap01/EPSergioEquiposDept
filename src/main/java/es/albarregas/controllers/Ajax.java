@@ -5,13 +5,20 @@
  */
 package es.albarregas.controllers;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonElement;
+import es.albarregas.DAO.IAlumnosDAO;
+import es.albarregas.DAOFactory.DAOFactory;
+import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -59,22 +66,33 @@ public class Ajax extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        String correo = request.getParameter("correo");
+        BufferedReader reader = request.getReader();
+        String json = reader.readLine();
+        Gson gson = new Gson();
+        JsonElement jsonElement = gson.fromJson(json, JsonElement.class);
+        String op = jsonElement.getAsJsonObject().get("ayax").getAsString();
 
-        // Realiza la lógica para verificar si el correo ya está registrado en la base de datos
-        boolean correoExiste = verificarCorreoExistente(correo);
+        ArrayList<String> respuesta = new ArrayList<>();
+        HttpSession sesion = request.getSession();
+        DAOFactory daof = DAOFactory.getDAOFactory();
+        IAlumnosDAO adao = daof.getAlumnosDAO();
 
-        // Devuelve la respuesta en formato JSON
-        response.setContentType("application/json");
-        response.setCharacterEncoding("UTF-8");
-        response.getWriter().write("{\"correoExiste\": " + correoExiste + "}");
-    }
+        switch (op) {
+            case "1":
+                String correo = jsonElement.getAsJsonObject().get("email").getAsString();
+                boolean existe = adao.correoExiste(correo);
+                if (existe) {
+                    respuesta.add("true");
+                } else {
+                    respuesta.add("false");
+                }
+                json = gson.toJson(respuesta);
 
-    private boolean verificarCorreoExistente(String correo) {
-        // Realiza la consulta en la base de datos para verificar si existe un alumno con ese correo
-        // Devuelve true si el correo existe, false en caso contrario
-        // Aquí deberías implementar tu lógica de acceso a la base de datos
-        return false;
+                break;
+        }
+        
+        
+        response.getWriter().write(json);
     }
 
     /**

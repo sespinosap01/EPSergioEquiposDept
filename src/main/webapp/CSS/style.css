@@ -122,3 +122,20 @@ table td, table th {
     border: 0px;
     box-shadow: none;
 }
+
+.notification {
+    position: fixed;
+    top: 25px;
+    right: 10px;
+    background-color: red;
+    color: white;
+    padding: 10px;
+    text-align: center;
+    font-size: 16px;
+    font-weight: bold;
+    transition: opacity 0.3s ease;
+    z-index: 9999;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 4px;
+}
+

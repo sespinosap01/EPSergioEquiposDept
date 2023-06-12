@@ -32,9 +32,8 @@
                     <tr>
                         <td>${alumno.apellidos}</td>
                         <td>${alumno.nombre}</td>
-                        <td>${alumno.idGrupo}</td>
-                        <td>${alumno.idEquipo}</td>
-
+                        <td>${alumno.grupo.denominacion}</td>
+                        <td>${alumno.equipo.marca}</td>
                     </tr>
                 </c:forEach>
             </tbody>
