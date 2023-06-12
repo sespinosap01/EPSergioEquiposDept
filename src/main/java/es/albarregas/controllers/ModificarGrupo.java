@@ -70,9 +70,15 @@ public class ModificarGrupo extends HttpServlet {
 
         switch (op) {
             case "Elegir para modificar":
-                //recuperar la informacion anterior y rellenar los selects con ella
                 HttpSession session = request.getSession();
                 session.setAttribute("modificarRadioSessionGrupo", modificarRadio);
+                String radioSesion = (String) session.getAttribute("modificarRadioSessionGrupo");
+                
+                GruposDAO gruposDAO1 = new GruposDAO();
+                Grupos grupo1 = gruposDAO1.getGrupo(Integer.parseInt(radioSesion));              
+      
+                request.setAttribute("denominacion", grupo1.getDenominacion());
+                request.setAttribute("tutor", grupo1.getTutor());
 
                 url = "JSP/modificarGrupoFormulario.jsp";
                 break;

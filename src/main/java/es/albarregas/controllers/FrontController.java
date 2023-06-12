@@ -6,6 +6,9 @@
 package es.albarregas.controllers;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -65,6 +68,12 @@ public class FrontController extends HttpServlet {
         switch (op) {
             //CREAR
             case "Registrar alumno":
+                Calendar calendar = Calendar.getInstance();
+                calendar.add(Calendar.YEAR, -18);
+                Date fechaMaxima = calendar.getTime();
+                SimpleDateFormat formatoFecha = new SimpleDateFormat("yyyy-MM-dd");
+                String fechaLimit = formatoFecha.format(fechaMaxima);                
+                request.setAttribute("fechaLimit", fechaLimit);                
                 url = "/JSP/crearAlumno.jsp";
                 break;
             case "Registrar equipo":
@@ -74,7 +83,6 @@ public class FrontController extends HttpServlet {
                 url = "/JSP/crearGrupo.jsp";
                 break;
 
-                
             //MODIFICAR
             case "Modificar alumno":
                 url = "/JSP/modificarAlumno.jsp";
@@ -86,7 +94,6 @@ public class FrontController extends HttpServlet {
                 url = "/JSP/modificarGrupo.jsp";
                 break;
 
-                
             //ELIMINAR
             case "Eliminar alumno":
                 url = "/JSP/eliminarAlumno.jsp";
@@ -98,7 +105,6 @@ public class FrontController extends HttpServlet {
                 url = "/JSP/eliminarGrupo.jsp";
                 break;
 
-                
             //CONSULTAS
             case "Alumnos":
                 url = "Consulta1";

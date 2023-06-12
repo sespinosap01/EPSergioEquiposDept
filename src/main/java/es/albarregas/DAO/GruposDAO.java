@@ -160,4 +160,38 @@ public class GruposDAO implements IGruposDAO {
         }
         return listaGrupos;
     }
+    
+    public Grupos getGrupo(int idGrupo) {
+
+        ResultSet resultado;
+        Grupos grupo = new Grupos();
+        String sql = "SELECT * FROM grupos where idGrupo = ?";
+        Connection conexion = null;
+        try {
+            conexion = ConnectionFactory.getConnection();
+            PreparedStatement preparada = conexion.prepareStatement(sql);
+            preparada.setInt(1, idGrupo);
+            resultado = preparada.executeQuery();
+
+            if (resultado.next()) {
+                grupo.setIdGrupo(resultado.getInt("IdGrupo"));
+                grupo.setDenominacion(resultado.getString("denominacion"));
+                grupo.setTutor(resultado.getString("tutor"));
+            }
+        } catch (SQLException e) {
+            e.getMessage();
+            try {
+                if (conexion != null) {
+                    conexion.rollback();
+                }
+            } catch (SQLException exe) {
+                exe.getMessage();
+            }
+        } finally {
+            this.closeConnection();
+        }
+        return grupo;
+    }
+    
+    
 }

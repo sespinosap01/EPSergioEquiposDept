@@ -37,13 +37,13 @@ public class EquiposDAO implements IEquiposDAO {
 
             preparada.executeUpdate();
             conexion.commit();
-            
-             sql = "SELECT LAST_INSERT_ID() AS UltimoID;";
+
+            sql = "SELECT LAST_INSERT_ID() AS UltimoID;";
             Statement sentencia = conexion.createStatement();
             ResultSet resultado = sentencia.executeQuery(sql);
 
             if (resultado.next()) {
-                equipos.setIdEquipo(resultado.getInt("UltimoID"));            
+                equipos.setIdEquipo(resultado.getInt("UltimoID"));
             }
         } catch (SQLException e) {
             e.getMessage();
@@ -128,7 +128,7 @@ public class EquiposDAO implements IEquiposDAO {
         } finally {
             this.closeConnection();
         }
-        
+
         return error;
     }
 
@@ -136,8 +136,8 @@ public class EquiposDAO implements IEquiposDAO {
     public void closeConnection() {
         ConnectionFactory.closeConnection();
     }
-    
-      @Override
+
+    @Override
     public List<Equipos> getAllEquipos() {
 
         ResultSet resultado;
@@ -166,5 +166,39 @@ public class EquiposDAO implements IEquiposDAO {
         }
         return listaEquipos;
     }
-}
 
+    @Override
+    public Equipos getEquipo(int idEquipo) {
+
+        ResultSet resultado;
+        Equipos equipo = new Equipos();
+        String sql = "SELECT * FROM equipos where idEquipo = ?";
+        Connection conexion = null;
+        try {
+            conexion = ConnectionFactory.getConnection();
+            PreparedStatement preparada = conexion.prepareStatement(sql);
+            preparada.setInt(1, idEquipo);
+            resultado = preparada.executeQuery();
+
+            if (resultado.next()) {
+                equipo.setIdEquipo(resultado.getInt("IdEquipo"));
+                equipo.setMarca(resultado.getString("marca"));
+                equipo.setNumSerie(resultado.getString("numSerie"));
+                equipo.setFoto(resultado.getString("foto"));        
+            }
+        } catch (SQLException e) {
+            e.getMessage();
+            try {
+                if (conexion != null) {
+                    conexion.rollback();
+                }
+            } catch (SQLException exe) {
+                exe.getMessage();
+            }
+        } finally {
+            this.closeConnection();
+        }
+        return equipo;
+    }
+
+}

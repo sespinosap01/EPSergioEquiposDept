@@ -5,6 +5,7 @@
 --%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <c:url var="style" value="CSS/style.css" scope="application" />
 <c:url var="styleForm" value="CSS/styleForm.css" scope="application" />
 
@@ -29,16 +30,16 @@
                         <td>
                             <div class="form-row">
                                 <label for="nombre">Nombre</label>
-                                <input type="text" id="nombre" name="nombre" placeholder="Ej: Sergio" onblur="validarNombre()" required>
+                                <input type="text" id="nombre" name="nombre" placeholder="Ej: Sergio" value="${alumno1.nombre}" onblur="validarNombre()" required>
                             </div>
                             <div class="form-row">
                                 <label for="apellidos">Apellidos</label>
-                                <input type="text" id="apellidos" name="apellidos" placeholder="Ej: Espinosa Pascua" onblur="validarApellidos()" required>
+                                <input type="text" id="apellidos" name="apellidos" placeholder="Ej: Espinosa Pascua" value="${alumno1.apellidos}" onblur="validarApellidos()" required>
                             </div>
                             <div class="form-row">
                                 <label for="idGrupo">Grupo</label>
                                 <select id="idGrupo" name="idGrupo" required>
-                                    <option value="selec">Elige uno ...</option>                                            
+                                    <option value="value="${alumno1}"">Elige uno ...</option>                                            
                                     <c:forEach items="${grupos}" var="grupo">
                                         <option value="${grupo.idGrupo}">${grupo.denominacion} | ${grupo.tutor}</option>
                                     </c:forEach>
@@ -46,13 +47,13 @@
                             </div>
                             <div class="form-row">
                                 <label for="nif">Nif</label>
-                                <input type="text" id="nif" name="nif" placeholder="Ej: 12345678A" onblur="validarNIF()" required>
+                                <input type="text" id="nif" name="nif" placeholder="Ej: 12345678A" value="${alumno1.nif}" onblur="validarNIF()" required>
                             </div>
                         </td>
                         <td>
                             <div class="form-row">
                                 <label for="fechaNacimiento">Fecha de nacimiento</label>
-                                <input type="date" id="fechaNacimiento" name="fechaNacimiento" required>
+                                <input type="date" id="fechaNacimiento" name="fechaNacimiento" max="${fechaLimit}" value="${alumno1.fechaNacimiento}" required >
                             </div>
 
 
@@ -67,7 +68,7 @@
                             </div>
                             <div class="form-row">
                                 <label for="email">Email</label>
-                                <input type="text" id="email" name="email" placeholder="Ej: sergioesp@albarregas.com" onblur="validarEmail()" required>
+                                <input type="text" id="email" name="email" placeholder="Ej: sergioesp@albarregas.com" value="${alumno1.email}" onblur="validarEmail()" required>
                             </div>
                             <div class="form-row">
                                 <label for="idEquipo">Equipo</label>

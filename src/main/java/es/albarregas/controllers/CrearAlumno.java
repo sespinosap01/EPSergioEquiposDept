@@ -80,7 +80,7 @@ public class CrearAlumno extends HttpServlet {
                 alumno.setGenero(genero);
 
                 String fechaNacimientoStr = request.getParameter("fechaNacimiento");
-                SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
                 Date fechaNacimiento = sdf.parse(fechaNacimientoStr);
                 alumno.setFechaNacimiento(fechaNacimiento);
 
@@ -100,6 +100,7 @@ public class CrearAlumno extends HttpServlet {
                     contexto.setAttribute("alumnos", listaAlumnos);
                 } else {
                     url = "JSP/ErroresYverificaciones/error.jsp";
+                    request.setAttribute("mensajeError", "Error al registrar el alumno");
 
                 }
             } catch (Exception e) {

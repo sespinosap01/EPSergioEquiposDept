@@ -22,6 +22,7 @@ td {
     display: flex;
     justify-content: space-between;
     margin-bottom: 10px;
+    align-items: center;
 }
 
 .form-row label {
@@ -38,6 +39,8 @@ td {
 .form-row2 {
     display: flex;
     margin-bottom: 10px;
+    align-items: center;
+
 }
 
 .form-row2 label {

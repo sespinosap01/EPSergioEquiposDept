@@ -19,5 +19,6 @@ public interface IGruposDAO {
     public boolean deleteGrupos(int idGrupo);
     public void closeConnection();
     public List<Grupos> getAllGrupos();
+    public Grupos getGrupo(int idGrupo);
 
 }

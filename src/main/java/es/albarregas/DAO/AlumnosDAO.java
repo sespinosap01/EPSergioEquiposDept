@@ -6,6 +6,8 @@
 package es.albarregas.DAO;
 
 import es.albarregas.beans.Alumnos;
+import es.albarregas.beans.Equipos;
+import es.albarregas.beans.Grupos;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -48,7 +50,7 @@ public class AlumnosDAO implements IAlumnosDAO {
             ResultSet resultado = sentencia.executeQuery(sql);
 
             if (resultado.next()) {
-                alumnos.setIdAlumno(resultado.getInt("UltimoID"));            
+                alumnos.setIdAlumno(resultado.getInt("UltimoID"));
             }
 
         } catch (SQLException e) {
@@ -70,7 +72,6 @@ public class AlumnosDAO implements IAlumnosDAO {
 
     @Override
     public boolean updateAlumnos(Alumnos alumnos, int idAlumno) {
-
         boolean error = true;
         String sql = "update alumnos set nombre = ?, apellidos = ?, idgrupo = ?, nif = ?, fechanacimiento = ?, genero = ?,"
                 + "email = ?, idequipo = ? where idAlumno = ?";
@@ -84,10 +85,8 @@ public class AlumnosDAO implements IAlumnosDAO {
             preparada.setString(2, alumnos.getApellidos());
             preparada.setInt(3, alumnos.getIdGrupo());
             preparada.setString(4, alumnos.getNif());
-            java.util.Date utilDate = new java.util.Date();
-            java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
-            preparada.setDate(5, sqlDate);
-            preparada.setString(6, alumnos.getGenero().name());
+            preparada.setDate(5, new java.sql.Date(alumnos.getFechaNacimiento().getTime()));
+            preparada.setString(6, alumnos.getGenero().getCaracteres());
             preparada.setString(7, alumnos.getEmail());
             preparada.setInt(8, alumnos.getIdEquipo());
             preparada.setInt(9, idAlumno);
@@ -171,12 +170,6 @@ public class AlumnosDAO implements IAlumnosDAO {
                 alumno.setIdGrupo(resultado.getInt("IdGrupo"));
                 alumno.setNif(resultado.getString("Nif"));
                 alumno.setFechaNacimiento(resultado.getDate("FechaNacimiento"));
-
-                /*
-                String generoStr = resultado.getString("Genero");
-                Alumnos.Genero genero = Alumnos.Genero.valueOf(generoStr);
-                alumno.setGenero(genero);
-                 */
                 alumno.setEmail(resultado.getString("Email"));
                 alumno.setIdEquipo(resultado.getInt("IdEquipo"));
 
@@ -189,4 +182,79 @@ public class AlumnosDAO implements IAlumnosDAO {
         }
         return listaAlumnos;
     }
+
+    public Alumnos getAlumno(int idAlumno) {
+        ResultSet resultado;
+        Alumnos alumno = new Alumnos();
+        String sql = "SELECT * FROM alumnos where idAlumno = ?";
+        Connection conexion = null;
+        try {
+            conexion = ConnectionFactory.getConnection();
+            PreparedStatement preparada = conexion.prepareStatement(sql);
+            preparada.setInt(1, idAlumno);
+            resultado = preparada.executeQuery();
+
+            if (resultado.next()) {
+                alumno.setIdAlumno(resultado.getInt("IdAlumno"));
+                alumno.setNombre(resultado.getString("nombre"));
+                alumno.setApellidos(resultado.getString("apellidos"));
+                alumno.setEmail(resultado.getString("email"));
+                alumno.setNif(resultado.getString("nif"));
+                alumno.setFechaNacimiento(resultado.getDate("fechaNacimiento"));
+
+            }
+        } catch (SQLException e) {
+            e.getMessage();
+            try {
+                if (conexion != null) {
+                    conexion.rollback();
+                }
+            } catch (SQLException exe) {
+                exe.getMessage();
+            }
+        } finally {
+            this.closeConnection();
+        }
+        return alumno;
+
+    }
+
+    public List<Alumnos> consulta1() {
+
+        ResultSet resultado;
+        Alumnos alumno;
+        Equipos equipo;
+        Grupos grupo;
+
+        List<Alumnos> listaAlumnos = new ArrayList<>();
+        String sql = "SELECT apellidos, nombre, idGrupo, idEquipo FROM alumnos ORDER BY apellidos, nombre";
+
+        try {
+            Connection conexion = ConnectionFactory.getConnection();
+            Statement sentencia = conexion.createStatement();
+            resultado = sentencia.executeQuery(sql);
+
+            while (resultado.next()) {
+                alumno = new Alumnos();
+                alumno.setApellidos(resultado.getString("Apellidos"));
+                alumno.setNombre(resultado.getString("Nombre"));
+
+                grupo = new Grupos();
+                grupo.setDenominacion(resultado.getString("Denominacion"));
+                //alumno.setGrupo(grupo);
+
+                equipo = new Equipos();
+                grupo.setDenominacion(resultado.getString("marca"));
+                //alumno.setEquipo(equipo);
+
+                listaAlumnos.add(alumno);
+            }
+        } catch (Exception e) {
+            e.getMessage();
+        } finally {
+            this.closeConnection();
+        }
+        return listaAlumnos;
+    }
+
 }

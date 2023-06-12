@@ -19,5 +19,5 @@ public interface IEquiposDAO {
     public boolean deleteEquipos(int idEquipo);
     public void closeConnection();
     public List<Equipos> getAllEquipos();
-
+    public Equipos getEquipo(int idEquipo);
 }

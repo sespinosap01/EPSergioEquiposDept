@@ -5,12 +5,8 @@
  */
 package es.albarregas.controllers;
 
-import es.albarregas.DAO.AlumnosDAO;
-import es.albarregas.DAO.IAlumnosDAO;
-import es.albarregas.DAOFactory.DAOFactory;
-import es.albarregas.beans.Alumnos;
 import java.io.IOException;
-import java.util.List;
+import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -21,8 +17,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Sergio
  */
-@WebServlet(name = "Consulta1", urlPatterns = {"/Consulta1"})
-public class Consulta1 extends HttpServlet {
+@WebServlet(name = "Ajax", urlPatterns = {"/Ajax"})
+public class Ajax extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -35,6 +31,7 @@ public class Consulta1 extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+
     }
 
     /**
@@ -62,20 +59,22 @@ public class Consulta1 extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        String url = "/JSP/consultas/consulta1.jsp";
- 
-        AlumnosDAO alumnos = new AlumnosDAO();
-        List<Alumnos> listaAlumnos = alumnos.consulta1();                       
+        String correo = request.getParameter("correo");
 
-            
-            
-            
-            
-        request.setAttribute("listaAlumnos", listaAlumnos);
+        // Realiza la lógica para verificar si el correo ya está registrado en la base de datos
+        boolean correoExiste = verificarCorreoExistente(correo);
 
-        
-        request.getRequestDispatcher(url).forward(request, response);
+        // Devuelve la respuesta en formato JSON
+        response.setContentType("application/json");
+        response.setCharacterEncoding("UTF-8");
+        response.getWriter().write("{\"correoExiste\": " + correoExiste + "}");
+    }
 
+    private boolean verificarCorreoExistente(String correo) {
+        // Realiza la consulta en la base de datos para verificar si existe un alumno con ese correo
+        // Devuelve true si el correo existe, false en caso contrario
+        // Aquí deberías implementar tu lógica de acceso a la base de datos
+        return false;
     }
 
     /**

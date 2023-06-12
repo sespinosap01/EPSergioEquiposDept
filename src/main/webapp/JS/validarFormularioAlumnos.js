@@ -77,3 +77,34 @@ function validarEmail() {
     }
 }
 
+
+/*
+ * function validarEmail() {
+    let inputEmail = document.getElementById("email");
+    let email = inputEmail.value;
+
+    let regex = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
+
+    if (regex.test(email)) {
+        // Realiza la solicitud Ajax para verificar el correo
+        $.ajax({
+            url: "VerificarCorreoServlet", // Ruta al servlet creado
+            method: "POST",
+            data: { correo: email },
+            success: function(response) {
+                if (response.correoExiste) {
+                    inputEmail.style.borderColor = "red";
+                    inputCrear.disabled = true;
+                } else {
+                    inputEmail.style.borderColor = "";
+                    inputCrear.disabled = false;
+                }
+            }
+        });
+    } else {
+        inputEmail.style.borderColor = "red";
+        inputCrear.disabled = true;
+    }
+}
+
+ */

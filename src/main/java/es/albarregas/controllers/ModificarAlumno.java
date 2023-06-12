@@ -13,6 +13,7 @@ import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -79,9 +80,22 @@ public class ModificarAlumno extends HttpServlet {
         switch (op) {
             case "Elegir para modificar":
 
-                //rellenar inputs con la informacion del id escogido
+                Calendar calendar = Calendar.getInstance();
+                calendar.add(Calendar.YEAR, -18);
+                Date fechaMaxima = calendar.getTime();
+                SimpleDateFormat formatoFecha = new SimpleDateFormat("yyyy-MM-dd");
+                String fechaLimit = formatoFecha.format(fechaMaxima);                
+                request.setAttribute("fechaLimit", fechaLimit); 
+                                
                 HttpSession session = request.getSession();
                 session.setAttribute("modificarRadioSessionAlumno", modificarRadio);
+                String radioSesion = (String) session.getAttribute("modificarRadioSessionAlumno");
+
+                AlumnosDAO alumnosDAO1 = new AlumnosDAO();
+                Alumnos alumno1 = alumnosDAO1.getAlumno(Integer.parseInt(radioSesion));
+
+                request.setAttribute("alumno1", alumno1);
+
                 url = "JSP/modificarAlumnoFormulario.jsp";
 
                 break;
@@ -97,7 +111,7 @@ public class ModificarAlumno extends HttpServlet {
                     alumno.setGenero(genero);
 
                     String fechaNacimientoStr = request.getParameter("fechaNacimiento");
-                    SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+                    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
                     Date fechaNacimiento = sdf.parse(fechaNacimientoStr);
                     alumno.setFechaNacimiento(fechaNacimiento);
 
@@ -108,6 +122,7 @@ public class ModificarAlumno extends HttpServlet {
                     BeanUtils.populate(alumno, copiaParam);
 
                     AlumnosDAO alumnosDAO = new AlumnosDAO();
+
                     boolean resultado = alumnosDAO.updateAlumnos(alumno, Integer.parseInt(modificarRadioValue));
 
                     if (resultado) {

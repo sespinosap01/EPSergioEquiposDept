@@ -18,6 +18,27 @@
         <jsp:include page="/JSP/desplegable.jsp" />
 
         <h1>Consulta 1</h1>
+        <table>
+            <thead>
+                <tr>
+                    <th>Apellidos</th>
+                    <th>Nombre</th>
+                    <th>Grupo</th>
+                    <th>Equipo</th>
+                </tr>
+            </thead>
+            <tbody>
+                <c:forEach var="alumno" items="${listaAlumnos}">
+                    <tr>
+                        <td>${alumno.apellidos}</td>
+                        <td>${alumno.nombre}</td>
+                        <td>${alumno.idGrupo}</td>
+                        <td>${alumno.idEquipo}</td>
+
+                    </tr>
+                </c:forEach>
+            </tbody>
+        </table>
 
     </body>
 </html>

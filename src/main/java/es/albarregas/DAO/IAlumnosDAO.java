@@ -19,7 +19,6 @@ public interface IAlumnosDAO {
     public boolean deleteAlumnos(int idAlumno);
     public void closeConnection();
     public List<Alumnos> getAllAlumnos();
-
-
-
+    public List<Alumnos> consulta1();
+    public Alumnos getAlumno(int idAlumno);
 }

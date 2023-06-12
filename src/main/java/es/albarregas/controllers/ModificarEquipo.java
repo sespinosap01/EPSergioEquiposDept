@@ -5,6 +5,7 @@
  */
 package es.albarregas.controllers;
 
+import es.albarregas.DAO.EquiposDAO;
 import es.albarregas.DAO.IEquiposDAO;
 import es.albarregas.DAOFactory.DAOFactory;
 import es.albarregas.beans.Equipos;
@@ -70,9 +71,17 @@ public class ModificarEquipo extends HttpServlet {
 
         switch (op) {
             case "Elegir para modificar":
-                //recuperar la informacion anterior y rellenar los selects con ella
                 HttpSession session = request.getSession();
                 session.setAttribute("modificarRadioSessionEquipo", modificarRadio);
+                String radioSesion = (String) session.getAttribute("modificarRadioSessionEquipo");
+                
+                EquiposDAO equiposDAO1 = new EquiposDAO();
+                Equipos equipo1 = equiposDAO1.getEquipo(Integer.parseInt(radioSesion));              
+      
+                request.setAttribute("marca", equipo1.getMarca());
+                request.setAttribute("numSerie", equipo1.getNumSerie());
+                request.setAttribute("foto", equipo1.getFoto());
+
                 url = "JSP/modificarEquipoFormulario.jsp";
                 break;
 

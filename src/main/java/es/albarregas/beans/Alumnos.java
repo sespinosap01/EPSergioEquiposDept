@@ -17,12 +17,15 @@ public class Alumnos implements Serializable {
     private int idAlumno;
     private String nombre;
     private String apellidos;
-    private int idGrupo;
     private String nif;
     private Date fechaNacimiento;
     private Genero genero;
     private String email;
+    private int idGrupo;
     private int idEquipo;
+
+    private Equipos equipo;
+    private Grupos grupo;
 
     public enum Genero {
         HOMBRE("H"),
@@ -47,7 +50,23 @@ public class Alumnos implements Serializable {
             }
             throw new IllegalArgumentException("El texto proporcionado no es un valor válido de género " + text);
         }
-        
+
+    }
+
+    public Equipos getEquipo() {
+        return equipo;
+    }
+
+    public void setEquipo(Equipos equipo) {
+        this.equipo = equipo;
+    }
+
+    public Grupos getGrupo() {
+        return grupo;
+    }
+
+    public void setGrupo(Grupos grupo) {
+        this.grupo = grupo;
     }
 
     public int getIdAlumno() {

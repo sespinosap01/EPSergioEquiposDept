@@ -52,7 +52,7 @@
                         <td>
                             <div class="form-row">
                                 <label for="fechaNacimiento">Fecha de nacimiento</label>
-                                <input type="date" id="fechaNacimiento" name="fechaNacimiento" required>
+                                <input type="date" id="fechaNacimiento" name="fechaNacimiento" max="${fechaLimit}" required>
                             </div>
 
 

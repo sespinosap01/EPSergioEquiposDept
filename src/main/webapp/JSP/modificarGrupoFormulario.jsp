@@ -27,11 +27,11 @@
                 <br>
                 <div class="form-row2">
                     <label for="denominacion">Denominación</label>
-                    <input type="text" id="denominacion" name="denominacion" placeholder="Ej: DAW2" onblur="validarDenominacion()" required>
+                    <input type="text" id="denominacion" name="denominacion" placeholder="Ej: DAW2" value="<c:out value="${denominacion}"/>"  onblur="validarDenominacion()" required>
                 </div>
                 <div class="form-row2">
                     <label for="tutor">Tutor</label>
-                    <input type="text" id="tutor" name="tutor" placeholder="Ej: Jesús García" onblur="validarTutor()" required>
+                    <input type="text" id="tutor" name="tutor" placeholder="Ej: Jesús García" value="<c:out value="${tutor}"/>"  onblur="validarTutor()" required>
                 </div>      
                 <div class="submitLine">
                     <input type="submit" class="submitBtn" name="op" value="Modificar" id="modificar" disabled>
