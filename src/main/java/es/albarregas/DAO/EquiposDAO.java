@@ -228,4 +228,33 @@ public class EquiposDAO implements IEquiposDAO {
         return existe;
     }
 
+    @Override
+    public List<Equipos> consulta2() {
+        ResultSet resultado;
+        Equipos equipo;
+
+        List<Equipos> listaEquipos = new ArrayList<>();
+        String sql = "select * from equipos";
+        try {
+            Connection conexion = ConnectionFactory.getConnection();
+            Statement sentencia = conexion.createStatement();
+            resultado = sentencia.executeQuery(sql);
+
+            while (resultado.next()) {
+                equipo = new Equipos();
+                equipo.setMarca(resultado.getString("marca"));
+                equipo.setNumSerie(resultado.getString("numSerie"));
+                equipo.setFoto(resultado.getString("foto"));
+
+                listaEquipos.add(equipo);
+            }
+        } catch (Exception e) {
+            e.getMessage();
+        } finally {
+            this.closeConnection();
+        }
+        return listaEquipos;
+
+    }
+
 }

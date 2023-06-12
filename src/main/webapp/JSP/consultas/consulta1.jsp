@@ -16,8 +16,8 @@
     </head>
     <body>
         <jsp:include page="/JSP/desplegable.jsp" />
-
         <h1>Consulta 1</h1>
+        <h4 class="subTitle">Alumnos</h4>
         <table>
             <thead>
                 <tr>
@@ -38,7 +38,6 @@
                 </c:forEach>
             </tbody>
         </table>
-
     </body>
 </html>
 

@@ -30,6 +30,10 @@ body{
 
 }
 
+.subTitle{
+    text-align: center;
+}
+
 .textoError{
     text-align: center;
     margin-top:3%;

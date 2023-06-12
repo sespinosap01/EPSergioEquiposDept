@@ -253,6 +253,33 @@ public class AlumnosDAO implements IAlumnosDAO {
     }
 
     @Override
+    public boolean correoExiste(String email) {
+        boolean existe = false;
+        ResultSet resultado;
+
+        String sql = "select email from alumnos where email = ?";
+        try {
+            Connection conexion = ConnectionFactory.getConnection();
+            PreparedStatement preparada = conexion.prepareStatement(sql);
+            preparada.setString(1, email);
+            resultado = preparada.executeQuery();
+
+            while (resultado.next()) {
+                if (resultado.getString("email") != null) {
+                    existe = true;
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+
+        } finally {
+            this.closeConnection();
+        }
+
+        return existe;
+    }
+
+    @Override
     public List<Alumnos> consulta1() {
 
         ResultSet resultado;
@@ -289,33 +316,6 @@ public class AlumnosDAO implements IAlumnosDAO {
             this.closeConnection();
         }
         return listaAlumnos;
-    }
-
-    @Override
-    public boolean correoExiste(String email) {
-        boolean existe = false;
-        ResultSet resultado;
-
-        String sql = "select email from alumnos where email = ?";
-        try {
-            Connection conexion = ConnectionFactory.getConnection();
-            PreparedStatement preparada = conexion.prepareStatement(sql);
-            preparada.setString(1, email);
-            resultado = preparada.executeQuery();
-
-            while (resultado.next()) {
-                if (resultado.getString("email") != null) {
-                    existe = true;
-                }
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-
-        } finally {
-            this.closeConnection();
-        }
-
-        return existe;
     }
 
 }

@@ -35,12 +35,12 @@ public class GruposDAO implements IGruposDAO {
 
             preparada.executeUpdate();
             conexion.commit();
-             sql = "SELECT LAST_INSERT_ID() AS UltimoID;";
+            sql = "SELECT LAST_INSERT_ID() AS UltimoID;";
             Statement sentencia = conexion.createStatement();
             ResultSet resultado = sentencia.executeQuery(sql);
 
             if (resultado.next()) {
-                grupos.setIdGrupo(resultado.getInt("UltimoID"));            
+                grupos.setIdGrupo(resultado.getInt("UltimoID"));
             }
         } catch (SQLException e) {
             e.getMessage();
@@ -160,7 +160,7 @@ public class GruposDAO implements IGruposDAO {
         }
         return listaGrupos;
     }
-    
+
     public Grupos getGrupo(int idGrupo) {
 
         ResultSet resultado;
@@ -192,6 +192,34 @@ public class GruposDAO implements IGruposDAO {
         }
         return grupo;
     }
-    
-    
+
+    @Override
+    public List<Grupos> consulta3() {
+
+        ResultSet resultado;
+        Grupos grupo;
+
+        List<Grupos> listaGrupos = new ArrayList<>();
+        String sql = "select * from grupos";
+        
+        try {
+            Connection conexion = ConnectionFactory.getConnection();
+            Statement sentencia = conexion.createStatement();
+            resultado = sentencia.executeQuery(sql);
+
+            while (resultado.next()) {
+
+                grupo = new Grupos();
+                grupo.setDenominacion(resultado.getString("denominacion"));
+                grupo.setTutor(resultado.getString("tutor"));
+                listaGrupos.add(grupo);
+            }
+        } catch (Exception e) {
+            e.getMessage();
+        } finally {
+            this.closeConnection();
+        }
+        return listaGrupos;
+    }
+
 }
