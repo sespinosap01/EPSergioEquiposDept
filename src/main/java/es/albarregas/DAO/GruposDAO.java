@@ -153,7 +153,7 @@ public class GruposDAO implements IGruposDAO {
 
                 listaGrupos.add(grupo);
             }
-        } catch (Exception e) {
+        } catch (SQLException e) {
             e.getMessage();
         } finally {
             this.closeConnection();
@@ -214,7 +214,7 @@ public class GruposDAO implements IGruposDAO {
                 grupo.setTutor(resultado.getString("tutor"));
                 listaGrupos.add(grupo);
             }
-        } catch (Exception e) {
+        } catch (SQLException e) {
             e.getMessage();
         } finally {
             this.closeConnection();

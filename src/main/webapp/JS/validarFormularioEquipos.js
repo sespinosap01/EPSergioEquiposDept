@@ -10,7 +10,7 @@ function validarMarca() {
     let inputMarca = document.getElementById("marca");
     let marca = inputMarca.value;
 
-    let regex = /^[A-Za-z\s]+$/;
+    let regex = /^[A-Za-z0-9\s]+$/;
     if (regex.test(marca)) {
         inputMarca.style.borderColor = "";
         inputCrear.disabled = false;

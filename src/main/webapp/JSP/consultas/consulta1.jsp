@@ -20,7 +20,7 @@
         <h4 class="subTitle">Alumnos</h4>
         <c:choose>
             <c:when test="${empty listaAlumnos}">
-                <h1>No hay alumnos registrados</h1>
+                <p>No hay registros en el sistema</p>
             </c:when>
             <c:otherwise>
                 <table>

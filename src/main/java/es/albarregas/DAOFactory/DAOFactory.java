@@ -21,7 +21,5 @@ public abstract class DAOFactory {
         DAOFactory daof;
         daof = new MySQLDAOFactory();
         return daof;
-
     }
-
 }

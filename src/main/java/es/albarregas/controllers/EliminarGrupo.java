@@ -74,7 +74,7 @@ public class EliminarGrupo extends HttpServlet {
 
             if (eliminarCheckbox != null && eliminarCheckbox.length > 0) {
                 for (String checkbox : eliminarCheckbox) {
-                    
+
                     resultado = gruposDAO.deleteGrupos(Integer.parseInt(checkbox));
                 }
             } else {
@@ -93,8 +93,8 @@ public class EliminarGrupo extends HttpServlet {
                 url = "JSP/ErroresYverificaciones/error.jsp";
 
             }
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (NumberFormatException e) {
+            e.getMessage();
             url = "JSP/ErroresYverificaciones/error.jsp";
         }
 

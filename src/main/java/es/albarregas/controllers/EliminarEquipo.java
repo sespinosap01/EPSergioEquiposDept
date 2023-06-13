@@ -87,13 +87,13 @@ public class EliminarEquipo extends HttpServlet {
                 IEquiposDAO edao = daof.getEquiposDAO();
                 List<Equipos> listaEquipos = edao.getAllEquipos();
                 contexto.setAttribute("equipos", listaEquipos);
-                
+
             } else {
                 url = "JSP/ErroresYverificaciones/error.jsp";
 
             }
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (NumberFormatException e) {
+            e.getMessage();
             url = "JSP/ErroresYverificaciones/error.jsp";
         }
 

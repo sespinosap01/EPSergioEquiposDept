@@ -20,7 +20,7 @@
         <h4 class="subTitle">Grupos</h4>
         <c:choose>
             <c:when test="${empty listaGrupos}">
-                <h1>No hay grupos registrados</h1>
+                <p>No hay registros en el sistema</p>
             </c:when>
             <c:otherwise>
                 <table>

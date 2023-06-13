@@ -32,7 +32,7 @@ public class ConnectionFactory {
             conexion = ds.getConnection();
         } catch (NamingException | SQLException e) {
             System.out.println("Error en la conexión contra MySQL");
-            e.printStackTrace();
+            e.getMessage();
         }
         
         return conexion;
@@ -43,7 +43,7 @@ public class ConnectionFactory {
             conexion.close();
         } catch(SQLException e){
             System.out.println("Error al cerrar la conexión a la BD");
-            e.printStackTrace();
+            e.getMessage();
         }
     }
     

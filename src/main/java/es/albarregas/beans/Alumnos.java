@@ -23,7 +23,6 @@ public class Alumnos implements Serializable {
     private String email;
     private int idGrupo;
     private int idEquipo;
-
     private Equipos equipo;
     private Grupos grupo;
 

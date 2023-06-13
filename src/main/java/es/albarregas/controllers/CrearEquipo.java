@@ -8,6 +8,7 @@ package es.albarregas.controllers;
 import es.albarregas.DAO.EquiposDAO;
 import es.albarregas.beans.Equipos;
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -76,15 +77,15 @@ public class CrearEquipo extends HttpServlet {
                 boolean resultado = equiposDAO.createEquipos(equipo);
 
                 if (resultado) {
-                    url = "JSP/ErroresYverificaciones/correcto.jsp";                    
+                    url = "JSP/ErroresYverificaciones/correcto.jsp";
                     List<Equipos> listaEquipos = (List<Equipos>) contexto.getAttribute("equipos");
                     listaEquipos.add(equipo);
-                    contexto.setAttribute("equipos", listaEquipos);                     
+                    contexto.setAttribute("equipos", listaEquipos);
                 } else {
                     url = "JSP/ErroresYverificaciones/error.jsp";
                 }
-            } catch (Exception e) {
-                e.printStackTrace();
+            } catch (IllegalAccessException | InvocationTargetException e) {
+                e.getMessage();
                 url = "JSP/ErroresYverificaciones/error.jsp";
             }
         }

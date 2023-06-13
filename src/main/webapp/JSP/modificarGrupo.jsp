@@ -19,31 +19,38 @@
         <jsp:include page="/JSP/desplegable.jsp" />
 
         <h1>Modificar Grupo</h1>
-        <form action="ModificarGrupo" method="POST">
-            <table>
-                <thead>
-                    <tr>
-                        <th>Id de grupo</th>
-                        <th>Denominacion</th>
-                        <th>Tutor</th>   
-                        <th>Accion</th>   
-                    </tr>
-                </thead>
-                <tbody>
-                    <c:forEach items="${grupos}" var="grupo">
-                        <tr>
-                            <td>${grupo.idGrupo}</td>
-                            <td>${grupo.denominacion}</td>
-                            <td>${grupo.tutor}</td>
-                            <td><input type="radio" name="modificarRadio" value="${grupo.idGrupo}" required></td>
-                        </tr>
-                    </c:forEach>
-                </tbody>
-            </table>
-            <br>
-            <div class="center-button">
-                <input type="submit" name="op" value="Elegir para modificar">
-            </div>
-        </form>
+        <c:choose>
+            <c:when test="${empty grupos}">
+                <p>No hay registros en el sistema</p>
+            </c:when>
+            <c:otherwise>
+                <form action="ModificarGrupo" method="POST">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Id de grupo</th>
+                                <th>Denominacion</th>
+                                <th>Tutor</th>   
+                                <th>Accion</th>   
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <c:forEach items="${grupos}" var="grupo">
+                                <tr>
+                                    <td>${grupo.idGrupo}</td>
+                                    <td>${grupo.denominacion}</td>
+                                    <td>${grupo.tutor}</td>
+                                    <td><input type="radio" name="modificarRadio" value="${grupo.idGrupo}" required></td>
+                                </tr>
+                            </c:forEach>
+                        </tbody>
+                    </table>
+                    <br>
+                    <div class="center-button">
+                        <input type="submit" name="op" value="Elegir para modificar">
+                    </div>
+                </form>
+            </c:otherwise>
+        </c:choose>
     </body>
 </html>

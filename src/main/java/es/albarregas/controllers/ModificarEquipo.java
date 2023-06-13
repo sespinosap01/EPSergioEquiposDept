@@ -10,6 +10,7 @@ import es.albarregas.DAO.IEquiposDAO;
 import es.albarregas.DAOFactory.DAOFactory;
 import es.albarregas.beans.Equipos;
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -74,12 +75,12 @@ public class ModificarEquipo extends HttpServlet {
                 HttpSession session = request.getSession();
                 session.setAttribute("modificarRadioSessionEquipo", modificarRadio);
                 String radioSesion = (String) session.getAttribute("modificarRadioSessionEquipo");
-                
+
                 EquiposDAO equiposDAO1 = new EquiposDAO();
-                Equipos equipo1 = equiposDAO1.getEquipo(Integer.parseInt(radioSesion));              
-      
+                Equipos equipo1 = equiposDAO1.getEquipo(Integer.parseInt(radioSesion));
+
                 request.setAttribute("equipo1", equipo1);
-                
+
                 url = "JSP/modificarEquipoFormulario.jsp";
                 break;
 
@@ -103,8 +104,8 @@ public class ModificarEquipo extends HttpServlet {
                         url = "JSP/ErroresYverificaciones/error.jsp";
                         request.setAttribute("mensajeError", "Se produjo un error durante la modificación del equipo");
                     }
-                } catch (Exception e) {
-                    e.printStackTrace();
+                } catch (IllegalAccessException | NumberFormatException | InvocationTargetException e) {
+                    e.getMessage();
                     url = "JSP/ErroresYverificaciones/error.jsp";
                     request.setAttribute("mensajeError", "Se produjo un error durante la modificación del equipo");
                 }

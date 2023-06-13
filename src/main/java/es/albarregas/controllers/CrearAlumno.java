@@ -8,6 +8,8 @@ package es.albarregas.controllers;
 import es.albarregas.DAO.AlumnosDAO;
 import es.albarregas.beans.Alumnos;
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
@@ -103,8 +105,8 @@ public class CrearAlumno extends HttpServlet {
                     request.setAttribute("mensajeError", "Error al registrar el alumno");
 
                 }
-            } catch (Exception e) {
-                e.printStackTrace();
+            } catch (IllegalAccessException | InvocationTargetException | ParseException e) {
+                e.getMessage();
                 url = "JSP/ErroresYverificaciones/error.jsp";
             }
         }

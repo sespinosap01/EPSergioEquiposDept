@@ -61,7 +61,7 @@ public class FrontController extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        String url = "index.jsp";
+        String url = "";
 
         String op = request.getParameter("op");
 

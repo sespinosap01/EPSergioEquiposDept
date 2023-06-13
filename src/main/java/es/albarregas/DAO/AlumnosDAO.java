@@ -345,7 +345,7 @@ public class AlumnosDAO implements IAlumnosDAO {
 
                 listaAlumnos.add(alumno);
             }
-        } catch (Exception e) {
+        } catch (SQLException e) {
             e.getMessage();
         } finally {
             this.closeConnection();

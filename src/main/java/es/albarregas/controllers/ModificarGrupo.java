@@ -10,6 +10,7 @@ import es.albarregas.DAO.IGruposDAO;
 import es.albarregas.DAOFactory.DAOFactory;
 import es.albarregas.beans.Grupos;
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -104,11 +105,11 @@ public class ModificarGrupo extends HttpServlet {
                     }
 
                 } catch (NumberFormatException e) {
-                    e.printStackTrace();
+                    e.getMessage();
                     url = "JSP/ErroresYverificaciones/error.jsp";
                     request.setAttribute("mensajeError", "El valor de modificarRadio no es un número válido");
-                } catch (Exception e) {
-                    e.printStackTrace();
+                } catch (IllegalAccessException | InvocationTargetException e) {
+                    e.getMessage();
                     url = "JSP/ErroresYverificaciones/error.jsp";
                     request.setAttribute("mensajeError", "Se produjo un error durante la modificación del grupo");
                 }

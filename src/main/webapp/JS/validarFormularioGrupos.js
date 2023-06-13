@@ -24,7 +24,7 @@ function validarTutor() {
     let inputTutor = document.getElementById("tutor");
     let tutor = inputTutor.value;
 
-    let regex = /^[A-Za-z\s]+$/;
+    let regex = /^[A-Za-zÁÉÍÓÚáéíóú\s]+$/;
     if (regex.test(tutor)) {
         inputTutor.style.borderColor = "";
         inputCrear.disabled = false;

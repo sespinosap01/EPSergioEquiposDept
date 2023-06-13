@@ -20,7 +20,7 @@
         <h4 class="subTitle">Equipos</h4>
         <c:choose>
             <c:when test="${empty listaEquipos}">
-                <h1>No hay equipos registrados</h1>
+                <p>No hay registros en el sistema</p>
             </c:when>
             <c:otherwise>
                 <table>

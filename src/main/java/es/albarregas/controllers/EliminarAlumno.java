@@ -91,8 +91,8 @@ public class EliminarAlumno extends HttpServlet {
                 url = "JSP/ErroresYverificaciones/error.jsp";
 
             }
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (NumberFormatException e) {
+            e.getMessage();
             url = "JSP/ErroresYverificaciones/error.jsp";
         }
 

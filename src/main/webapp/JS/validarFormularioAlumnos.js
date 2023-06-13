@@ -10,7 +10,7 @@ function validarNombre() {
     let inputNombre = document.getElementById("nombre");
     let nombre = inputNombre.value;
 
-    let regex = /^[A-Za-z\s]+$/;
+    let regex = /^[A-Za-zÁÉÍÓÚáéíóú\s]+$/;
     if (regex.test(nombre)) {
         inputNombre.style.borderColor = "";
         inputCrear.disabled = false;
@@ -24,7 +24,7 @@ function validarApellidos() {
     let inputApellidos = document.getElementById("apellidos");
     let apellidos = inputApellidos.value;
 
-    let regex = /^[A-Za-z\s]+$/;
+    let regex = /^[A-Za-zÁÉÍÓÚáéíóú\s]+$/;
     if (regex.test(apellidos)) {
         inputApellidos.style.borderColor = "";
         inputCrear.disabled = false;

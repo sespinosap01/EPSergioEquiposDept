@@ -5,9 +5,7 @@
  */
 package es.albarregas.DAO;
 
-import es.albarregas.beans.Alumnos;
 import es.albarregas.beans.Equipos;
-import es.albarregas.beans.Grupos;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -161,7 +159,7 @@ public class EquiposDAO implements IEquiposDAO {
 
                 listaEquipos.add(equipo);
             }
-        } catch (Exception e) {
+        } catch (SQLException e) {
             e.getMessage();
         } finally {
             this.closeConnection();
@@ -221,7 +219,7 @@ public class EquiposDAO implements IEquiposDAO {
                 }
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            e.getMessage();
 
         } finally {
             this.closeConnection();
@@ -250,7 +248,7 @@ public class EquiposDAO implements IEquiposDAO {
 
                 listaEquipos.add(equipo);
             }
-        } catch (Exception e) {
+        } catch (SQLException e) {
             e.getMessage();
         } finally {
             this.closeConnection();
