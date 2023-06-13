@@ -170,10 +170,8 @@ public class AlumnosDAO implements IAlumnosDAO {
                 alumno.setIdGrupo(resultado.getInt("IdGrupo"));
                 alumno.setIdEquipo(resultado.getInt("IdEquipo"));
                 alumno.setNif(resultado.getString("Nif"));
-
                 Alumnos.Genero genero = Alumnos.Genero.cambiarStringAChar(resultado.getString("genero"));
                 alumno.setGenero(genero);
-
                 alumno.setFechaNacimiento(resultado.getDate("FechaNacimiento"));
                 alumno.setEmail(resultado.getString("Email"));
 
@@ -420,7 +418,7 @@ public class AlumnosDAO implements IAlumnosDAO {
                 grupo.setDenominacion(resultado.getString("denominacion"));
                 grupo.setTutor(resultado.getString("tutor"));
                 alumno.setGrupo(grupo);
-            
+
                 listaAlumnos.add(alumno);
             }
         } catch (SQLException e) {
@@ -431,10 +429,9 @@ public class AlumnosDAO implements IAlumnosDAO {
         return listaAlumnos;
     }
 
-    
     @Override
-        public List<Alumnos> consulta7(){
-            
+    public List<Alumnos> consulta7() {
+
         ResultSet resultado;
         Alumnos alumno;
         Grupos grupo;
@@ -455,7 +452,7 @@ public class AlumnosDAO implements IAlumnosDAO {
                 grupo = new Grupos();
                 grupo.setDenominacion(resultado.getString("denominacion"));
                 alumno.setGrupo(grupo);
-            
+
                 listaAlumnos.add(alumno);
             }
         } catch (SQLException e) {
@@ -464,6 +461,55 @@ public class AlumnosDAO implements IAlumnosDAO {
             this.closeConnection();
         }
         return listaAlumnos;
+    }
+
+    public List<Alumnos> consulta9() {
+
+        ResultSet resultado;
+        Alumnos alumno;
+        Grupos grupo;
+        Equipos equipo;
+
+        List<Alumnos> listaAlumnos = new ArrayList<>();
+        String sql = "SELECT * FROM alumnos JOIN equipos ON alumnos.IdEquipo = equipos.IdEquipo JOIN grupos ON alumnos.IdGrupo = grupos.IdGrupo;";
+
+        try {
+            Connection conexion = ConnectionFactory.getConnection();
+            Statement sentencia = conexion.createStatement();
+            resultado = sentencia.executeQuery(sql);
+
+            while (resultado.next()) {
+                alumno = new Alumnos();
+                alumno.setNombre(resultado.getString("Nombre"));
+                alumno.setApellidos(resultado.getString("Apellidos"));
+                alumno.setIdGrupo(resultado.getInt("IdGrupo"));
+                alumno.setNif(resultado.getString("nif"));
+                alumno.setFechaNacimiento(resultado.getDate("FechaNacimiento"));
+                Alumnos.Genero genero = Alumnos.Genero.cambiarStringAChar(resultado.getString("genero"));
+                alumno.setGenero(genero);
+                alumno.setEmail(resultado.getString("Email"));
+                alumno.setIdEquipo(resultado.getInt("IdEquipo"));
+
+                grupo = new Grupos();
+                grupo.setIdGrupo(resultado.getInt("IdGrupo"));
+                grupo.setDenominacion(resultado.getString("denominacion"));
+                grupo.setTutor(resultado.getString("tutor"));
+                alumno.setGrupo(grupo);
+
+                equipo = new Equipos();
+                equipo.setIdEquipo(resultado.getInt("IdEquipo"));
+                equipo.setMarca(resultado.getString("marca"));
+                equipo.setNumSerie(resultado.getString("numSerie"));
+                equipo.setFoto(resultado.getString("foto"));
+
+                listaAlumnos.add(alumno);
+            }
+        } catch (SQLException e) {
+            e.getMessage();
+        } finally {
+            this.closeConnection();
         }
-        
+        return listaAlumnos;
+    }
+
 }

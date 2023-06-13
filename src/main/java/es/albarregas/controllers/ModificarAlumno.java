@@ -84,9 +84,9 @@ public class ModificarAlumno extends HttpServlet {
                 calendar.add(Calendar.YEAR, -18);
                 Date fechaMaxima = calendar.getTime();
                 SimpleDateFormat formatoFecha = new SimpleDateFormat("yyyy-MM-dd");
-                String fechaLimit = formatoFecha.format(fechaMaxima);                
-                request.setAttribute("fechaLimit", fechaLimit); 
-                                
+                String fechaLimit = formatoFecha.format(fechaMaxima);
+                request.setAttribute("fechaLimit", fechaLimit);
+
                 HttpSession session = request.getSession();
                 session.setAttribute("modificarRadioSessionAlumno", modificarRadio);
                 String radioSesion = (String) session.getAttribute("modificarRadioSessionAlumno");
@@ -96,7 +96,7 @@ public class ModificarAlumno extends HttpServlet {
 
                 request.setAttribute("alumno1", alumno1);
 
-                url = "JSP/modificarAlumnoFormulario.jsp";
+                url = "JSP/Alumnos/modificarAlumnoFormulario.jsp";
 
                 break;
             case "Modificar":
@@ -131,6 +131,8 @@ public class ModificarAlumno extends HttpServlet {
                         IAlumnosDAO adao = daof.getAlumnosDAO();
                         List<Alumnos> listaAlumnos = adao.getAllAlumnos();
                         contexto.setAttribute("alumnos", listaAlumnos);
+
+                        request.setAttribute("mensajeVerificacion", "Se ha modificado el alumno con ID: " + modificarRadioValue);
                     } else {
                         url = "JSP/ErroresYverificaciones/error.jsp";
                         request.setAttribute("mensajeError", "Se produjo un error durante la modificación del alumno");

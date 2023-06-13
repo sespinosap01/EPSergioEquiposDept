@@ -26,5 +26,6 @@ public interface IAlumnosDAO {
     public List<Alumnos> consulta5();
     public List<Alumnos> consulta6();
     public List<Alumnos> consulta7();
+    public List<Alumnos> consulta9();
 
 }

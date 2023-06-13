@@ -78,6 +78,7 @@ public class EliminarEquipo extends HttpServlet {
                 }
             } else {
                 url = "JSP/ErroresYverificaciones/error.jsp";
+                request.setAttribute("mensajeError", "Error al eliminar el equipo");
             }
 
             if (resultado) {
@@ -90,11 +91,14 @@ public class EliminarEquipo extends HttpServlet {
 
             } else {
                 url = "JSP/ErroresYverificaciones/error.jsp";
+                request.setAttribute("mensajeError", "Error al eliminar el equipo");
 
             }
         } catch (NumberFormatException e) {
             e.getMessage();
             url = "JSP/ErroresYverificaciones/error.jsp";
+            request.setAttribute("mensajeError", "Error al eliminar el equipo");
+
         }
 
         request.getRequestDispatcher(url).forward(request, response);

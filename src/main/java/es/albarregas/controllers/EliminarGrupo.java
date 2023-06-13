@@ -83,6 +83,7 @@ public class EliminarGrupo extends HttpServlet {
 
             if (resultado) {
                 url = "JSP/ErroresYverificaciones/correcto.jsp";
+                request.setAttribute("mensajeError", "Error al eliminar el grupo");
 
                 DAOFactory daof = DAOFactory.getDAOFactory();
                 IGruposDAO gdao = daof.getGruposDAO();
@@ -91,11 +92,12 @@ public class EliminarGrupo extends HttpServlet {
 
             } else {
                 url = "JSP/ErroresYverificaciones/error.jsp";
-
+                request.setAttribute("mensajeError", "Uno o varios de los grupos seleccionados tienen alumnos asignados");
             }
         } catch (NumberFormatException e) {
             e.getMessage();
             url = "JSP/ErroresYverificaciones/error.jsp";
+            request.setAttribute("mensajeError", "Error al eliminar el grupo");
         }
 
         request.getRequestDispatcher(url).forward(request, response);

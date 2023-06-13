@@ -100,6 +100,22 @@ public class CrearAlumno extends HttpServlet {
                     List<Alumnos> listaAlumnos = (List<Alumnos>) contexto.getAttribute("alumnos");
                     listaAlumnos.add(alumno);
                     contexto.setAttribute("alumnos", listaAlumnos);
+
+                    //formatear la fecha para pasarla por attribute formateada
+                    SimpleDateFormat sdfOut = new SimpleDateFormat("dd/MM/yyyy");
+                    String fechaNacimientoFormateada = sdfOut.format(alumno.getFechaNacimiento());
+
+                    request.setAttribute("mensajeVerificacion", "Datos introducidos: <br><br>"
+                            + "Nombre: " + alumno.getNombre() + "<br>"
+                            + "Apellidos: " + alumno.getApellidos() + "<br>"
+                            + "Id del grupo: " + alumno.getIdGrupo() + "<br>"
+                            + "Nif: " + alumno.getNif() + "<br>"
+                            + "Fecha de nacimiento: " + fechaNacimientoFormateada + "<br>"
+                            + "Género: " + genero + "<br>"
+                            + "Email: " + alumno.getEmail() + "<br>"
+                            + "Id del equipo: " + alumno.getIdEquipo() + "<br>"
+                    );
+
                 } else {
                     url = "JSP/ErroresYverificaciones/error.jsp";
                     request.setAttribute("mensajeError", "Error al registrar el alumno");
@@ -108,6 +124,7 @@ public class CrearAlumno extends HttpServlet {
             } catch (IllegalAccessException | InvocationTargetException | ParseException e) {
                 e.getMessage();
                 url = "JSP/ErroresYverificaciones/error.jsp";
+                request.setAttribute("mensajeError", "Error al registrar el alumno");
             }
         }
         request.getRequestDispatcher(url).forward(request, response);

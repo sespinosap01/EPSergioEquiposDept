@@ -81,12 +81,23 @@ public class CrearEquipo extends HttpServlet {
                     List<Equipos> listaEquipos = (List<Equipos>) contexto.getAttribute("equipos");
                     listaEquipos.add(equipo);
                     contexto.setAttribute("equipos", listaEquipos);
+
+                    request.setAttribute("mensajeVerificacion", "Datos introducidos: <br><br>"
+                            + "Id del equipo: " + equipo.getIdEquipo() + "<br>"
+                            + "Marca: " + equipo.getMarca() + "<br>"
+                            + "Número de serie: " + equipo.getNumSerie() + "<br>"
+                            + "Foto: " + equipo.getFoto() + "<br>"
+                    );
+
                 } else {
                     url = "JSP/ErroresYverificaciones/error.jsp";
+                    request.setAttribute("mensajeError", "Error al registrar el equipo");
                 }
             } catch (IllegalAccessException | InvocationTargetException e) {
                 e.getMessage();
                 url = "JSP/ErroresYverificaciones/error.jsp";
+                request.setAttribute("mensajeError", "Error al registrar el equipo");
+
             }
         }
         request.getRequestDispatcher(url).forward(request, response);

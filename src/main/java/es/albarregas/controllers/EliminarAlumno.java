@@ -78,6 +78,8 @@ public class EliminarAlumno extends HttpServlet {
                 }
             } else {
                 url = "JSP/ErroresYverificaciones/error.jsp";
+                request.setAttribute("mensajeError", "Error al eliminar el alumno");
+
             }
 
             if (resultado) {
@@ -89,11 +91,12 @@ public class EliminarAlumno extends HttpServlet {
                 contexto.setAttribute("alumnos", listaAlumnos);
             } else {
                 url = "JSP/ErroresYverificaciones/error.jsp";
-
+                request.setAttribute("mensajeError", "Error al eliminar el alumno");
             }
         } catch (NumberFormatException e) {
             e.getMessage();
             url = "JSP/ErroresYverificaciones/error.jsp";
+            request.setAttribute("mensajeError", "Error al eliminar el alumno");
         }
 
         request.getRequestDispatcher(url).forward(request, response);

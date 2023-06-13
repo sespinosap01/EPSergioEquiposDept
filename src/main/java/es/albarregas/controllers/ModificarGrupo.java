@@ -80,7 +80,7 @@ public class ModificarGrupo extends HttpServlet {
 
                 request.setAttribute("grupo1", grupo1);
 
-                url = "JSP/modificarGrupoFormulario.jsp";
+                url = "JSP/Grupos/modificarGrupoFormulario.jsp";
                 break;
             case "Modificar":
                 session = request.getSession();
@@ -100,6 +100,9 @@ public class ModificarGrupo extends HttpServlet {
                         IGruposDAO gdao = daof.getGruposDAO();
                         List<Grupos> listaGrupos = gdao.getAllGrupos();
                         contexto.setAttribute("grupos", listaGrupos);
+
+                        request.setAttribute("mensajeVerificacion", "Se ha modificado el grupo con ID: " + modificarRadioValue);
+
                     } else {
                         url = "JSP/ErroresYverificaciones/error.jsp";
                     }

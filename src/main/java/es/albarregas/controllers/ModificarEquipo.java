@@ -81,7 +81,7 @@ public class ModificarEquipo extends HttpServlet {
 
                 request.setAttribute("equipo1", equipo1);
 
-                url = "JSP/modificarEquipoFormulario.jsp";
+                url = "JSP/Equipos/modificarEquipoFormulario.jsp";
                 break;
 
             case "Modificar":
@@ -100,6 +100,9 @@ public class ModificarEquipo extends HttpServlet {
                         IEquiposDAO edao = daof.getEquiposDAO();
                         List<Equipos> listaEquipos = edao.getAllEquipos();
                         contexto.setAttribute("equipos", listaEquipos);
+                        
+                        request.setAttribute("mensajeVerificacion", "Se ha modificado el equipo con ID: " + modificarRadioValue);
+
                     } else {
                         url = "JSP/ErroresYverificaciones/error.jsp";
                         request.setAttribute("mensajeError", "Se produjo un error durante la modificación del equipo");

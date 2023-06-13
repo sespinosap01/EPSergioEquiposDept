@@ -80,12 +80,21 @@ public class CrearGrupo extends HttpServlet {
                     List<Grupos> listaGrupos = (List<Grupos>) contexto.getAttribute("grupos");
                     listaGrupos.add(grupo);
                     contexto.setAttribute("grupos", listaGrupos);
+
+                    request.setAttribute("mensajeVerificacion", "Datos introducidos: <br><br>"
+                            + "Id del grupo: " + grupo.getIdGrupo() + "<br>"
+                            + "Denominacion: " + grupo.getDenominacion() + "<br>"
+                            + "Tutor: " + grupo.getTutor() + "<br>"
+                    );
                 } else {
                     url = "JSP/ErroresYverificaciones/error.jsp";
+                    request.setAttribute("mensajeError", "Error al registrar el grupo");
+
                 }
             } catch (IllegalAccessException | InvocationTargetException e) {
                 e.getMessage();
                 url = "JSP/ErroresYverificaciones/error.jsp";
+                request.setAttribute("mensajeError", "Error al registrar el grupo");
             }
         }
         request.getRequestDispatcher(url).forward(request, response);
