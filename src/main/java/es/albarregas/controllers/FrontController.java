@@ -116,25 +116,25 @@ public class FrontController extends HttpServlet {
                 url = "Consulta3";
                 break;
             case "Alumnos y equipos asignados":
-                url = "/JSP/consultas/consulta4.jsp";
+                url = "Consulta4";
                 break;
             case "Alumnos por equipos":
-                url = "/JSP/consultas/consulta5.jsp";
+                url = "Consulta5";
                 break;
             case "Alumnos por grupo":
-                url = "/JSP/consultas/consulta6.jsp";
+                url = "Consulta6";
                 break;
             case "Alumnos sin equipo asignado":
-                url = "/JSP/consultas/consulta7.jsp";
+                url = "Consulta7";
                 break;
             case "Equipos sin alumnos asignados":
-                url = "/JSP/consultas/consulta8.jsp";
+                url = "Consulta8";
                 break;
             case "Todos los datos":
-                url = "/JSP/consultas/consulta9.jsp";
+                url = "Consulta9";
                 break;
             case "Alumnos con Ajax":
-                url = "/JSP/consultas/consultaAjax.jsp";
+                url = "ConsultaAjax";
                 break;
             default:
                 url = "index.jsp";

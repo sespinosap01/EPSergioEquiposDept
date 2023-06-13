@@ -18,26 +18,42 @@
         <jsp:include page="/JSP/desplegable.jsp" />
         <h1>Consulta 1</h1>
         <h4 class="subTitle">Alumnos</h4>
-        <table>
-            <thead>
-                <tr>
-                    <th>Apellidos</th>
-                    <th>Nombre</th>
-                    <th>Grupo</th>
-                    <th>Equipo</th>
-                </tr>
-            </thead>
-            <tbody>
-                <c:forEach var="alumno" items="${listaAlumnos}">
-                    <tr>
-                        <td>${alumno.apellidos}</td>
-                        <td>${alumno.nombre}</td>
-                        <td>${alumno.grupo.denominacion}</td>
-                        <td>${alumno.equipo.marca}</td>
-                    </tr>
-                </c:forEach>
-            </tbody>
-        </table>
+        <c:choose>
+            <c:when test="${empty listaAlumnos}">
+                <h1>No hay alumnos registrados</h1>
+            </c:when>
+            <c:otherwise>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Apellidos</th>
+                            <th>Nombre</th>
+                            <th>Grupo</th>
+                            <th>Equipo</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <c:forEach var="alumno" items="${listaAlumnos}">
+                            <tr>
+                                <td>${alumno.apellidos}</td>
+                                <td>${alumno.nombre}</td>
+                                <td>${alumno.grupo.denominacion}</td>
+                                <td>
+                                    <c:choose>
+                                        <c:when test="${empty alumno.equipo}">
+                                            Sin equipo
+                                        </c:when>
+                                        <c:otherwise>
+                                            ${alumno.equipo.marca}
+                                        </c:otherwise>
+                                    </c:choose>
+                                </td>
+                            </tr>
+                        </c:forEach>
+                    </tbody>
+                </table>
+            </c:otherwise>
+        </c:choose>
     </body>
 </html>
 

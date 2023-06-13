@@ -11,13 +11,34 @@
 <html lang="es">
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>Consulta 5</title>
         <link rel="stylesheet" type="text/css" href="${style}"/>
     </head>
     <body>
         <jsp:include page="/JSP/desplegable.jsp" />
-
         <h1>Consulta 5</h1>
-
+        <h4 class="subTitle">Alumnos por equipos</h4>
+        <table>
+            <thead>
+                <tr>
+                    <th>Marca</th>
+                    <th>Número de Serie</th>
+                    <th>Nombre</th>
+                    <th>Apellidos</th>
+                    <th>Grupo</th>
+                </tr>
+            </thead>
+            <tbody>
+                <c:forEach var="alumno" items="${listaAlumnos}">
+                    <tr>
+                        <td>${alumno.equipo.marca}</td>
+                        <td>${alumno.equipo.numSerie}</td>
+                        <td>${alumno.nombre}</td>
+                        <td>${alumno.apellidos}</td>
+                        <td>${alumno.grupo.denominacion}</td>
+                    </tr>                   
+                </c:forEach>
+            </tbody>
+        </table>
     </body>
 </html>

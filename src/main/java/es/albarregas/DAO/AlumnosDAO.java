@@ -208,7 +208,7 @@ public class AlumnosDAO implements IAlumnosDAO {
 
                 listaAlumnos.add(alumno);
             }
-        } catch (Exception e) {
+        } catch (SQLException e) {
             e.getMessage();
         } finally {
             this.closeConnection();
@@ -270,7 +270,7 @@ public class AlumnosDAO implements IAlumnosDAO {
                 }
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            e.getMessage();
 
         } finally {
             this.closeConnection();
@@ -310,7 +310,83 @@ public class AlumnosDAO implements IAlumnosDAO {
 
                 listaAlumnos.add(alumno);
             }
+        } catch (SQLException e) {
+            e.getMessage();
+        } finally {
+            this.closeConnection();
+        }
+        return listaAlumnos;
+    }
+
+    @Override
+    public List<Alumnos> consulta4() {
+
+        ResultSet resultado;
+        Alumnos alumno;
+        Equipos equipo;
+
+        List<Alumnos> listaAlumnos = new ArrayList<>();
+        String sql = "SELECT a.Nombre, a.Apellidos, e.Marca, e.NumSerie FROM alumnos AS a JOIN equipos AS e ON a.IdEquipo = e.IdEquipo;";
+
+        try {
+            Connection conexion = ConnectionFactory.getConnection();
+            Statement sentencia = conexion.createStatement();
+            resultado = sentencia.executeQuery(sql);
+
+            while (resultado.next()) {
+                alumno = new Alumnos();
+                alumno.setNombre(resultado.getString("Nombre"));
+                alumno.setApellidos(resultado.getString("Apellidos"));
+
+                equipo = new Equipos();
+                equipo.setMarca(resultado.getString("marca"));
+                equipo.setNumSerie(resultado.getString("numSerie"));
+                alumno.setEquipo(equipo);
+
+                listaAlumnos.add(alumno);
+            }
         } catch (Exception e) {
+            e.getMessage();
+        } finally {
+            this.closeConnection();
+        }
+        return listaAlumnos;
+    }
+
+    @Override
+    public List<Alumnos> consulta5() {
+
+        ResultSet resultado;
+        Alumnos alumno;
+        Equipos equipo;
+        Grupos grupo;
+
+        List<Alumnos> listaAlumnos = new ArrayList<>();
+        String sql = "SELECT a.Nombre, a.Apellidos, g.Denominacion AS Grupo, e.Marca, e.NumSerie FROM alumnos AS a JOIN equipos AS e ON a.IdEquipo = e.IdEquipo JOIN grupos AS g ON a.IdGrupo = g.IdGrupo";
+
+        try {
+            Connection conexion = ConnectionFactory.getConnection();
+            Statement sentencia = conexion.createStatement();
+            resultado = sentencia.executeQuery(sql);
+
+            while (resultado.next()) {
+                alumno = new Alumnos();
+                alumno.setApellidos(resultado.getString("Apellidos"));
+                alumno.setNombre(resultado.getString("Nombre"));
+
+                // grupo = new Grupos();
+                //grupo.setDenominacion(resultado.getString("Denominacion"));
+                //alumno.setGrupo(grupo);
+                
+                equipo = new Equipos();
+                equipo.setMarca(resultado.getString("marca"));
+                equipo.setNumSerie(resultado.getString("numSerie"));
+
+                alumno.setEquipo(equipo);
+
+                listaAlumnos.add(alumno);
+            }
+        } catch (SQLException e) {
             e.getMessage();
         } finally {
             this.closeConnection();

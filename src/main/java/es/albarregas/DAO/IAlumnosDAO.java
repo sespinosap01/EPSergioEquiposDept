@@ -19,8 +19,10 @@ public interface IAlumnosDAO {
     public boolean deleteAlumnos(int idAlumno);
     public void closeConnection();
     public List<Alumnos> getAllAlumnos();
-    public List<Alumnos> consulta1();
     public Alumnos getAlumno(int idAlumno);
     public boolean correoExiste(String email);
+    public List<Alumnos> consulta1();
+    public List<Alumnos> consulta4();
+    public List<Alumnos> consulta5();
 
 }

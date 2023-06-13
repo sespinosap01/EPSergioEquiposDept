@@ -18,22 +18,29 @@
         <jsp:include page="/JSP/desplegable.jsp" />
         <h1>Consulta 3</h1>
         <h4 class="subTitle">Grupos</h4>
-        <table>
-            <thead>
-                <tr>
-                    <th>Denominacion</th>
-                    <th>Tutor</th>
-                </tr>
-            </thead>
-            <tbody>
-                <c:forEach var="grupo" items="${listaGrupos}">
-                    <tr>
-                        <td>${grupo.denominacion}</td>
-                        <td>${grupo.tutor}</td>
-                    </tr>
-                </c:forEach>
-            </tbody>
-        </table>
+        <c:choose>
+            <c:when test="${empty listaGrupos}">
+                <h1>No hay grupos registrados</h1>
+            </c:when>
+            <c:otherwise>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Denominacion</th>
+                            <th>Tutor</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <c:forEach var="grupo" items="${listaGrupos}">
+                            <tr>
+                                <td>${grupo.denominacion}</td>
+                                <td>${grupo.tutor}</td>                                    
+                            </tr>
+                        </c:forEach>
+                    </tbody>
+                </table>
+            </c:otherwise>
+        </c:choose>
     </body>
 </html>
 
