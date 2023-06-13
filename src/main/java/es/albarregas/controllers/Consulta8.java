@@ -8,6 +8,7 @@ package es.albarregas.controllers;
 import es.albarregas.DAO.EquiposDAO;
 import es.albarregas.beans.Equipos;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -19,8 +20,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Sergio
  */
-@WebServlet(name = "Consulta2", urlPatterns = {"/Consulta2"})
-public class Consulta2 extends HttpServlet {
+@WebServlet(name = "Consulta8", urlPatterns = {"/Consulta8"})
+public class Consulta8 extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -61,14 +62,13 @@ public class Consulta2 extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        String url = "/JSP/consultas/consulta2.jsp";
+        String url = "/JSP/consultas/consulta8.jsp";
 
         EquiposDAO equipos = new EquiposDAO();
-        List<Equipos> listaEquipos = equipos.consulta2();
+        List<Equipos> listaEquipos = equipos.consulta8();
 
         request.setAttribute("listaEquipos", listaEquipos);
         request.getRequestDispatcher(url).forward(request, response);
-
     }
 
     /**

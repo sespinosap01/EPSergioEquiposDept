@@ -72,7 +72,7 @@
                             <div class="form-row">
                                 <label for="idEquipo">Equipo</label>
                                 <select id="idEquipo" name="idEquipo" required>
-                                    <option value="selec">Elige uno ...</option>                                            
+                                    <option>Elige uno ...</option>                                            
                                     <c:forEach items="${equipos}" var="equipo">
                                         <option value="${equipo.idEquipo}">${equipo.marca} | ${equipo.numSerie} </option>
                                     </c:forEach>

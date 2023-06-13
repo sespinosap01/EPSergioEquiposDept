@@ -11,13 +11,35 @@
 <html lang="es">
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>Consulta 8</title>
         <link rel="stylesheet" type="text/css" href="${style}"/>
     </head>
-    <body>
+  <body>      
         <jsp:include page="/JSP/desplegable.jsp" />
-
         <h1>Consulta 8</h1>
-
+        <h4 class="subTitle">Equipos sin alumnos asignados</h4>
+        <c:choose>
+            <c:when test="${empty listaEquipos}">
+                <p>No hay registros en el sistema</p>
+            </c:when>
+            <c:otherwise>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Marca</th>
+                            <th>Número de serie</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <c:forEach var="equipo" items="${listaEquipos}">
+                            <tr>
+                                <td>${equipo.marca}</td>
+                                <td>${equipo.numSerie}</td>
+                            </tr>
+                        </c:forEach>
+                    </tbody>
+                </table>
+            </c:otherwise>
+        </c:choose>
     </body>
 </html>

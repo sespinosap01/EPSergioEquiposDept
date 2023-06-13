@@ -39,7 +39,7 @@
                             <div class="form-row">
                                 <label for="idGrupo">Grupo</label>
                                 <select id="idGrupo" name="idGrupo" required>
-                                    <option value="value="${alumno1}"">Elige uno ...</option>                                            
+                                    <option value="">Elige uno ...</option>                                            
                                     <c:forEach items="${grupos}" var="grupo">
                                         <option value="${grupo.idGrupo}">${grupo.denominacion} | ${grupo.tutor}</option>
                                     </c:forEach>

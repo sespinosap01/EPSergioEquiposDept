@@ -362,7 +362,7 @@ public class AlumnosDAO implements IAlumnosDAO {
         Grupos grupo;
 
         List<Alumnos> listaAlumnos = new ArrayList<>();
-        String sql = "SELECT a.Nombre, a.Apellidos, g.Denominacion AS Grupo, e.Marca, e.NumSerie FROM alumnos AS a JOIN equipos AS e ON a.IdEquipo = e.IdEquipo JOIN grupos AS g ON a.IdGrupo = g.IdGrupo";
+        String sql = "SELECT a.Nombre, a.Apellidos, g.Denominacion AS Grupo, e.Marca, e.NumSerie FROM alumnos AS a JOIN equipos AS e ON a.IdEquipo = e.IdEquipo JOIN grupos AS g ON a.IdGrupo = g.IdGrupo ORDER BY e.marca, e.NumSerie";
 
         try {
             Connection conexion = ConnectionFactory.getConnection();
@@ -374,10 +374,10 @@ public class AlumnosDAO implements IAlumnosDAO {
                 alumno.setApellidos(resultado.getString("Apellidos"));
                 alumno.setNombre(resultado.getString("Nombre"));
 
-                // grupo = new Grupos();
-                //grupo.setDenominacion(resultado.getString("Denominacion"));
-                //alumno.setGrupo(grupo);
-                
+                grupo = new Grupos();
+                grupo.setDenominacion(resultado.getString("Grupo"));
+                alumno.setGrupo(grupo);
+
                 equipo = new Equipos();
                 equipo.setMarca(resultado.getString("marca"));
                 equipo.setNumSerie(resultado.getString("numSerie"));
@@ -394,4 +394,76 @@ public class AlumnosDAO implements IAlumnosDAO {
         return listaAlumnos;
     }
 
+    @Override
+    public List<Alumnos> consulta6() {
+
+        ResultSet resultado;
+        Alumnos alumno;
+        Grupos grupo;
+
+        List<Alumnos> listaAlumnos = new ArrayList<>();
+        String sql = "SELECT g.Denominacion, g.Tutor, a.Nombre, a.Apellidos, a.Email FROM grupos AS g "
+                + "JOIN alumnos AS a ON g.IdGrupo = a.IdGrupo ORDER BY g.Denominacion, g.Tutor, a.Apellidos, a.Nombre ";
+
+        try {
+            Connection conexion = ConnectionFactory.getConnection();
+            Statement sentencia = conexion.createStatement();
+            resultado = sentencia.executeQuery(sql);
+
+            while (resultado.next()) {
+                alumno = new Alumnos();
+                alumno.setApellidos(resultado.getString("Apellidos"));
+                alumno.setNombre(resultado.getString("Nombre"));
+                alumno.setEmail(resultado.getString("Email"));
+
+                grupo = new Grupos();
+                grupo.setDenominacion(resultado.getString("denominacion"));
+                grupo.setTutor(resultado.getString("tutor"));
+                alumno.setGrupo(grupo);
+            
+                listaAlumnos.add(alumno);
+            }
+        } catch (SQLException e) {
+            e.getMessage();
+        } finally {
+            this.closeConnection();
+        }
+        return listaAlumnos;
+    }
+
+    
+    @Override
+        public List<Alumnos> consulta7(){
+            
+        ResultSet resultado;
+        Alumnos alumno;
+        Grupos grupo;
+
+        List<Alumnos> listaAlumnos = new ArrayList<>();
+        String sql = "SELECT a.Nombre, a.Apellidos, g.Denominacion FROM alumnos AS a JOIN grupos AS g ON a.IdGrupo = g.IdGrupo where idEquipo is null;";
+
+        try {
+            Connection conexion = ConnectionFactory.getConnection();
+            Statement sentencia = conexion.createStatement();
+            resultado = sentencia.executeQuery(sql);
+
+            while (resultado.next()) {
+                alumno = new Alumnos();
+                alumno.setApellidos(resultado.getString("Apellidos"));
+                alumno.setNombre(resultado.getString("Nombre"));
+
+                grupo = new Grupos();
+                grupo.setDenominacion(resultado.getString("denominacion"));
+                alumno.setGrupo(grupo);
+            
+                listaAlumnos.add(alumno);
+            }
+        } catch (SQLException e) {
+            e.getMessage();
+        } finally {
+            this.closeConnection();
+        }
+        return listaAlumnos;
+        }
+        
 }

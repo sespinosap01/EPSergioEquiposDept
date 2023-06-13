@@ -5,9 +5,10 @@
  */
 package es.albarregas.controllers;
 
-import es.albarregas.DAO.EquiposDAO;
-import es.albarregas.beans.Equipos;
+import es.albarregas.DAO.AlumnosDAO;
+import es.albarregas.beans.Alumnos;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -19,8 +20,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Sergio
  */
-@WebServlet(name = "Consulta2", urlPatterns = {"/Consulta2"})
-public class Consulta2 extends HttpServlet {
+@WebServlet(name = "Consulta7", urlPatterns = {"/Consulta7"})
+public class Consulta7 extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -33,6 +34,7 @@ public class Consulta2 extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        response.setContentType("text/html;charset=UTF-8");
 
     }
 
@@ -61,14 +63,13 @@ public class Consulta2 extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        String url = "/JSP/consultas/consulta2.jsp";
+        String url = "/JSP/consultas/consulta7.jsp";
 
-        EquiposDAO equipos = new EquiposDAO();
-        List<Equipos> listaEquipos = equipos.consulta2();
+        AlumnosDAO alumnos = new AlumnosDAO();
+        List<Alumnos> listaAlumnos = alumnos.consulta7();
 
-        request.setAttribute("listaEquipos", listaEquipos);
+        request.setAttribute("listaAlumnos", listaAlumnos);
         request.getRequestDispatcher(url).forward(request, response);
-
     }
 
     /**

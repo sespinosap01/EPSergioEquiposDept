@@ -257,6 +257,31 @@ public class EquiposDAO implements IEquiposDAO {
 
     }
 
-    
+    @Override
+    public List<Equipos> consulta8() {
+        ResultSet resultado;
+        Equipos equipo;
+
+        List<Equipos> listaEquipos = new ArrayList<>();
+        String sql = "SELECT e.Marca, e.NumSerie FROM equipos AS e LEFT JOIN alumnos AS a ON e.IdEquipo = a.IdEquipo WHERE a.IdEquipo IS NULL";
+        try {
+            Connection conexion = ConnectionFactory.getConnection();
+            Statement sentencia = conexion.createStatement();
+            resultado = sentencia.executeQuery(sql);
+
+            while (resultado.next()) {
+                equipo = new Equipos();
+                equipo.setMarca(resultado.getString("marca"));
+                equipo.setNumSerie(resultado.getString("numSerie"));
+
+                listaEquipos.add(equipo);
+            }
+        } catch (SQLException e) {
+            e.getMessage();
+        } finally {
+            this.closeConnection();
+        }
+        return listaEquipos;
+    }
 
 }
