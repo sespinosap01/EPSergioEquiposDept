@@ -22,6 +22,12 @@ import java.util.List;
  */
 public class AlumnosDAO implements IAlumnosDAO {
 
+    /**
+     * Capitaliza el nombre proporcionado
+     *
+     * @param str El nombre a capitalizar
+     * @return El nombre capitalizado
+     */
     private String capitalizarNombre(String str) {
         if (str == null || str.isEmpty()) {
             return str;
@@ -30,6 +36,12 @@ public class AlumnosDAO implements IAlumnosDAO {
         }
     }
 
+    /**
+     * Capitaliza los apellidos proporcionados
+     *
+     * @param apellidos Los apellidos a capitalizar
+     * @return Los apellidos capitalizados
+     */
     private String capitalizarApellidos(String apellidos) {
         if (apellidos == null || apellidos.isEmpty()) {
             return apellidos;
@@ -43,6 +55,12 @@ public class AlumnosDAO implements IAlumnosDAO {
         }
     }
 
+    /**
+     * Crea un registro de alumnos en la base de datos
+     *
+     * @param alumnos El objeto alumnos que se va a crear
+     * @return true si se crea correctamente, false en caso contrario
+     */
     @Override
     public boolean createAlumnos(Alumnos alumnos) {
 
@@ -95,6 +113,13 @@ public class AlumnosDAO implements IAlumnosDAO {
         return error;
     }
 
+    /**
+     * Actualiza un registro de alumnos en la base de datos
+     *
+     * @param alumnos El objeto alumnos con los nuevos datos
+     * @param idAlumno El ID del alumno a actualizar
+     * @return true si se actualiza correctamente, false en caso contrario
+     */
     @Override
     public boolean updateAlumnos(Alumnos alumnos, int idAlumno) {
         boolean error = true;
@@ -140,6 +165,12 @@ public class AlumnosDAO implements IAlumnosDAO {
         return error;
     }
 
+    /**
+     * Elimina un registro de alumnos de la base de datos
+     *
+     * @param idAlumno El ID del alumno a eliminar
+     * @return true si se elimina correctamente, false en caso contrario
+     */
     @Override
     public boolean deleteAlumnos(int idAlumno) {
 
@@ -173,11 +204,21 @@ public class AlumnosDAO implements IAlumnosDAO {
         return error;
     }
 
+    /**
+     * Cierra la conexión activa con la base de datos. Este método debe ser
+     * llamado al finalizar las operaciones de la base de datos
+     */
     @Override
     public void closeConnection() {
         ConnectionFactory.closeConnection();
     }
 
+    /**
+     * Obtiene una lista de todos los registros de alumnos de la base de datos
+     *
+     * @return Una lista de objetos alumnos que representa todos los registros
+     * de Alumnos
+     */
     @Override
     public List<Alumnos> getAllAlumnos() {
 
@@ -243,6 +284,13 @@ public class AlumnosDAO implements IAlumnosDAO {
         return listaAlumnos;
     }
 
+    /**
+     * Obtiene un registro de alumnos de la base de datos segun su ID
+     *
+     * @param idAlumno El ID del alumno a buscar
+     * @return Un objeto Alumnos que representa el registro de Alumnos
+     * encontrado
+     */
     public Alumnos getAlumno(int idAlumno) {
         ResultSet resultado;
         Alumnos alumno = new Alumnos();
@@ -276,9 +324,16 @@ public class AlumnosDAO implements IAlumnosDAO {
             this.closeConnection();
         }
         return alumno;
-
     }
 
+    /**
+     * Verifica si existe un registro de alumnos en la base de datos con el
+     * correo electrónico especificado
+     *
+     * @param email El correo electrónico a verificar
+     * @return true si existe un registro con el correo electrónico
+     * especificado, false en caso contrario
+     */
     @Override
     public boolean correoExiste(String email) {
         boolean existe = false;
@@ -306,6 +361,13 @@ public class AlumnosDAO implements IAlumnosDAO {
         return existe;
     }
 
+    /**
+     * Realiza una consulta en la base de datos para obtener una lista de
+     * alumnos
+     *
+     * @return Una lista de objetos alumnos que contienen los apellidos, nombre,
+     * denominación de grupo y marca de equipo
+     */
     @Override
     public List<Alumnos> consulta1() {
 
@@ -345,6 +407,13 @@ public class AlumnosDAO implements IAlumnosDAO {
         return listaAlumnos;
     }
 
+    /**
+     * Realiza una consulta en la base de datos para obtener una lista de
+     * alumnos con información adicional sobre los equipos
+     *
+     * @return Una lista de objetos alumnos que contienen el nombre, apellidos,
+     * marca y número de serie del equipo
+     */
     @Override
     public List<Alumnos> consulta4() {
 
@@ -380,6 +449,14 @@ public class AlumnosDAO implements IAlumnosDAO {
         return listaAlumnos;
     }
 
+    /**
+     * Realiza una consulta en la base de datos para obtener una lista de
+     * alumnos con información adicional sobre los equipos y grupos, ordenados
+     * por marca y número de serie del equipo
+     *
+     * @return Una lista de objetos alumnos que contienen el nombre, apellidos,
+     * grupo, marca y número de serie del equipo
+     */
     @Override
     public List<Alumnos> consulta5() {
 
@@ -458,6 +535,14 @@ public class AlumnosDAO implements IAlumnosDAO {
         return listaAlumnos;
     }
 
+    /**
+     * Realiza una consulta en la base de datos para obtener una lista de
+     * alumnos con información adicional sobre los grupos, ordenados por
+     * denominación del grupo, tutor, apellidos y nombre del alumno
+     *
+     * @return Una lista de objetos alumnos que contienen el nombre, apellidos,
+     * email y grupo (denominación y tutor)
+     */
     @Override
     public List<Alumnos> consulta7() {
 
@@ -492,6 +577,14 @@ public class AlumnosDAO implements IAlumnosDAO {
         return listaAlumnos;
     }
 
+    /**
+     * Realiza una consulta en la base de datos para obtener una lista de
+     * alumnos con información adicional sobre los grupos y los equipos a los
+     * que pertenecen.
+     *
+     * @return Una lista de objetos alumnos que contienen información completa
+     * sobre los alumnos, incluyendo los datos de los grupos y los equipos.
+     */
     public List<Alumnos> consulta9() {
 
         ResultSet resultado;

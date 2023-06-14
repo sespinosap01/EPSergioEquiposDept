@@ -77,6 +77,11 @@ public class ModificarAlumno extends HttpServlet {
         String op = request.getParameter("op");
         String modificarRadio = request.getParameter("modificarRadio");
 
+        /*
+        Los dos .jsp de modificar alumno tienen como destino este controlador, con el switch
+        controlaremos desde donde viene la informacion introducida, cargaremos en variable 
+        de contexto la lista de alumnos seleccionada para poder modificar despues la informacion
+         */
         switch (op) {
             case "Elegir para modificar":
 

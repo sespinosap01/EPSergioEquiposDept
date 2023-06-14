@@ -73,6 +73,13 @@ public class EliminarEquipo extends HttpServlet {
         String[] eliminarCheckbox = request.getParameterValues("eliminarCheckbox");
         String[] eliminarCheckboxSeleccionado = request.getParameterValues("eliminarCheckboxSeleccionado");
 
+        /*
+        Tanto eliminarEquipo.jsp como eliminarAlumnoConfirmacion.jsp tienen como
+        destino este controlador, con el switch controlaremos desde donde viene la informacion
+        introducida, cargaremos en variable de contexto la lista de equipos seleccionada
+        para poder eliminar despues de haber confirmado
+         */
+        
         switch (op) {
             case "Elegir para eliminar":
                 url = "JSP/Equipos/eliminarEquipoConfirmacion.jsp";

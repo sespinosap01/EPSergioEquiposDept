@@ -78,10 +78,12 @@ public class CrearEquipo extends HttpServlet {
 
                 if (resultado) {
                     url = "JSP/ErroresYverificaciones/correcto.jsp";
+                    //Actualizamos la variable de contexto
                     List<Equipos> listaEquipos = (List<Equipos>) contexto.getAttribute("equipos");
                     listaEquipos.add(equipo);
                     contexto.setAttribute("equipos", listaEquipos);
-
+                    
+                    //Pasamos por Attribute el mensaje mostrando los datos introducidos a la base de datos
                     request.setAttribute("mensajeVerificacion", "Datos introducidos: <br><br>"
                             + "Id del equipo: " + equipo.getIdEquipo() + "<br>"
                             + "Marca: " + equipo.getMarca() + "<br>"

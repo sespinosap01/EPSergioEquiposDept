@@ -82,6 +82,7 @@ public class FrontController extends HttpServlet {
         switch (op) {
             //CREAR
             case "Registrar alumno":
+                //Controlamos que la fecha que se vaya a introducir en el formulario sea mayor a 18 años desde la fecha actual
                 Calendar calendar = Calendar.getInstance();
                 calendar.add(Calendar.YEAR, -18);
                 Date fechaMaxima = calendar.getTime();
@@ -119,7 +120,8 @@ public class FrontController extends HttpServlet {
                 url = "/JSP/Grupos/eliminarGrupo.jsp";
                 break;
 
-            //CONSULTAS
+            //Listados
+            //Cargamos la lista antes de pasar a la vista en todos los casos
             case "Alumnos":
 
                 alumnos = new AlumnosDAO();

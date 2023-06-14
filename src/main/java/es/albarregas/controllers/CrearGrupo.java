@@ -77,10 +77,12 @@ public class CrearGrupo extends HttpServlet {
                 boolean resultado = gruposDAO.createGrupos(grupo);
                 if (resultado) {
                     url = "JSP/ErroresYverificaciones/correcto.jsp";
+                    //Actualizamos la variable de contexto
                     List<Grupos> listaGrupos = (List<Grupos>) contexto.getAttribute("grupos");
                     listaGrupos.add(grupo);
                     contexto.setAttribute("grupos", listaGrupos);
 
+                    //Pasamos por Attribute el mensaje mostrando los datos introducidos a la base de datos
                     request.setAttribute("mensajeVerificacion", "Datos introducidos: <br><br>"
                             + "Id del grupo: " + grupo.getIdGrupo() + "<br>"
                             + "Denominacion: " + grupo.getDenominacion() + "<br>"

@@ -20,7 +20,7 @@ import java.util.List;
  */
 public class GruposDAO implements IGruposDAO {
 
-  private String capitalizar(String str) {
+    private String capitalizar(String str) {
         if (str == null || str.isEmpty()) {
             return str;
         } else {
@@ -41,6 +41,12 @@ public class GruposDAO implements IGruposDAO {
         }
     }
 
+    /**
+     * Crea un nuevo grupo en la base de datos
+     *
+     * @param grupos el objeto Grupos que contiene los datos del grupo a crear
+     * @return true si el grupo se creó correctamente
+     */
     @Override
     public boolean createGrupos(Grupos grupos) {
         boolean error = true;
@@ -80,6 +86,13 @@ public class GruposDAO implements IGruposDAO {
         return error;
     }
 
+    /**
+     * Actualiza un grupo en la base de datos.
+     *
+     * @param grupos el grupo con los nuevos datos a actualizar
+     * @param idGrupo el ID del grupo a actualizar
+     * @return true si el grupo se actualizó correctamente
+     */
     @Override
     public boolean updateGrupos(Grupos grupos, int idGrupo) {
 
@@ -115,6 +128,12 @@ public class GruposDAO implements IGruposDAO {
         return error;
     }
 
+    /**
+     * Elimina un grupo de la base de datos
+     *
+     * @param idGrupo el ID del grupo a eliminar
+     * @return true si el grupo se eliminó correctamente
+     */
     @Override
     public boolean deleteGrupos(int idGrupo) {
 
@@ -153,6 +172,12 @@ public class GruposDAO implements IGruposDAO {
         ConnectionFactory.closeConnection();
     }
 
+    /**
+     * Obtiene todos los grupos de la base de datos
+     *
+     * @return una lista de objetos Grupos que representa todos los grupos
+     * almacenados en la base de datos
+     */
     @Override
     public List<Grupos> getAllGrupos() {
 
@@ -182,6 +207,12 @@ public class GruposDAO implements IGruposDAO {
         return listaGrupos;
     }
 
+    /**
+     * Obtiene todos los grupos de la base de datos
+     *
+     * @return una lista de objetos Grupos que representa todos los grupos
+     * almacenados en la base de datos
+     */
     public Grupos getGrupo(int idGrupo) {
 
         ResultSet resultado;
@@ -214,6 +245,11 @@ public class GruposDAO implements IGruposDAO {
         return grupo;
     }
 
+    /**
+     * Realiza una consulta en la base de datos para obtener todos los grupos
+     *
+     * @return una lista de objetos Grupos que representan todos los grupos en la base de datos
+     */
     @Override
     public List<Grupos> consulta3() {
 

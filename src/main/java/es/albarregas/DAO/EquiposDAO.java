@@ -20,6 +20,12 @@ import java.util.List;
  */
 public class EquiposDAO implements IEquiposDAO {
 
+    /**
+     * Capitaliza la marca del equipo
+     *
+     * @param str La marca de equipo a capitalizar
+     * @return La marca de equipo capitalizada
+     */
     private String capitalizarMarca(String str) {
         if (str == null || str.isEmpty()) {
             return str;
@@ -28,9 +34,15 @@ public class EquiposDAO implements IEquiposDAO {
         }
     }
 
+    /**
+     * Inserta un nuevo registro de equipo en la base de datos
+     *
+     * @param equipos el objeto Equipos que contiene la información del equipo a
+     * insertar
+     * @return true si el registro se insertó correctamente
+     */
     @Override
     public boolean createEquipos(Equipos equipos) {
-
         boolean error = true;
         String sql = "insert into equipos (marca, numserie, foto) values (?, ?, ?)";
         Connection conexion = null;
@@ -68,9 +80,16 @@ public class EquiposDAO implements IEquiposDAO {
         }
 
         return error;
-
     }
 
+    /**
+     * Actualiza un registro de equipo existente en la base de datos
+     *
+     * @param equipos el objeto Equipos que contiene la información actualizada
+     * del equipo
+     * @param idEquipo el ID del equipo que se desea actualizar
+     * @return true si la actualización se realizó correctamente
+     */
     @Override
     public boolean updateEquipos(Equipos equipos, int idEquipo) {
 
@@ -107,6 +126,12 @@ public class EquiposDAO implements IEquiposDAO {
         return error;
     }
 
+    /**
+     * Elimina un registro de equipo de la base de datos
+     *
+     * @param idEquipo el ID del equipo que se desea eliminar
+     * @return true si la eliminación se realizó correctamente
+     */
     @Override
     public boolean deleteEquipos(int idEquipo) {
 
@@ -145,6 +170,12 @@ public class EquiposDAO implements IEquiposDAO {
         ConnectionFactory.closeConnection();
     }
 
+    /**
+     * Elimina un registro de equipo de la base de datos
+     *
+     * @param idEquipo el ID del equipo que se desea eliminar
+     * @return true si la eliminación se realizó correctamente
+     */
     @Override
     public List<Equipos> getAllEquipos() {
 
@@ -175,6 +206,12 @@ public class EquiposDAO implements IEquiposDAO {
         return listaEquipos;
     }
 
+    /**
+     * Elimina un registro de equipo de la base de datos
+     *
+     * @param idEquipo el ID del equipo que se desea eliminar
+     * @return true si la eliminación se realizó correctamente
+     */
     @Override
     public Equipos getEquipo(int idEquipo) {
 
@@ -209,6 +246,12 @@ public class EquiposDAO implements IEquiposDAO {
         return equipo;
     }
 
+    /**
+     * Verifica si un número de serie existe en la base de datos
+     *
+     * @param numSerie el número de serie a verificar
+     * @return true si el número de serie existe en la base de datos
+     */
     @Override
     public boolean numSerieExiste(String numSerie) {
         boolean existe = false;
@@ -235,9 +278,13 @@ public class EquiposDAO implements IEquiposDAO {
 
         return existe;
     }
-    
-      
 
+    /**
+     * Realiza la consulta para obtener todos los equipos de la base de datos
+     *
+     * @return una lista de equipos que contiene todos los equipos en la base de
+     * datos
+     */
     @Override
     public List<Equipos> consulta2() {
         ResultSet resultado;
@@ -264,9 +311,13 @@ public class EquiposDAO implements IEquiposDAO {
             this.closeConnection();
         }
         return listaEquipos;
-
     }
 
+    /**
+     * Realiza la consulta para obtener los equipos que no están asignados a ningún alumno
+     *
+     * @return una lista de equipos que no están asignados a ningún alumno
+     */
     @Override
     public List<Equipos> consulta8() {
         ResultSet resultado;

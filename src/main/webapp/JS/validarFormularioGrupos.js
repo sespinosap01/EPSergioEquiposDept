@@ -6,6 +6,7 @@
 
 let inputCrear = document.getElementById("crear");
 
+//Funcion para validar la denominacion, esta funcion valida que el formato sea correcto
 function validarDenominacion() {
     let inputDenominacion = document.getElementById("denominacion");
     let denominacion = inputDenominacion.value;
@@ -20,6 +21,7 @@ function validarDenominacion() {
     }
 }
 
+//Funcion para validar el nombre del tutor, esta funcion valida que el formato sea correcto
 function validarTutor() {
     let inputTutor = document.getElementById("tutor");
     let tutor = inputTutor.value;

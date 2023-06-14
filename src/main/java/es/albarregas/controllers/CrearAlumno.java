@@ -76,7 +76,8 @@ public class CrearAlumno extends HttpServlet {
         if (crear.equals("Registrar")) {
             Alumnos alumno = new Alumnos();
             try {
-
+                /*El genero y la fecha de nacimiento se introducen en el objeto a parte ya que
+                hay que realizar operaciones de conversion*/
                 String generoStr = request.getParameter("genero");
                 Alumnos.Genero genero = Alumnos.Genero.cambiarStringAChar(generoStr);
                 alumno.setGenero(genero);
@@ -86,10 +87,12 @@ public class CrearAlumno extends HttpServlet {
                 Date fechaNacimiento = sdf.parse(fechaNacimientoStr);
                 alumno.setFechaNacimiento(fechaNacimiento);
 
+                //hacemos una copia del mapa de los parametros introducidos pero sin genero y fechaNacimiento
                 Map<String, String[]> copiaParam = new HashMap<>(request.getParameterMap());
                 copiaParam.remove("genero");
                 copiaParam.remove("fechaNacimiento");           
 
+                //Cargamos el objeto alumno y el mapa de los parametros sin genero y fecha usando BeanUtils populate
                 BeanUtils.populate(alumno, copiaParam);
 
                 AlumnosDAO alumnosDAO = new AlumnosDAO();
@@ -97,14 +100,16 @@ public class CrearAlumno extends HttpServlet {
 
                 if (resultado) {
                     url = "JSP/ErroresYverificaciones/correcto.jsp";
+                    //Actualizamos la variable de contexto
                     List<Alumnos> listaAlumnos = (List<Alumnos>) contexto.getAttribute("alumnos");
                     listaAlumnos.add(alumno);
                     contexto.setAttribute("alumnos", listaAlumnos);
 
-                    //formatear la fecha para pasarla por attribute formateada
+                    //Formateamos la fecha para pasarla por attribute formateada
                     SimpleDateFormat sdfOut = new SimpleDateFormat("dd/MM/yyyy");
                     String fechaNacimientoFormateada = sdfOut.format(alumno.getFechaNacimiento());
 
+                    //Pasamos por Attribute el mensaje mostrando los datos introducidos a la base de datos
                     request.setAttribute("mensajeVerificacion", "Datos introducidos: <br><br>"
                             + "Nombre: " + alumno.getNombre() + "<br>"
                             + "Apellidos: " + alumno.getApellidos() + "<br>"
@@ -119,7 +124,6 @@ public class CrearAlumno extends HttpServlet {
                 } else {
                     url = "JSP/ErroresYverificaciones/error.jsp";
                     request.setAttribute("mensajeError", "Error al registrar el alumno");
-
                 }
             } catch (IllegalAccessException | InvocationTargetException | ParseException e) {
                 e.getMessage();

@@ -6,6 +6,7 @@
 
 let inputCrear = document.getElementById("crear");
 
+//Funcion para validar el nombre, esta funcion valida que el formato sea correcto
 function validarNombre() {
     let inputNombre = document.getElementById("nombre");
     let nombre = inputNombre.value;
@@ -20,6 +21,7 @@ function validarNombre() {
     }
 }
 
+//Funcion para validar los apellidos, esta funcion valida que el formato sea correcto
 function validarApellidos() {
     let inputApellidos = document.getElementById("apellidos");
     let apellidos = inputApellidos.value;
@@ -34,6 +36,7 @@ function validarApellidos() {
     }
 }
 
+//Logica para poder usar la funcion validarNIF() y validar que el nif tenga que ser correcto
 function validarDNIModulo23(dni) {
     let letras = "TRWAGMYFPDXBNJZSQVHLCKE";
     let numero = parseInt(dni.substr(0, 8));
@@ -43,7 +46,7 @@ function validarDNIModulo23(dni) {
     return letra === letraCalculada;
 }
 
-
+//Esta funcion aplica la anterior, haciendo que valide tanto el propio nif como el formato
 function validarNIF() {
     let inputNIF = document.getElementById("nif");
     let nif = inputNIF.value;
@@ -58,7 +61,8 @@ function validarNIF() {
     }
 }
 
-
+/*Funcion para validar el email por ajax, esta funcion valida que el formato 
+sea correcto y nos lanza una notificacion en caso de que el email exista en la base de datos */
 function validarEmail() {
     let inputEmail = document.getElementById("email");
     let email = inputEmail.value;

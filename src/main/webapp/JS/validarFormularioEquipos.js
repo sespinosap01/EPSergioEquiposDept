@@ -6,6 +6,7 @@
 
 let inputCrear = document.getElementById("crear");
 
+//Funcion para validar la marca, esta funcion valida que el formato sea correcto
 function validarMarca() {
     let inputMarca = document.getElementById("marca");
     let marca = inputMarca.value;
@@ -20,6 +21,8 @@ function validarMarca() {
     }
 }
 
+/*Funcion para validar el numero de serie por ajax, esta funcion valida que el formato 
+sea correcto y nos lanza una notificacion en caso de que el numero de serie exista en la base de datos */
 function validarNumSerie() {
     let inputNumSerie = document.getElementById("numSerie");
     let numSerie = inputNumSerie.value;

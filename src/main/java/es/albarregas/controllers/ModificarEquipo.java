@@ -69,7 +69,12 @@ public class ModificarEquipo extends HttpServlet {
         String url = "";
         String op = request.getParameter("op");
         String modificarRadio = request.getParameter("modificarRadio");
-
+        
+        /*
+        Los dos .jsp de modificar tienen como destino este controlador, con el switch
+        controlaremos desde donde viene la informacion introducida, cargaremos en variable 
+        de contexto la lista de equipos seleccionada para poder modificar despues la informacion
+         */
         switch (op) {
             case "Elegir para modificar":
                 HttpSession session = request.getSession();
@@ -100,7 +105,7 @@ public class ModificarEquipo extends HttpServlet {
                         IEquiposDAO edao = daof.getEquiposDAO();
                         List<Equipos> listaEquipos = edao.getAllEquipos();
                         contexto.setAttribute("equipos", listaEquipos);
-                        
+
                         request.setAttribute("mensajeVerificacion", "Se ha modificado el equipo con ID: " + modificarRadioValue);
 
                     } else {
