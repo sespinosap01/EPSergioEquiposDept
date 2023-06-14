@@ -34,5 +34,16 @@
                 </select>
             </div>
         </form>
+
+        <table>
+            <thead></thead>
+            <tbody></tbody>
+        </table>
+        <div class="center-button">
+            <input class="boton" type="button" value="Enviar" id="enviar" />
+        </div>
+
     </body>
+            <script type="text/javascript" src="JS/listadoAjax.js"></script>
+
 </html>

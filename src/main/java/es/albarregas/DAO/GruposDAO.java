@@ -6,6 +6,7 @@
 package es.albarregas.DAO;
 
 import es.albarregas.beans.Grupos;
+import es.albarregas.models.StringUtils;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -19,27 +20,6 @@ import java.util.List;
  * @author Sergio
  */
 public class GruposDAO implements IGruposDAO {
-
-    private String capitalizar(String str) {
-        if (str == null || str.isEmpty()) {
-            return str;
-        } else {
-            return str.substring(0, 1).toUpperCase() + str.substring(1).toLowerCase();
-        }
-    }
-
-    private String capitalizarTutor(String apellidos) {
-        if (apellidos == null || apellidos.isEmpty()) {
-            return apellidos;
-        } else {
-            String[] partes = apellidos.split(" ");
-            StringBuilder resultado = new StringBuilder();
-            for (String parte : partes) {
-                resultado.append(capitalizar(parte)).append(" ");
-            }
-            return resultado.toString().trim();
-        }
-    }
 
     /**
      * Crea un nuevo grupo en la base de datos
@@ -58,7 +38,7 @@ public class GruposDAO implements IGruposDAO {
             PreparedStatement preparada = conexion.prepareStatement(sql);
 
             preparada.setString(1, grupos.getDenominacion());
-            preparada.setString(2, capitalizarTutor(grupos.getTutor()));
+            preparada.setString(2, StringUtils.capitalizarTexto(grupos.getTutor()));
 
             preparada.executeUpdate();
             conexion.commit();
@@ -105,7 +85,7 @@ public class GruposDAO implements IGruposDAO {
             PreparedStatement preparada = conexion.prepareStatement(sql);
 
             preparada.setString(1, grupos.getDenominacion());
-            preparada.setString(2, capitalizarTutor(grupos.getTutor()));
+            preparada.setString(2, StringUtils.capitalizarTexto(grupos.getTutor()));
             preparada.setInt(3, idGrupo);
 
             preparada.executeUpdate();

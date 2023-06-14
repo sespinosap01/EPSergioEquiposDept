@@ -27,5 +27,6 @@ public interface IAlumnosDAO {
     public List<Alumnos> listadoAlumnosPorGrupos();
     public List<Alumnos> listadoAlumnosSinEquipo();
     public List<Alumnos> listadoTodosDatos();
+    public List<Alumnos> listadoAjax(int idEquipo, int idGrupo);
 
 }

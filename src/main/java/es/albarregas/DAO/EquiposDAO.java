@@ -6,6 +6,7 @@
 package es.albarregas.DAO;
 
 import es.albarregas.beans.Equipos;
+import es.albarregas.models.StringUtils;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -19,20 +20,6 @@ import java.util.List;
  * @author Sergio
  */
 public class EquiposDAO implements IEquiposDAO {
-
-    /**
-     * Capitaliza la marca del equipo
-     *
-     * @param str La marca de equipo a capitalizar
-     * @return La marca de equipo capitalizada
-     */
-    private String capitalizarMarca(String str) {
-        if (str == null || str.isEmpty()) {
-            return str;
-        } else {
-            return str.substring(0, 1).toUpperCase() + str.substring(1).toLowerCase();
-        }
-    }
 
     /**
      * Inserta un nuevo registro de equipo en la base de datos
@@ -51,7 +38,7 @@ public class EquiposDAO implements IEquiposDAO {
             conexion.setAutoCommit(false);
             PreparedStatement preparada = conexion.prepareStatement(sql);
 
-            preparada.setString(1, capitalizarMarca(equipos.getMarca()));
+            preparada.setString(1, StringUtils.capitalizarTexto(equipos.getMarca()));
             preparada.setString(2, equipos.getNumSerie());
             preparada.setString(3, equipos.getFoto());
 
@@ -101,7 +88,7 @@ public class EquiposDAO implements IEquiposDAO {
             conexion.setAutoCommit(false);
             PreparedStatement preparada = conexion.prepareStatement(sql);
 
-            preparada.setString(1, capitalizarMarca(equipos.getMarca()));
+            preparada.setString(1, StringUtils.capitalizarTexto(equipos.getMarca()));
             preparada.setString(2, equipos.getNumSerie());
             preparada.setString(3, equipos.getFoto());
             preparada.setInt(4, idEquipo);
@@ -172,6 +159,7 @@ public class EquiposDAO implements IEquiposDAO {
 
     /**
      * Obtiene todos los registros de la tabla de equipos 
+     * @return una lista de equipos con todos los registros de equipos
      */
     @Override
     public List<Equipos> getAllEquipos() {

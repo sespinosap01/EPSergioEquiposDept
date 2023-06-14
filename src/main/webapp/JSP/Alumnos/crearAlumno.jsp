@@ -37,7 +37,7 @@
                             </div>
                             <div class="form-row">
                                 <label for="idGrupo">Grupo</label>
-                                <select id="idGrupo" name="idGrupo" required>
+                                <select id="idGrupo" name="idGrupo">
                                     <option value="selec">Elige uno ...</option>                                            
                                     <c:forEach items="${grupos}" var="grupo">
                                         <option value="${grupo.idGrupo}">${grupo.denominacion} | ${grupo.tutor}</option>
@@ -71,7 +71,7 @@
                             </div>
                             <div class="form-row">
                                 <label for="idEquipo">Equipo</label>
-                                <select id="idEquipo" name="idEquipo" required>
+                                <select id="idEquipo" name="idEquipo">
                                     <option value="0">Elige uno ...</option>                                            
                                     <c:forEach items="${equipos}" var="equipo">
                                         <option value="${equipo.idEquipo}">${equipo.marca} | ${equipo.numSerie} </option>

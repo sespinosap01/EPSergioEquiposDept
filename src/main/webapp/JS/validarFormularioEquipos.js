@@ -33,7 +33,7 @@ function validarNumSerie() {
         const http = new XMLHttpRequest();
         const url = `Ajax`;
         const parametros = {
-            "ayax": 2,
+            "ajax": 2,
             "numSerie": numSerie
         };
         const params = JSON.stringify(parametros);

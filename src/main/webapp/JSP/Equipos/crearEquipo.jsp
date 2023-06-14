@@ -38,7 +38,7 @@
                     <input type="file" id="foto" name="foto">
                 </div>
                 <div class="submitLine">
-                    <input type="submit" class="submitBtn" name="crear" value="Registrar" id="crear" disabled>
+                    <input type="submit" class="submitBtn" name="crear" value="Registrar" id="crear">
                 </div>
             </form>
         </fieldset>

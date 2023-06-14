@@ -8,6 +8,7 @@ package es.albarregas.DAO;
 import es.albarregas.beans.Alumnos;
 import es.albarregas.beans.Equipos;
 import es.albarregas.beans.Grupos;
+import es.albarregas.models.StringUtils;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -21,39 +22,6 @@ import java.util.List;
  * @author Sergio
  */
 public class AlumnosDAO implements IAlumnosDAO {
-
-    /**
-     * Capitaliza el nombre proporcionado
-     *
-     * @param str El nombre a capitalizar
-     * @return El nombre capitalizado
-     */
-    private String capitalizarNombre(String str) {
-        if (str == null || str.isEmpty()) {
-            return str;
-        } else {
-            return str.substring(0, 1).toUpperCase() + str.substring(1).toLowerCase();
-        }
-    }
-
-    /**
-     * Capitaliza los apellidos proporcionados
-     *
-     * @param apellidos Los apellidos a capitalizar
-     * @return Los apellidos capitalizados
-     */
-    private String capitalizarApellidos(String apellidos) {
-        if (apellidos == null || apellidos.isEmpty()) {
-            return apellidos;
-        } else {
-            String[] partes = apellidos.split(" ");
-            StringBuilder resultado = new StringBuilder();
-            for (String parte : partes) {
-                resultado.append(capitalizarNombre(parte)).append(" ");
-            }
-            return resultado.toString().trim();
-        }
-    }
 
     /**
      * Crea un registro de alumnos en la base de datos
@@ -72,8 +40,8 @@ public class AlumnosDAO implements IAlumnosDAO {
             conexion.setAutoCommit(false);
             PreparedStatement preparada = conexion.prepareStatement(sql);
 
-            preparada.setString(1, capitalizarNombre(alumnos.getNombre()));
-            preparada.setString(2, capitalizarApellidos(alumnos.getApellidos()));
+            preparada.setString(1, StringUtils.capitalizarTexto(alumnos.getNombre()));
+            preparada.setString(2, StringUtils.capitalizarTexto(alumnos.getApellidos()));
             preparada.setInt(3, alumnos.getIdGrupo());
             preparada.setString(4, alumnos.getNif());
             preparada.setDate(5, new java.sql.Date(alumnos.getFechaNacimiento().getTime()));
@@ -131,8 +99,8 @@ public class AlumnosDAO implements IAlumnosDAO {
             conexion.setAutoCommit(false);
             PreparedStatement preparada = conexion.prepareStatement(sql);
 
-            preparada.setString(1, capitalizarNombre(alumnos.getNombre()));
-            preparada.setString(2, capitalizarApellidos(alumnos.getApellidos()));
+            preparada.setString(1, StringUtils.capitalizarTexto(alumnos.getNombre()));
+            preparada.setString(2, StringUtils.capitalizarTexto(alumnos.getApellidos()));
             preparada.setInt(3, alumnos.getIdGrupo());
             preparada.setString(4, alumnos.getNif());
             preparada.setDate(5, new java.sql.Date(alumnos.getFechaNacimiento().getTime()));
@@ -626,6 +594,43 @@ public class AlumnosDAO implements IAlumnosDAO {
                 equipo.setNumSerie(resultado.getString("numSerie"));
                 equipo.setFoto(resultado.getString("foto"));
                 alumno.setEquipo(equipo);
+
+                listaAlumnos.add(alumno);
+            }
+        } catch (SQLException e) {
+            e.getMessage();
+        } finally {
+            this.closeConnection();
+        }
+        return listaAlumnos;
+    }
+
+    /**
+     *
+     * @param idEquipo
+     * @param idGrupo
+     * @return
+     */
+    @Override
+    public List<Alumnos> listadoAjax(int idEquipo, int idGrupo) {
+        ResultSet resultado;
+        Alumnos alumno;
+
+        List<Alumnos> listaAlumnos = new ArrayList<>();
+        String sql = "SELECT nombre, apellidos FROM alumnos WHERE where idEquipo = ? AND idGrupo = ?";
+
+        try {
+
+            Connection conexion = ConnectionFactory.getConnection();
+            PreparedStatement preparada = conexion.prepareStatement(sql);
+            preparada.setInt(1, idEquipo);
+            preparada.setInt(2, idGrupo);
+            resultado = preparada.executeQuery();
+
+            while (resultado.next()) {
+                alumno = new Alumnos();
+                alumno.setNombre(resultado.getString("nombre"));
+                alumno.setApellidos(resultado.getString("apellidos"));
 
                 listaAlumnos.add(alumno);
             }

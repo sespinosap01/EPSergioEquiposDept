@@ -11,7 +11,7 @@ function validarNombre() {
     let inputNombre = document.getElementById("nombre");
     let nombre = inputNombre.value;
 
-    let regex = /^[A-Za-zÁÉÍÓÚáéíóú\s]+$/;
+    let regex = /^[A-Za-zÁÉÍÓÚáéíóúñÑ\s]+$/;
     if (regex.test(nombre)) {
         inputNombre.style.borderColor = "";
         inputCrear.disabled = false;
@@ -26,7 +26,7 @@ function validarApellidos() {
     let inputApellidos = document.getElementById("apellidos");
     let apellidos = inputApellidos.value;
 
-    let regex = /^[A-Za-zÁÉÍÓÚáéíóú\s]+$/;
+    let regex = /^[A-Za-zÁÉÍÓÚáéíóúñÑ\s]+$/;
     if (regex.test(apellidos)) {
         inputApellidos.style.borderColor = "";
         inputCrear.disabled = false;
@@ -46,6 +46,7 @@ function validarDNIModulo23(dni) {
     return letra === letraCalculada;
 }
 
+
 //Esta funcion aplica la anterior, haciendo que valide tanto el propio nif como el formato
 function validarNIF() {
     let inputNIF = document.getElementById("nif");
@@ -62,7 +63,7 @@ function validarNIF() {
 }
 
 /*Funcion para validar el email por ajax, esta funcion valida que el formato 
-sea correcto y nos lanza una notificacion en caso de que el email exista en la base de datos */
+ sea correcto y nos lanza una notificacion en caso de que el email exista en la base de datos */
 function validarEmail() {
     let inputEmail = document.getElementById("email");
     let email = inputEmail.value;
@@ -73,7 +74,7 @@ function validarEmail() {
         const http = new XMLHttpRequest();
         const url = `Ajax`;
         const parametros = {
-            "ayax": 1,
+            "ajax": 1,
             "email": email
         };
         const params = JSON.stringify(parametros);

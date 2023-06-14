@@ -7,17 +7,21 @@ package es.albarregas.controllers;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
+import es.albarregas.DAO.AlumnosDAO;
 import es.albarregas.DAO.IAlumnosDAO;
 import es.albarregas.DAO.IEquiposDAO;
 import es.albarregas.DAOFactory.DAOFactory;
+import es.albarregas.beans.Alumnos;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.json.JSONArray;
 
 /**
  *
@@ -69,7 +73,7 @@ public class Ajax extends HttpServlet {
         String json = reader.readLine();
         Gson gson = new Gson();
         JsonElement jsonElement = gson.fromJson(json, JsonElement.class);
-        String op = jsonElement.getAsJsonObject().get("ayax").getAsString();
+        String op = jsonElement.getAsJsonObject().get("ajax").getAsString();
 
         ArrayList<String> respuesta = new ArrayList<>();
         DAOFactory daof = DAOFactory.getDAOFactory();
@@ -99,6 +103,20 @@ public class Ajax extends HttpServlet {
                 }
                 json = gson.toJson(respuesta);
 
+                break;
+            case "3":
+                String idGrupo = request.getParameter("idGrupo");
+                String idEquipo = request.getParameter("idEquipo");
+                System.out.println(idGrupo);
+                System.out.println(idEquipo);
+
+                JSONArray arrayJSON = null;
+                List<Alumnos> listaAlumnos = new ArrayList<>();
+                AlumnosDAO alumnosDAO = new AlumnosDAO();
+                listaAlumnos = alumnosDAO.listadoAjax(Integer.parseInt(idGrupo), Integer.parseInt(idEquipo));
+                arrayJSON = new JSONArray(listaAlumnos);
+                response.setContentType("application/json");
+                response.getWriter().print(arrayJSON);
                 break;
         }
 
