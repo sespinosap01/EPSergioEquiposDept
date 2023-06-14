@@ -22,6 +22,27 @@ import java.util.List;
  */
 public class AlumnosDAO implements IAlumnosDAO {
 
+    private String capitalizarNombre(String str) {
+        if (str == null || str.isEmpty()) {
+            return str;
+        } else {
+            return str.substring(0, 1).toUpperCase() + str.substring(1).toLowerCase();
+        }
+    }
+
+    private String capitalizarApellidos(String apellidos) {
+        if (apellidos == null || apellidos.isEmpty()) {
+            return apellidos;
+        } else {
+            String[] partes = apellidos.split(" ");
+            StringBuilder resultado = new StringBuilder();
+            for (String parte : partes) {
+                resultado.append(capitalizarNombre(parte)).append(" ");
+            }
+            return resultado.toString().trim();
+        }
+    }
+
     @Override
     public boolean createAlumnos(Alumnos alumnos) {
 
@@ -33,14 +54,18 @@ public class AlumnosDAO implements IAlumnosDAO {
             conexion.setAutoCommit(false);
             PreparedStatement preparada = conexion.prepareStatement(sql);
 
-            preparada.setString(1, alumnos.getNombre());
-            preparada.setString(2, alumnos.getApellidos());
+            preparada.setString(1, capitalizarNombre(alumnos.getNombre()));
+            preparada.setString(2, capitalizarApellidos(alumnos.getApellidos()));
             preparada.setInt(3, alumnos.getIdGrupo());
             preparada.setString(4, alumnos.getNif());
             preparada.setDate(5, new java.sql.Date(alumnos.getFechaNacimiento().getTime()));
             preparada.setString(6, alumnos.getGenero().getCaracteres());
             preparada.setString(7, alumnos.getEmail());
-            preparada.setInt(8, alumnos.getIdEquipo());
+            if (alumnos.getIdEquipo() != 0) {
+                preparada.setInt(8, alumnos.getIdEquipo());
+            } else {
+                preparada.setNull(8, 0);
+            }
 
             preparada.executeUpdate();
 
@@ -81,14 +106,18 @@ public class AlumnosDAO implements IAlumnosDAO {
             conexion.setAutoCommit(false);
             PreparedStatement preparada = conexion.prepareStatement(sql);
 
-            preparada.setString(1, alumnos.getNombre());
-            preparada.setString(2, alumnos.getApellidos());
+            preparada.setString(1, capitalizarNombre(alumnos.getNombre()));
+            preparada.setString(2, capitalizarApellidos(alumnos.getApellidos()));
             preparada.setInt(3, alumnos.getIdGrupo());
             preparada.setString(4, alumnos.getNif());
             preparada.setDate(5, new java.sql.Date(alumnos.getFechaNacimiento().getTime()));
             preparada.setString(6, alumnos.getGenero().getCaracteres());
             preparada.setString(7, alumnos.getEmail());
-            preparada.setInt(8, alumnos.getIdEquipo());
+            if (alumnos.getIdEquipo() != 0) {
+                preparada.setInt(8, alumnos.getIdEquipo());
+            } else {
+                preparada.setNull(8, 0);
+            }
             preparada.setInt(9, idAlumno);
 
             preparada.executeUpdate();
@@ -286,8 +315,8 @@ public class AlumnosDAO implements IAlumnosDAO {
         Grupos grupo;
 
         List<Alumnos> listaAlumnos = new ArrayList<>();
-        String sql = "SELECT a.Apellidos, a.Nombre, g.Denominacion, e.Marca FROM alumnos AS a JOIN grupos AS g ON a.IdGrupo = g.IdGrupo JOIN equipos AS e ON a.IdEquipo = e.IdEquipo ORDER BY apellidos, nombre;";
-
+        String sql = "SELECT a.Apellidos, a.Nombre, g.Denominacion, e.Marca FROM alumnos AS a LEFT JOIN "
+                + "grupos AS g ON a.IdGrupo = g.IdGrupo LEFT JOIN equipos AS e ON a.IdEquipo = e.IdEquipo";
         try {
             Connection conexion = ConnectionFactory.getConnection();
             Statement sentencia = conexion.createStatement();
@@ -471,7 +500,8 @@ public class AlumnosDAO implements IAlumnosDAO {
         Equipos equipo;
 
         List<Alumnos> listaAlumnos = new ArrayList<>();
-        String sql = "SELECT * FROM alumnos JOIN equipos ON alumnos.IdEquipo = equipos.IdEquipo JOIN grupos ON alumnos.IdGrupo = grupos.IdGrupo;";
+        String sql = "SELECT * FROM alumnos LEFT JOIN equipos ON alumnos.IdEquipo = equipos.IdEquipo "
+                + "JOIN grupos ON alumnos.IdGrupo = grupos.IdGrupo;";
 
         try {
             Connection conexion = ConnectionFactory.getConnection();
@@ -480,6 +510,7 @@ public class AlumnosDAO implements IAlumnosDAO {
 
             while (resultado.next()) {
                 alumno = new Alumnos();
+                alumno.setIdAlumno(resultado.getInt("IdAlumno"));
                 alumno.setNombre(resultado.getString("Nombre"));
                 alumno.setApellidos(resultado.getString("Apellidos"));
                 alumno.setIdGrupo(resultado.getInt("IdGrupo"));
@@ -488,7 +519,6 @@ public class AlumnosDAO implements IAlumnosDAO {
                 Alumnos.Genero genero = Alumnos.Genero.cambiarStringAChar(resultado.getString("genero"));
                 alumno.setGenero(genero);
                 alumno.setEmail(resultado.getString("Email"));
-                alumno.setIdEquipo(resultado.getInt("IdEquipo"));
 
                 grupo = new Grupos();
                 grupo.setIdGrupo(resultado.getInt("IdGrupo"));
@@ -501,6 +531,7 @@ public class AlumnosDAO implements IAlumnosDAO {
                 equipo.setMarca(resultado.getString("marca"));
                 equipo.setNumSerie(resultado.getString("numSerie"));
                 equipo.setFoto(resultado.getString("foto"));
+                alumno.setEquipo(equipo);
 
                 listaAlumnos.add(alumno);
             }

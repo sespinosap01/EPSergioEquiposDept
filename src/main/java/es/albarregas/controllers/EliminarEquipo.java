@@ -10,6 +10,7 @@ import es.albarregas.DAO.IEquiposDAO;
 import es.albarregas.DAOFactory.DAOFactory;
 import es.albarregas.beans.Equipos;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -68,37 +69,58 @@ public class EliminarEquipo extends HttpServlet {
         String url = "";
         EquiposDAO equiposDAO = new EquiposDAO();
         boolean resultado = true;
-        try {
+        String op = request.getParameter("op");
+        String[] eliminarCheckbox = request.getParameterValues("eliminarCheckbox");
+        String[] eliminarCheckboxSeleccionado = request.getParameterValues("eliminarCheckboxSeleccionado");
 
-            String[] eliminarCheckbox = request.getParameterValues("eliminarCheckbox");
-
-            if (eliminarCheckbox != null && eliminarCheckbox.length > 0) {
-                for (String checkbox : eliminarCheckbox) {
-                    resultado = equiposDAO.deleteEquipos(Integer.parseInt(checkbox));
+        switch (op) {
+            case "Elegir para eliminar":
+                url = "JSP/Equipos/eliminarEquipoConfirmacion.jsp";
+                List<Equipos> listaEquiposSeleccionados = new ArrayList<>();
+                Equipos equipos;
+                if (eliminarCheckbox != null && eliminarCheckbox.length > 0) {
+                    for (String checkbox : eliminarCheckbox) {
+                        equipos = equiposDAO.getEquipo(Integer.parseInt(checkbox));
+                        listaEquiposSeleccionados.add(equipos);
+                    }
+                } else {
+                    url = "JSP/ErroresYverificaciones/error.jsp";
+                    request.setAttribute("mensajeError", "No hay equipos seleccionados");
                 }
-            } else {
+                contexto.setAttribute("listaEquiposSeleccionados", listaEquiposSeleccionados);
+
+                break;
+
+            case "Eliminar":
+                try {
+                if (eliminarCheckboxSeleccionado != null && eliminarCheckboxSeleccionado.length > 0) {
+                    for (String checkbox : eliminarCheckboxSeleccionado) {
+                        resultado = equiposDAO.deleteEquipos(Integer.parseInt(checkbox));
+                    }
+                } else {
+                    url = "JSP/ErroresYverificaciones/error.jsp";
+                    request.setAttribute("mensajeError", "Error al eliminar el/los equipo/s");
+                }
+
+                if (resultado) {
+                    url = "JSP/ErroresYverificaciones/correcto.jsp";
+                    request.setAttribute("mensajeError", "Error al eliminar el/los equipo/s");
+
+                    DAOFactory daof = DAOFactory.getDAOFactory();
+                    IEquiposDAO edao = daof.getEquiposDAO();
+                    List<Equipos> listaEquipos = edao.getAllEquipos();
+                    contexto.setAttribute("equipos", listaEquipos);
+                }
+            } catch (NumberFormatException e) {
+                e.getMessage();
                 url = "JSP/ErroresYverificaciones/error.jsp";
-                request.setAttribute("mensajeError", "Error al eliminar el equipo");
+                request.setAttribute("mensajeError", "Error al eliminar el/los equipo/s");
             }
+            break;
 
-            if (resultado) {
-                url = "JSP/ErroresYverificaciones/correcto.jsp";
-
-                DAOFactory daof = DAOFactory.getDAOFactory();
-                IEquiposDAO edao = daof.getEquiposDAO();
-                List<Equipos> listaEquipos = edao.getAllEquipos();
-                contexto.setAttribute("equipos", listaEquipos);
-
-            } else {
-                url = "JSP/ErroresYverificaciones/error.jsp";
-                request.setAttribute("mensajeError", "Error al eliminar el equipo");
-
-            }
-        } catch (NumberFormatException e) {
-            e.getMessage();
-            url = "JSP/ErroresYverificaciones/error.jsp";
-            request.setAttribute("mensajeError", "Error al eliminar el equipo");
-
+            case "Cancelar":
+                url = "VolverPrincipio";
+                break;
         }
 
         request.getRequestDispatcher(url).forward(request, response);

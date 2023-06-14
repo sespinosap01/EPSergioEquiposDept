@@ -49,7 +49,7 @@
                     </table>
                     <br>
                     <div class="center-button">
-                        <input type="submit" name="eliminar" value="Eliminar">
+                        <input type="submit" name="op" value="Elegir para eliminar">
                     </div>
                 </form>
             </c:otherwise>

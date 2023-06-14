@@ -20,6 +20,14 @@ import java.util.List;
  */
 public class EquiposDAO implements IEquiposDAO {
 
+    private String capitalizarMarca(String str) {
+        if (str == null || str.isEmpty()) {
+            return str;
+        } else {
+            return str.substring(0, 1).toUpperCase() + str.substring(1).toLowerCase();
+        }
+    }
+
     @Override
     public boolean createEquipos(Equipos equipos) {
 
@@ -31,7 +39,7 @@ public class EquiposDAO implements IEquiposDAO {
             conexion.setAutoCommit(false);
             PreparedStatement preparada = conexion.prepareStatement(sql);
 
-            preparada.setString(1, equipos.getMarca());
+            preparada.setString(1, capitalizarMarca(equipos.getMarca()));
             preparada.setString(2, equipos.getNumSerie());
             preparada.setString(3, equipos.getFoto());
 
@@ -74,7 +82,7 @@ public class EquiposDAO implements IEquiposDAO {
             conexion.setAutoCommit(false);
             PreparedStatement preparada = conexion.prepareStatement(sql);
 
-            preparada.setString(1, equipos.getMarca());
+            preparada.setString(1, capitalizarMarca(equipos.getMarca()));
             preparada.setString(2, equipos.getNumSerie());
             preparada.setString(3, equipos.getFoto());
             preparada.setInt(4, idEquipo);
@@ -227,6 +235,8 @@ public class EquiposDAO implements IEquiposDAO {
 
         return existe;
     }
+    
+      
 
     @Override
     public List<Equipos> consulta2() {

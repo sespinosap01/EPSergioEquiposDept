@@ -88,7 +88,7 @@ public class CrearAlumno extends HttpServlet {
 
                 Map<String, String[]> copiaParam = new HashMap<>(request.getParameterMap());
                 copiaParam.remove("genero");
-                copiaParam.remove("fechaNacimiento");
+                copiaParam.remove("fechaNacimiento");           
 
                 BeanUtils.populate(alumno, copiaParam);
 

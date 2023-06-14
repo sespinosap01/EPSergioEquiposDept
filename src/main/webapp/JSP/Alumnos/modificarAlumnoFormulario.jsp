@@ -39,7 +39,7 @@
                             <div class="form-row">
                                 <label for="idGrupo">Grupo</label>
                                 <select id="idGrupo" name="idGrupo" required>
-                                    <option value="">Elige uno ...</option>                                            
+                                    <option value="selec">Elige uno ...</option>                                            
                                     <c:forEach items="${grupos}" var="grupo">
                                         <option value="${grupo.idGrupo}">${grupo.denominacion} | ${grupo.tutor}</option>
                                     </c:forEach>
@@ -60,7 +60,7 @@
                             <div class="form-row">
                                 <label for="genero">Genero</label>
                                 <select id="genero" name="genero">
-                                    <option value="selec">Elige uno ...</option>                                            
+                                    <option value="H">Elige uno ...</option>                                            
                                     <option value="H">Hombre</option>
                                     <option value="M">Mujer</option>
                                     <option value="O">Otro</option>
@@ -73,7 +73,7 @@
                             <div class="form-row">
                                 <label for="idEquipo">Equipo</label>
                                 <select id="idEquipo" name="idEquipo" required>
-                                    <option value="selec">Elige uno ...</option>                                            
+                                    <option value="0">Elige uno ...</option>                                            
                                     <c:forEach items="${equipos}" var="equipo">
                                         <option value="${equipo.idEquipo}">${equipo.marca} | ${equipo.numSerie} </option>
                                     </c:forEach>

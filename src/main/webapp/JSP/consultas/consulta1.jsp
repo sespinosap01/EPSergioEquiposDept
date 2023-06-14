@@ -40,7 +40,7 @@
                                 <td>${alumno.grupo.denominacion}</td>
                                 <td>
                                     <c:choose>
-                                        <c:when test="${empty alumno.equipo}">
+                                        <c:when test="${empty alumno.equipo.marca}">
                                             Sin equipo
                                         </c:when>
                                         <c:otherwise>

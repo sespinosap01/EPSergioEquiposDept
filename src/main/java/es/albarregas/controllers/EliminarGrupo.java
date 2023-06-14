@@ -10,6 +10,7 @@ import es.albarregas.DAO.IGruposDAO;
 import es.albarregas.DAOFactory.DAOFactory;
 import es.albarregas.beans.Grupos;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -68,36 +69,62 @@ public class EliminarGrupo extends HttpServlet {
         String url = "";
         GruposDAO gruposDAO = new GruposDAO();
         boolean resultado = true;
-        try {
+        String op = request.getParameter("op");
+        String[] eliminarCheckbox = request.getParameterValues("eliminarCheckbox");
+        String[] eliminarCheckboxSeleccionado = request.getParameterValues("eliminarCheckboxSeleccionado");
 
-            String[] eliminarCheckbox = request.getParameterValues("eliminarCheckbox");
-
-            if (eliminarCheckbox != null && eliminarCheckbox.length > 0) {
-                for (String checkbox : eliminarCheckbox) {
-
-                    resultado = gruposDAO.deleteGrupos(Integer.parseInt(checkbox));
+        switch (op) {
+            case "Elegir para eliminar":
+                url = "JSP/Grupos/eliminarGrupoConfirmacion.jsp";
+                List<Grupos> listaGruposSeleccionados = new ArrayList<>();
+                Grupos grupos;
+                if (eliminarCheckbox != null && eliminarCheckbox.length > 0) {
+                    for (String checkbox : eliminarCheckbox) {
+                        grupos = gruposDAO.getGrupo(Integer.parseInt(checkbox));
+                        listaGruposSeleccionados.add(grupos);
+                    }
+                } else {
+                    url = "JSP/ErroresYverificaciones/error.jsp";
+                    request.setAttribute("mensajeError", "No hay grupos seleccionados");
                 }
-            } else {
+                contexto.setAttribute("listaGruposSeleccionados", listaGruposSeleccionados);
+
+                break;
+
+            case "Eliminar":
+                try {
+                if (eliminarCheckboxSeleccionado != null && eliminarCheckboxSeleccionado.length > 0) {
+                    for (String checkbox : eliminarCheckboxSeleccionado) {
+                        resultado = gruposDAO.deleteGrupos(Integer.parseInt(checkbox));
+                    }
+                } else {
+                    url = "JSP/ErroresYverificaciones/error.jsp";
+                    request.setAttribute("mensajeError", "Error al eliminar el/los grupo/s");
+                }
+
+                if (resultado) {
+                    url = "JSP/ErroresYverificaciones/correcto.jsp";
+                    request.setAttribute("mensajeError", "Error al eliminar el/los grupo/s");
+
+                    DAOFactory daof = DAOFactory.getDAOFactory();
+                    IGruposDAO gdao = daof.getGruposDAO();
+                    List<Grupos> listaGrupos = gdao.getAllGrupos();
+                    contexto.setAttribute("grupos", listaGrupos);
+
+                } else {
+                    url = "JSP/ErroresYverificaciones/error.jsp";
+                    request.setAttribute("mensajeError", "Uno o varios de los grupos seleccionados tienen alumnos asignados");
+                }
+            } catch (NumberFormatException e) {
+                e.getMessage();
                 url = "JSP/ErroresYverificaciones/error.jsp";
+                request.setAttribute("mensajeError", "Error al eliminar el/los grupo/s");
             }
+            break;
 
-            if (resultado) {
-                url = "JSP/ErroresYverificaciones/correcto.jsp";
-                request.setAttribute("mensajeError", "Error al eliminar el grupo");
-
-                DAOFactory daof = DAOFactory.getDAOFactory();
-                IGruposDAO gdao = daof.getGruposDAO();
-                List<Grupos> listaGrupos = gdao.getAllGrupos();
-                contexto.setAttribute("grupos", listaGrupos);
-
-            } else {
-                url = "JSP/ErroresYverificaciones/error.jsp";
-                request.setAttribute("mensajeError", "Uno o varios de los grupos seleccionados tienen alumnos asignados");
-            }
-        } catch (NumberFormatException e) {
-            e.getMessage();
-            url = "JSP/ErroresYverificaciones/error.jsp";
-            request.setAttribute("mensajeError", "Error al eliminar el grupo");
+            case "Cancelar":
+                url = "VolverPrincipio";
+                break;
         }
 
         request.getRequestDispatcher(url).forward(request, response);

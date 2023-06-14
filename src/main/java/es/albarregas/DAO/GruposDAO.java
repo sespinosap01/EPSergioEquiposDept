@@ -20,6 +20,27 @@ import java.util.List;
  */
 public class GruposDAO implements IGruposDAO {
 
+  private String capitalizar(String str) {
+        if (str == null || str.isEmpty()) {
+            return str;
+        } else {
+            return str.substring(0, 1).toUpperCase() + str.substring(1).toLowerCase();
+        }
+    }
+
+    private String capitalizarTutor(String apellidos) {
+        if (apellidos == null || apellidos.isEmpty()) {
+            return apellidos;
+        } else {
+            String[] partes = apellidos.split(" ");
+            StringBuilder resultado = new StringBuilder();
+            for (String parte : partes) {
+                resultado.append(capitalizar(parte)).append(" ");
+            }
+            return resultado.toString().trim();
+        }
+    }
+
     @Override
     public boolean createGrupos(Grupos grupos) {
         boolean error = true;
@@ -31,7 +52,7 @@ public class GruposDAO implements IGruposDAO {
             PreparedStatement preparada = conexion.prepareStatement(sql);
 
             preparada.setString(1, grupos.getDenominacion());
-            preparada.setString(2, grupos.getTutor());
+            preparada.setString(2, capitalizarTutor(grupos.getTutor()));
 
             preparada.executeUpdate();
             conexion.commit();
@@ -71,7 +92,7 @@ public class GruposDAO implements IGruposDAO {
             PreparedStatement preparada = conexion.prepareStatement(sql);
 
             preparada.setString(1, grupos.getDenominacion());
-            preparada.setString(2, grupos.getTutor());
+            preparada.setString(2, capitalizarTutor(grupos.getTutor()));
             preparada.setInt(3, idGrupo);
 
             preparada.executeUpdate();
@@ -201,7 +222,7 @@ public class GruposDAO implements IGruposDAO {
 
         List<Grupos> listaGrupos = new ArrayList<>();
         String sql = "select * from grupos";
-        
+
         try {
             Connection conexion = ConnectionFactory.getConnection();
             Statement sentencia = conexion.createStatement();

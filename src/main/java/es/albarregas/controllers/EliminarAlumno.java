@@ -10,6 +10,7 @@ import es.albarregas.DAO.IAlumnosDAO;
 import es.albarregas.DAOFactory.DAOFactory;
 import es.albarregas.beans.Alumnos;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -68,35 +69,58 @@ public class EliminarAlumno extends HttpServlet {
         String url = "";
         AlumnosDAO alumnosDAO = new AlumnosDAO();
         boolean resultado = true;
-        try {
+        String op = request.getParameter("op");
+        String[] eliminarCheckbox = request.getParameterValues("eliminarCheckbox");
+        String[] eliminarCheckboxSeleccionado = request.getParameterValues("eliminarCheckboxSeleccionado");
 
-            String[] eliminarCheckbox = request.getParameterValues("eliminarCheckbox");
-
-            if (eliminarCheckbox != null && eliminarCheckbox.length > 0) {
-                for (String checkbox : eliminarCheckbox) {
-                    resultado = alumnosDAO.deleteAlumnos(Integer.parseInt(checkbox));
+        switch (op) {
+            case "Elegir para eliminar":
+                url = "JSP/Alumnos/eliminarAlumnoConfirmacion.jsp";
+                List<Alumnos> listaAlumnosSeleccionados = new ArrayList<>();
+                Alumnos alumnos;
+                if (eliminarCheckbox != null && eliminarCheckbox.length > 0) {
+                    for (String checkbox : eliminarCheckbox) {
+                        alumnos = alumnosDAO.getAlumno(Integer.parseInt(checkbox));
+                        listaAlumnosSeleccionados.add(alumnos);
+                    }
+                } else {
+                    url = "JSP/ErroresYverificaciones/error.jsp";
+                    request.setAttribute("mensajeError", "No hay alumnos seleccionados");
                 }
-            } else {
+                contexto.setAttribute("listaAlumnosSeleccionados", listaAlumnosSeleccionados);
+
+                break;
+
+            case "Eliminar":
+                try {
+                if (eliminarCheckboxSeleccionado != null && eliminarCheckboxSeleccionado.length > 0) {
+                    for (String checkbox : eliminarCheckboxSeleccionado) {
+                        resultado = alumnosDAO.deleteAlumnos(Integer.parseInt(checkbox));
+                    }
+                } else {
+                    url = "JSP/ErroresYverificaciones/error.jsp";
+                    request.setAttribute("mensajeError", "Error al eliminar el/los alumno/s");
+                }
+
+                if (resultado) {
+                    url = "JSP/ErroresYverificaciones/correcto.jsp";
+                    request.setAttribute("mensajeError", "Error al eliminar el/los alumno/s");
+
+                    DAOFactory daof = DAOFactory.getDAOFactory();
+                    IAlumnosDAO adao = daof.getAlumnosDAO();
+                    List<Alumnos> listaAlumnos = adao.getAllAlumnos();
+                    contexto.setAttribute("alumnos", listaAlumnos);
+                }
+            } catch (NumberFormatException e) {
+                e.getMessage();
                 url = "JSP/ErroresYverificaciones/error.jsp";
-                request.setAttribute("mensajeError", "Error al eliminar el alumno");
-
+                request.setAttribute("mensajeError", "Error al eliminar el/los alumno/s");
             }
+            break;
 
-            if (resultado) {
-                url = "JSP/ErroresYverificaciones/correcto.jsp";
-
-                DAOFactory daof = DAOFactory.getDAOFactory();
-                IAlumnosDAO adao = daof.getAlumnosDAO();
-                List<Alumnos> listaAlumnos = adao.getAllAlumnos();
-                contexto.setAttribute("alumnos", listaAlumnos);
-            } else {
-                url = "JSP/ErroresYverificaciones/error.jsp";
-                request.setAttribute("mensajeError", "Error al eliminar el alumno");
-            }
-        } catch (NumberFormatException e) {
-            e.getMessage();
-            url = "JSP/ErroresYverificaciones/error.jsp";
-            request.setAttribute("mensajeError", "Error al eliminar el alumno");
+            case "Cancelar":
+                url = "VolverPrincipio";
+                break;
         }
 
         request.getRequestDispatcher(url).forward(request, response);

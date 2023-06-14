@@ -27,7 +27,7 @@
                     <thead>
                         <tr>
                             <th colspan="2"></th>
-                            <th colspan="3">Alumnos</th> 
+                            <th class="thAlumnosConsulta5" colspan="3">Alumnos</th> 
                         </tr>
                     <th>Marca</th>
                     <th>Número de Serie</th>
