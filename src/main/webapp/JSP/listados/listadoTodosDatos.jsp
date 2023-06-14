@@ -11,13 +11,13 @@
 <html lang="es">
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Consulta 9</title>
+        <title>Todos los datos</title>
         <link rel="stylesheet" type="text/css" href="${style}"/>
     </head>
     <body>
         <jsp:include page="/JSP/desplegable.jsp" />
 
-        <h1>Consulta 9</h1>
+        <h1>Todos los datos</h1>
         <c:choose>
             <c:when test="${empty listaAlumnos}">
                 <p>No hay registros en el sistema</p>
@@ -35,7 +35,7 @@
                             <th>Email</th>
                             <th>Denominacion del grupo</th>
                             <th>Tutor</th>
-                            <th>Id del Equipo</th>
+                            <th>Marca del equipo</th>
                             <th>Numero de serie del equipo</th>
                             <th>Foto</th>
 
@@ -59,7 +59,7 @@
                                             Sin equipo
                                         </c:when>
                                         <c:otherwise>
-                                            ${alumno.equipo.idEquipo}                       
+                                            ${alumno.equipo.marca}                       
                                         </c:otherwise>
                                     </c:choose>
                                 </td>

@@ -11,13 +11,12 @@
 <html lang="es">
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Consulta 2</title>
+        <title>Equipos sin alumnos asignados</title>
         <link rel="stylesheet" type="text/css" href="${style}"/>
     </head>
-    <body>
+  <body>      
         <jsp:include page="/JSP/desplegable.jsp" />
-        <h1>Consulta 2</h1>
-        <h4 class="subTitle">Equipos</h4>
+        <h1>Equipos sin alumnos asignados</h1>
         <c:choose>
             <c:when test="${empty listaEquipos}">
                 <p>No hay registros en el sistema</p>
@@ -28,7 +27,6 @@
                         <tr>
                             <th>Marca</th>
                             <th>Número de serie</th>
-                            <th>Foto</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -36,7 +34,6 @@
                             <tr>
                                 <td>${equipo.marca}</td>
                                 <td>${equipo.numSerie}</td>
-                                <td>${equipo.foto}</td>                                    
                             </tr>
                         </c:forEach>
                     </tbody>
@@ -45,4 +42,3 @@
         </c:choose>
     </body>
 </html>
-

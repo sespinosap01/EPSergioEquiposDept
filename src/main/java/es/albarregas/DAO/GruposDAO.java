@@ -208,11 +208,12 @@ public class GruposDAO implements IGruposDAO {
     }
 
     /**
-     * Obtiene todos los grupos de la base de datos
+     * Obtiene el grupo seleccionado por parametro de base de datos
      *
-     * @return una lista de objetos Grupos que representa todos los grupos
-     * almacenados en la base de datos
+     * @param idGrupo el grupo que se le pasara como parametro
+     * @return un objeto grupo con los datos del grupo requerido
      */
+    @Override
     public Grupos getGrupo(int idGrupo) {
 
         ResultSet resultado;
@@ -251,7 +252,7 @@ public class GruposDAO implements IGruposDAO {
      * @return una lista de objetos Grupos que representan todos los grupos en la base de datos
      */
     @Override
-    public List<Grupos> consulta3() {
+    public List<Grupos> listadoGrupos() {
 
         ResultSet resultado;
         Grupos grupo;

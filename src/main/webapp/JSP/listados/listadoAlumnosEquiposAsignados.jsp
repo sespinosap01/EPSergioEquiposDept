@@ -11,13 +11,12 @@
 <html lang="es">
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Consulta 1</title>
+        <title>Alumnos y equipos asignados</title>
         <link rel="stylesheet" type="text/css" href="${style}"/>
     </head>
     <body>
         <jsp:include page="/JSP/desplegable.jsp" />
-        <h1>Consulta 1</h1>
-        <h4 class="subTitle">Alumnos</h4>
+        <h1>Alumnos y equipos asignados</h1>
         <c:choose>
             <c:when test="${empty listaAlumnos}">
                 <p>No hay registros en el sistema</p>
@@ -26,25 +25,34 @@
                 <table>
                     <thead>
                         <tr>
-                            <th>Apellidos</th>
                             <th>Nombre</th>
-                            <th>Grupo</th>
-                            <th>Equipo</th>
+                            <th>Apellidos</th>
+                            <th>Marca</th>
+                            <th>Número de serie</th>
                         </tr>
                     </thead>
                     <tbody>
                         <c:forEach var="alumno" items="${listaAlumnos}">
                             <tr>
-                                <td>${alumno.apellidos}</td>
                                 <td>${alumno.nombre}</td>
-                                <td>${alumno.grupo.denominacion}</td>
+                                <td>${alumno.apellidos}</td>          
                                 <td>
                                     <c:choose>
-                                        <c:when test="${empty alumno.equipo.marca}">
-                                            Sin equipo
+                                        <c:when test="${empty alumno.equipo}">
+                                            Sin asignar
                                         </c:when>
                                         <c:otherwise>
                                             ${alumno.equipo.marca}
+                                        </c:otherwise>
+                                    </c:choose>
+                                </td>
+                                <td>
+                                    <c:choose>
+                                        <c:when test="${empty alumno.equipo}">
+                                            Sin asignar
+                                        </c:when>
+                                        <c:otherwise>
+                                            ${alumno.equipo.numSerie}
                                         </c:otherwise>
                                     </c:choose>
                                 </td>

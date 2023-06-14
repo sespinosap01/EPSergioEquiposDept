@@ -20,6 +20,6 @@ public interface IGruposDAO {
     public void closeConnection();
     public List<Grupos> getAllGrupos();
     public Grupos getGrupo(int idGrupo);
-    public List<Grupos> consulta3();
+    public List<Grupos> listadoGrupos();
 
 }

@@ -125,77 +125,86 @@ public class FrontController extends HttpServlet {
             case "Alumnos":
 
                 alumnos = new AlumnosDAO();
-                listaAlumnos = alumnos.consulta1();
+                listaAlumnos = alumnos.listadoAlumnos();
                 request.setAttribute("listaAlumnos", listaAlumnos);
-                url = "/JSP/consultas/consulta1.jsp";
+                url = "/JSP/listados/listadoAlumnos.jsp";
                 break;
 
             case "Equipos":
 
                 equipos = new EquiposDAO();
-                listaEquipos = equipos.consulta2();
+                listaEquipos = equipos.listadoEquipos();
                 request.setAttribute("listaEquipos", listaEquipos);
-                url = "/JSP/consultas/consulta2.jsp";
+                url = "/JSP/listados/listadoEquipos.jsp";
                 break;
 
             case "Grupos":
 
                 grupos = new GruposDAO();
-                listaGrupos = grupos.consulta3();
+                listaGrupos = grupos.listadoGrupos();
                 request.setAttribute("listaGrupos", listaGrupos);
-                url = "/JSP/consultas/consulta3.jsp";
+                url = "/JSP/listados/listadoGrupos.jsp";
                 break;
 
             case "Alumnos y equipos asignados":
 
                 alumnos = new AlumnosDAO();
-                listaAlumnos = alumnos.consulta4();
+                listaAlumnos = alumnos.listadoAlumnosEquiposAsignados();
                 request.setAttribute("listaAlumnos", listaAlumnos);
-                url = "/JSP/consultas/consulta4.jsp";
+                url = "/JSP/listados/listadoAlumnosEquiposAsignados.jsp";
                 break;
 
             case "Alumnos por equipos":
 
                 alumnos = new AlumnosDAO();
-                listaAlumnos = alumnos.consulta5();
+                listaAlumnos = alumnos.listadoAlumnosPorEquipos();
                 request.setAttribute("listaAlumnos", listaAlumnos);
-                url = "/JSP/consultas/consulta5.jsp";
+                url = "/JSP/listados/listadoAlumnosPorEquipos.jsp";
                 break;
 
             case "Alumnos por grupo":
 
                 alumnos = new AlumnosDAO();
-                listaAlumnos = alumnos.consulta6();
+                listaAlumnos = alumnos.listadoAlumnosPorGrupos();
                 request.setAttribute("listaAlumnos", listaAlumnos);
-                url = "/JSP/consultas/consulta6.jsp";
+                url = "/JSP/listados/listadoAlumnosPorGrupos.jsp";
                 break;
 
             case "Alumnos sin equipo asignado":
 
                 alumnos = new AlumnosDAO();
-                listaAlumnos = alumnos.consulta7();
+                listaAlumnos = alumnos.listadoAlumnosSinEquipo();
                 request.setAttribute("listaAlumnos", listaAlumnos);
-                url = "/JSP/consultas/consulta7.jsp";
+                url = "/JSP/listados/listadoAlumnosSinEquipo.jsp";
                 break;
 
             case "Equipos sin alumnos asignados":
 
                 equipos = new EquiposDAO();
-                listaEquipos = equipos.consulta8();
+                listaEquipos = equipos.listadoEquiposSinAlumnos();
                 request.setAttribute("listaEquipos", listaEquipos);
-                url = "/JSP/consultas/consulta8.jsp";
+                url = "/JSP/listados/listadoEquiposSinAlumnos.jsp";
 
                 break;
             case "Todos los datos":
 
                 alumnos = new AlumnosDAO();
-                listaAlumnos = alumnos.consulta9();
+                listaAlumnos = alumnos.listadoTodosDatos();
                 request.setAttribute("listaAlumnos", listaAlumnos);
-                url = "/JSP/consultas/consulta9.jsp";
+                url = "/JSP/listados/listadoTodosDatos.jsp";
 
                 break;
             case "Alumnos con Ajax":
-                url = "ConsultaAjax";
+
+                equipos = new EquiposDAO();
+                listaEquipos = equipos.listadoEquiposSinAlumnos();
+                request.setAttribute("listaEquipos", listaEquipos);
+
+                grupos = new GruposDAO();
+                listaGrupos = grupos.listadoGrupos();
+                request.setAttribute("listaGrupos", listaGrupos);
+
+                url = "/JSP/listados/listadoAjax.jsp";
                 break;
             default:
                 url = "index.jsp";

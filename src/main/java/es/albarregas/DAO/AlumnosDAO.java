@@ -291,6 +291,7 @@ public class AlumnosDAO implements IAlumnosDAO {
      * @return Un objeto Alumnos que representa el registro de Alumnos
      * encontrado
      */
+    @Override
     public Alumnos getAlumno(int idAlumno) {
         ResultSet resultado;
         Alumnos alumno = new Alumnos();
@@ -369,7 +370,7 @@ public class AlumnosDAO implements IAlumnosDAO {
      * denominación de grupo y marca de equipo
      */
     @Override
-    public List<Alumnos> consulta1() {
+    public List<Alumnos> listadoAlumnos() {
 
         ResultSet resultado;
         Alumnos alumno;
@@ -415,7 +416,7 @@ public class AlumnosDAO implements IAlumnosDAO {
      * marca y número de serie del equipo
      */
     @Override
-    public List<Alumnos> consulta4() {
+    public List<Alumnos> listadoAlumnosEquiposAsignados() {
 
         ResultSet resultado;
         Alumnos alumno;
@@ -458,7 +459,7 @@ public class AlumnosDAO implements IAlumnosDAO {
      * grupo, marca y número de serie del equipo
      */
     @Override
-    public List<Alumnos> consulta5() {
+    public List<Alumnos> listadoAlumnosPorEquipos() {
 
         ResultSet resultado;
         Alumnos alumno;
@@ -499,7 +500,7 @@ public class AlumnosDAO implements IAlumnosDAO {
     }
 
     @Override
-    public List<Alumnos> consulta6() {
+    public List<Alumnos> listadoAlumnosPorGrupos() {
 
         ResultSet resultado;
         Alumnos alumno;
@@ -544,7 +545,7 @@ public class AlumnosDAO implements IAlumnosDAO {
      * email y grupo (denominación y tutor)
      */
     @Override
-    public List<Alumnos> consulta7() {
+    public List<Alumnos> listadoAlumnosSinEquipo() {
 
         ResultSet resultado;
         Alumnos alumno;
@@ -585,7 +586,7 @@ public class AlumnosDAO implements IAlumnosDAO {
      * @return Una lista de objetos alumnos que contienen información completa
      * sobre los alumnos, incluyendo los datos de los grupos y los equipos.
      */
-    public List<Alumnos> consulta9() {
+    public List<Alumnos> listadoTodosDatos() {
 
         ResultSet resultado;
         Alumnos alumno;

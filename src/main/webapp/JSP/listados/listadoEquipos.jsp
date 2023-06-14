@@ -11,30 +11,31 @@
 <html lang="es">
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Consulta 3</title>
+        <title>Equipos</title>
         <link rel="stylesheet" type="text/css" href="${style}"/>
     </head>
-    <body>      
+    <body>
         <jsp:include page="/JSP/desplegable.jsp" />
-        <h1>Consulta 3</h1>
-        <h4 class="subTitle">Grupos</h4>
+        <h1>Equipos</h1>
         <c:choose>
-            <c:when test="${empty listaGrupos}">
+            <c:when test="${empty listaEquipos}">
                 <p>No hay registros en el sistema</p>
             </c:when>
             <c:otherwise>
                 <table>
                     <thead>
                         <tr>
-                            <th>Denominacion</th>
-                            <th>Tutor</th>
+                            <th>Marca</th>
+                            <th>Número de serie</th>
+                            <th>Foto</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <c:forEach var="grupo" items="${listaGrupos}">
+                        <c:forEach var="equipo" items="${listaEquipos}">
                             <tr>
-                                <td>${grupo.denominacion}</td>
-                                <td>${grupo.tutor}</td>                                    
+                                <td>${equipo.marca}</td>
+                                <td>${equipo.numSerie}</td>
+                                <td>${equipo.foto}</td>                                    
                             </tr>
                         </c:forEach>
                     </tbody>

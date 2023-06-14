@@ -21,11 +21,11 @@ public interface IAlumnosDAO {
     public List<Alumnos> getAllAlumnos();
     public Alumnos getAlumno(int idAlumno);
     public boolean correoExiste(String email);
-    public List<Alumnos> consulta1();
-    public List<Alumnos> consulta4();
-    public List<Alumnos> consulta5();
-    public List<Alumnos> consulta6();
-    public List<Alumnos> consulta7();
-    public List<Alumnos> consulta9();
+    public List<Alumnos> listadoAlumnos();
+    public List<Alumnos> listadoAlumnosEquiposAsignados();
+    public List<Alumnos> listadoAlumnosPorEquipos();
+    public List<Alumnos> listadoAlumnosPorGrupos();
+    public List<Alumnos> listadoAlumnosSinEquipo();
+    public List<Alumnos> listadoTodosDatos();
 
 }

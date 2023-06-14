@@ -11,13 +11,12 @@
 <html lang="es">
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Consulta 5</title>
+        <title>Alumnos por equipos</title>
         <link rel="stylesheet" type="text/css" href="${style}"/>
     </head>
     <body>
         <jsp:include page="/JSP/desplegable.jsp" />
-        <h1>Consulta 5</h1>
-        <h4 class="subTitle">Alumnos por equipos</h4>
+        <h1>Alumnos por equipos</h1>
         <c:choose>
             <c:when test="${empty listaAlumnos}">
                 <p>No hay registros en el sistema</p>

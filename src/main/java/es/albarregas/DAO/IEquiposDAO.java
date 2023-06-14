@@ -21,7 +21,7 @@ public interface IEquiposDAO {
     public List<Equipos> getAllEquipos();
     public Equipos getEquipo(int idEquipo);
     public boolean numSerieExiste(String numSerie);
-    public List<Equipos> consulta2();
-    public List<Equipos> consulta8();
+    public List<Equipos> listadoEquipos();
+    public List<Equipos> listadoEquiposSinAlumnos();
 
 }

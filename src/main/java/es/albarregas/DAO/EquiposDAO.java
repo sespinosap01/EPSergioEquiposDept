@@ -171,10 +171,7 @@ public class EquiposDAO implements IEquiposDAO {
     }
 
     /**
-     * Elimina un registro de equipo de la base de datos
-     *
-     * @param idEquipo el ID del equipo que se desea eliminar
-     * @return true si la eliminación se realizó correctamente
+     * Obtiene todos los registros de la tabla de equipos 
      */
     @Override
     public List<Equipos> getAllEquipos() {
@@ -286,7 +283,7 @@ public class EquiposDAO implements IEquiposDAO {
      * datos
      */
     @Override
-    public List<Equipos> consulta2() {
+    public List<Equipos> listadoEquipos() {
         ResultSet resultado;
         Equipos equipo;
 
@@ -319,7 +316,7 @@ public class EquiposDAO implements IEquiposDAO {
      * @return una lista de equipos que no están asignados a ningún alumno
      */
     @Override
-    public List<Equipos> consulta8() {
+    public List<Equipos> listadoEquiposSinAlumnos() {
         ResultSet resultado;
         Equipos equipo;
 
